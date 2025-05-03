@@ -1,32 +1,32 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Fragment, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import styles from './music.module.scss';
-import { EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+import styles from "./music.module.scss";
+import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 
-import { Background, Inner, Layout, Meta, ScrambleText } from 'components';
+import { Background, Inner, Layout, Meta, ScrambleText } from "components";
 
 // import Modal from './fragments/modal.music.tsx';
 
-import AppleLogo from 'assets/icons/apple.svg?react';
-import Arrow from 'assets/icons/arrow.svg';
-import SpotifyLogo from 'assets/icons/spotify.svg?react';
-import YoutubeLogo from 'assets/icons/youtube.svg?react';
-import Image1 from 'assets/images/Image-1.webp';
-import Image2 from 'assets/images/Image-2.webp';
-import Image3 from 'assets/images/Image-3.webp';
-import { ScreenSize } from 'enum/screensizes.enum';
-import { motion } from 'framer-motion';
-import { clsx } from 'helpers/utils/HTMLUtils';
-import useScreenSize from 'hooks/useScreenSize';
-import languageValues from 'locales/language.tsx';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import AppleLogo from "assets/icons/apple.svg?react";
+import Arrow from "assets/icons/arrow.svg";
+import SpotifyLogo from "assets/icons/spotify.svg?react";
+import YoutubeLogo from "assets/icons/youtube.svg?react";
+import Image1 from "assets/images/Image-1.webp";
+import Image2 from "assets/images/Image-2.webp";
+import Image3 from "assets/images/Image-3.webp";
+import { ScreenSize } from "enum/screensizes.enum";
+import { motion } from "framer-motion";
+import { clsx } from "helpers/utils/HTMLUtils";
+import useScreenSize from "hooks/useScreenSize";
+import languageValues from "locales/language.tsx";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const language = languageValues.pages.music;
 
@@ -48,19 +48,19 @@ export default function Music() {
   const getDateText = (index: number | undefined) => {
     switch (index) {
       case 0:
-        return '13 Feb. 2022';
+        return "13 Feb. 2022";
       case 1:
-        return '4 Jul. 2019';
+        return "4 Jul. 2019";
       case 2:
-        return '24 Mar. 2024';
+        return "24 Mar. 2024";
       default:
-        return '13 Feb. 2022';
+        return "13 Feb. 2022";
     }
   };
 
   const renderScrambleTexts = (texts: string[]) => {
     return texts.map((text) => (
-      <ScrambleText tag={'p'} duration={0.6} key={text} text={text} />
+      <ScrambleText tag={"p"} duration={0.6} key={text} text={text} />
     ));
   };
 
@@ -69,63 +69,63 @@ export default function Music() {
       <Fragment>
         <div>
           {renderScrambleTexts([
-            'Urgente',
-            'Taticu lor',
-            'Salbatic',
-            'Sange',
-            'Tiki Taka',
-            'Vvs',
-            'Clapa',
-            'Dat dreacu',
-            'Lumea asta',
-            'Nu ma duc la job',
-            'Taticu lor 2',
-            'Oare (ft. Oscar)',
-            'Skurcircuit',
+            "Urgente",
+            "Taticu lor",
+            "Salbatic",
+            "Sange",
+            "Tiki Taka",
+            "Vvs",
+            "Clapa",
+            "Dat dreacu",
+            "Lumea asta",
+            "Nu ma duc la job",
+            "Taticu lor 2",
+            "Oare (ft. Oscar)",
+            "Skurcircuit",
           ])}
         </div>
         <div>
           {renderScrambleTexts([
-            'Dat afara',
-            'Zdrente',
-            'Piramida (ft. Aerozen)',
-            'Waka Waka',
-            '1 Aprilie',
+            "Dat afara",
+            "Zdrente",
+            "Piramida (ft. Aerozen)",
+            "Waka Waka",
+            "1 Aprilie",
           ])}
         </div>
       </Fragment>
     ) : index === 1 ? (
       <div>
         {renderScrambleTexts([
-          'Scuze mama',
-          'Hell-O',
-          'Frigider',
-          'Placebo',
-          'Palmat',
-          'Pozne',
-          'Timeout',
-          'Slayer',
-          'Teancuri',
-          'Zambesc',
-          'Evantai',
-          'Biznis',
-          '60 De Zile II',
+          "Scuze mama",
+          "Hell-O",
+          "Frigider",
+          "Placebo",
+          "Palmat",
+          "Pozne",
+          "Timeout",
+          "Slayer",
+          "Teancuri",
+          "Zambesc",
+          "Evantai",
+          "Biznis",
+          "60 De Zile II",
         ])}
       </div>
     ) : index === 2 ? (
       <div>
         {renderScrambleTexts([
-          'Peste',
-          'Blestem (ft. Floris)',
-          'McSundae',
-          'Okay',
-          'Mink',
-          'N.C.S.M',
-          '4',
-          'SELGROS (ft. Aerozen)',
-          'Supernanny',
-          'Oh My (ft. Bvcovia)',
-          'Lunetist (ft. Oscar)',
+          "Peste",
+          "Blestem (ft. Floris)",
+          "McSundae",
+          "Okay",
+          "Mink",
+          "N.C.S.M",
+          "4",
+          "SELGROS (ft. Aerozen)",
+          "Supernanny",
+          "Oh My (ft. Bvcovia)",
+          "Lunetist (ft. Oscar)",
         ])}
       </div>
     ) : (
@@ -134,7 +134,7 @@ export default function Music() {
   };
 
   useLayoutEffect(() => {
-    window.scroll({ behavior: 'smooth', top: 0, left: 0 });
+    window.scroll({ behavior: "smooth", top: 0, left: 0 });
   }, []);
 
   const openPlaylist = ({
@@ -149,43 +149,43 @@ export default function Music() {
     const playlists = [
       {
         appleMusic:
-          'music://music.apple.com/br/album/voodoo/1603420607?l=en-GB',
+          "music://music.apple.com/br/album/voodoo/1603420607?l=en-GB",
         appleMusicWeb:
-          'https://music.apple.com/br/album/voodoo/1603420607?l=en-GB',
+          "https://music.apple.com/br/album/voodoo/1603420607?l=en-GB",
         spotify:
-          'spotify://album/2RYBhGpncCqy05vs85P8NV?si=uqo4yS78Q6uVBncAFehYSw',
+          "spotify://album/2RYBhGpncCqy05vs85P8NV?si=uqo4yS78Q6uVBncAFehYSw",
         spotifyWeb:
-          'https://open.spotify.com/album/2RYBhGpncCqy05vs85P8NV?nd=1&dlsi=8073824da79348d7',
+          "https://open.spotify.com/album/2RYBhGpncCqy05vs85P8NV?nd=1&dlsi=8073824da79348d7",
         youtube:
-          'https://www.youtube.com/watch?v=VPWERpWTXi0&list=PLmlOshpuGAzxKUIrH3usTbuvT2YVp1mv0',
+          "https://www.youtube.com/watch?v=VPWERpWTXi0&list=PLmlOshpuGAzxKUIrH3usTbuvT2YVp1mv0",
       },
       {
         appleMusic:
-          'music://music.apple.com/br/album/slayer/1563782864?l=en-GB',
+          "music://music.apple.com/br/album/slayer/1563782864?l=en-GB",
         appleMusicWeb:
-          'https://music.apple.com/br/album/slayer/1563782864?l=en-GB',
+          "https://music.apple.com/br/album/slayer/1563782864?l=en-GB",
         spotify:
-          'spotify://album/4A9R8TRrRsslTgzsvMW4Ui?si=agCl4vBIQRSaGHvfS66iJw',
+          "spotify://album/4A9R8TRrRsslTgzsvMW4Ui?si=agCl4vBIQRSaGHvfS66iJw",
         spotifyWeb:
-          'https://open.spotify.com/album/4A9R8TRrRsslTgzsvMW4Ui?nd=1&dlsi=ca130cc75c8e4f3b',
+          "https://open.spotify.com/album/4A9R8TRrRsslTgzsvMW4Ui?nd=1&dlsi=ca130cc75c8e4f3b",
         youtube:
-          'https://www.youtube.com/watch?v=ou0DSYzDTbs&list=PLmlOshpuGAzzyyG2tkcNlQOp9aJilRxi-',
+          "https://www.youtube.com/watch?v=ou0DSYzDTbs&list=PLmlOshpuGAzzyyG2tkcNlQOp9aJilRxi-",
       },
       {
         appleMusic:
-          'music://music.apple.com/br/album/beast-mode/1736982730?l=en-GB',
+          "music://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
         appleMusicWeb:
-          'https://music.apple.com/br/album/beast-mode/1736982730?l=en-GB',
+          "https://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
         spotify:
-          'spotify://album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ',
+          "spotify://album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
         spotifyWeb:
-          'https://open.spotify.com/album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ',
-        youtube: '',
+          "https://open.spotify.com/album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
+        youtube: "",
       },
     ];
 
     const currentIndex = swiper?.activeIndex ?? 0;
-    const currentPlaylist = playlists[currentIndex] || {};
+    const currentPlaylist = playlists[currentIndex];
 
     const playlistUrlApp = isAppleMusic
       ? currentPlaylist.appleMusic
@@ -193,7 +193,7 @@ export default function Music() {
         ? currentPlaylist.spotify
         : isYoutube
           ? currentPlaylist.youtube
-          : '';
+          : "";
 
     const playlistUrlWeb = isAppleMusic
       ? currentPlaylist.appleMusicWeb
@@ -201,9 +201,9 @@ export default function Music() {
         ? currentPlaylist.spotifyWeb
         : isYoutube
           ? currentPlaylist.youtube
-          : '';
+          : "";
 
-    const newWindow = window.open(playlistUrlApp, '_blank');
+    const newWindow = window.open(playlistUrlApp, "_blank");
     if (newWindow) {
       newWindow.onload = function () {
         newWindow.close();
@@ -218,13 +218,13 @@ export default function Music() {
 
   return (
     <Fragment>
-      <Meta title={'Music'} />
+      <Meta title={"Music"} />
       <Inner>
         <Background swipe={swiper} />
         <Layout showHeader showHeaderFooter showFooter>
           <motion.div
-            initial={'hidden'}
-            whileInView={'visible'}
+            initial={"hidden"}
+            whileInView={"visible"}
             transition={{ duration: 0.6 }}
             variants={{
               visible: { opacity: 1 },
@@ -237,30 +237,30 @@ export default function Music() {
                 <div className={styles.hero} /*style={{ opacity: op1 }} */>
                   <h6>{language.album}</h6>
                   <ScrambleText
-                    tag={'h1'}
+                    tag={"h1"}
                     key={
                       swiper?.activeIndex === 0
-                        ? 'VOODOO'
+                        ? "VOODOO"
                         : swiper?.activeIndex === 1
-                          ? 'SLAYER'
+                          ? "SLAYER"
                           : swiper?.activeIndex === 2
-                            ? 'BEAST MODE'
-                            : 'VOODOO'
+                            ? "BEAST MODE"
+                            : "VOODOO"
                     }
                     duration={0.4}
                     text={
                       swiper?.activeIndex === 0
-                        ? 'VOODOO'
+                        ? "VOODOO"
                         : swiper?.activeIndex === 1
-                          ? 'SLAYER'
+                          ? "SLAYER"
                           : swiper?.activeIndex === 2
-                            ? 'BEAST MODE'
-                            : 'VOODOO'
+                            ? "BEAST MODE"
+                            : "VOODOO"
                     }
                   />
                 </div>
                 <div className={styles.container}>
-                  <article className={styles['album-info']}>
+                  <article className={styles["album-info"]}>
                     <header>
                       <ScrambleText
                         duration={0.6}
@@ -271,12 +271,12 @@ export default function Music() {
                     </header>
                     <div>{renderText(swiper?.activeIndex)}</div>
                   </article>
-                  <div className={styles['container-slider']}>
+                  <div className={styles["container-slider"]}>
                     <Swiper
-                      effect={'coverflow'}
+                      effect={"coverflow"}
                       grabCursor={true}
                       centeredSlides={true}
-                      slidesPerView={isMobileDevice ? 1 : 'auto'}
+                      slidesPerView={isMobileDevice ? 1 : "auto"}
                       spaceBetween={isMobileDevice ? 0 : -250}
                       modules={[EffectCoverflow, Navigation, Pagination]}
                       coverflowEffect={{
@@ -311,66 +311,66 @@ export default function Music() {
                       className={styles.slider}
                     >
                       <SwiperSlide>
-                        <img src={Image1} alt='first' />
+                        <img src={Image1} alt="first" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image2} alt='second' />
+                        <img src={Image2} alt="second" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image3} alt='three' />
+                        <img src={Image3} alt="three" />
                       </SwiperSlide>
                     </Swiper>
                   </div>
                 </div>
                 <footer>
                   {!isMobileDevice ? (
-                    <div className={styles['bullets-wrapper']}>
+                    <div className={styles["bullets-wrapper"]}>
                       <div
                         ref={paginationRef}
-                        className={styles['bullets-inside']}
+                        className={styles["bullets-inside"]}
                       >
-                        <div className={styles['bullets-pagination']}></div>
+                        <div className={styles["bullets-pagination"]}></div>
                       </div>
                       <div className={styles.arrows}>
                         <div
                           ref={prevRef}
                           className={clsx([
-                            styles['button-arrow'],
-                            styles['prev'],
+                            styles["button-arrow"],
+                            styles["prev"],
                             swiper && swiper?.activeIndex === 0
                               ? styles.disabled
-                              : '',
+                              : "",
                           ])}
                         >
-                          <LazyLoadImage src={Arrow} alt={'Left arrow'} />
+                          <LazyLoadImage src={Arrow} alt={"Left arrow"} />
                         </div>
                         <div
                           ref={nextRef}
                           className={clsx([
-                            styles['button-arrow'],
-                            styles['next'],
+                            styles["button-arrow"],
+                            styles["next"],
                             swiper && swiper?.activeIndex === 2
                               ? styles.disabled
-                              : '',
+                              : "",
                           ])}
                         >
-                          <LazyLoadImage src={Arrow} alt={'Right arrow'} />
+                          <LazyLoadImage src={Arrow} alt={"Right arrow"} />
                         </div>
                       </div>
                     </div>
                   ) : (
                     <Fragment />
                   )}
-                  <div className={styles['musics']}>
+                  <div className={styles["musics"]}>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         duration: 1.5,
                         bounce: 0.6,
                       }}
-                      className={clsx(styles['footer-text'], styles.apple)}
+                      className={clsx(styles["footer-text"], styles.apple)}
                       onClick={() => openPlaylist({ isAppleMusic: true })}
                     >
                       <AppleLogo />
@@ -379,11 +379,11 @@ export default function Music() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         duration: 1.5,
                         bounce: 0.6,
                       }}
-                      className={clsx(styles['footer-text'], styles.spotify)}
+                      className={clsx(styles["footer-text"], styles.spotify)}
                       onClick={() => openPlaylist({ isSpotify: true })}
                     >
                       <SpotifyLogo />
@@ -393,11 +393,11 @@ export default function Music() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{
-                          type: 'spring',
+                          type: "spring",
                           duration: 1.5,
                           bounce: 0.6,
                         }}
-                        className={clsx(styles['footer-text'], styles.youtube)}
+                        className={clsx(styles["footer-text"], styles.youtube)}
                         onClick={() => openPlaylist({ isYoutube: true })}
                       >
                         <YoutubeLogo />
@@ -411,39 +411,39 @@ export default function Music() {
             ) : (
               <Fragment>
                 <div className={styles.container}>
-                  <div className={styles['container-mob']}>
-                    <div className={styles['hero-mobile']}>
+                  <div className={styles["container-mob"]}>
+                    <div className={styles["hero-mobile"]}>
                       <div className={styles.hero}>
                         <h6>{language.album}</h6>
                         <ScrambleText
-                          tag={'h1'}
+                          tag={"h1"}
                           key={
                             swiper?.activeIndex === 0
-                              ? 'VOODOO'
+                              ? "VOODOO"
                               : swiper?.activeIndex === 1
-                                ? 'SLAYER'
+                                ? "SLAYER"
                                 : swiper?.activeIndex === 2
-                                  ? 'BEAST MODE'
-                                  : 'VOODOO'
+                                  ? "BEAST MODE"
+                                  : "VOODOO"
                           }
                           duration={0.4}
                           text={
                             swiper?.activeIndex === 0
-                              ? 'VOODOO'
+                              ? "VOODOO"
                               : swiper?.activeIndex === 1
-                                ? 'SLAYER'
+                                ? "SLAYER"
                                 : swiper?.activeIndex === 2
-                                  ? 'BEAST MODE'
-                                  : 'VOODOO'
+                                  ? "BEAST MODE"
+                                  : "VOODOO"
                           }
                         />
                       </div>
                       <div className={styles.slider}>
                         <Swiper
-                          effect={'coverflow'}
+                          effect={"coverflow"}
                           grabCursor={true}
                           centeredSlides={true}
-                          slidesPerView={'auto'}
+                          slidesPerView={"auto"}
                           spaceBetween={0}
                           coverflowEffect={{
                             rotate: 50,
@@ -478,51 +478,51 @@ export default function Music() {
                           }}
                         >
                           <SwiperSlide>
-                            <img src={Image1} alt={'first'} />
+                            <img src={Image1} alt={"first"} />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image2} alt={'second'} />
+                            <img src={Image2} alt={"second"} />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image3} alt={'three'} />
+                            <img src={Image3} alt={"three"} />
                           </SwiperSlide>
                         </Swiper>
                         {isMobileDevice ? (
-                          <div className={styles['bullets-wrapper']}>
+                          <div className={styles["bullets-wrapper"]}>
                             <div
                               ref={paginationRef}
-                              className={styles['bullets-inside']}
+                              className={styles["bullets-inside"]}
                             >
                               <div
-                                className={styles['bullets-pagination']}
+                                className={styles["bullets-pagination"]}
                               ></div>
                             </div>
                             <div className={styles.arrows}>
                               <div
                                 ref={prevRef}
                                 className={clsx([
-                                  styles['button-arrow'],
-                                  styles['prev'],
+                                  styles["button-arrow"],
+                                  styles["prev"],
                                   swiper && swiper?.activeIndex === 0
                                     ? styles.disabled
-                                    : '',
+                                    : "",
                                 ])}
                               >
-                                <LazyLoadImage src={Arrow} alt={'Left arrow'} />
+                                <LazyLoadImage src={Arrow} alt={"Left arrow"} />
                               </div>
                               <div
                                 ref={nextRef}
                                 className={clsx([
-                                  styles['button-arrow'],
-                                  styles['next'],
+                                  styles["button-arrow"],
+                                  styles["next"],
                                   swiper && swiper?.activeIndex === 2
                                     ? styles.disabled
-                                    : '',
+                                    : "",
                                 ])}
                               >
                                 <LazyLoadImage
                                   src={Arrow}
-                                  alt={'Right arrow'}
+                                  alt={"Right arrow"}
                                 />
                               </div>
                             </div>
@@ -537,12 +537,12 @@ export default function Music() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{
-                              type: 'spring',
+                              type: "spring",
                               duration: 1.5,
                               bounce: 0.6,
                             }}
                             className={clsx(
-                              styles['footer-text'],
+                              styles["footer-text"],
                               styles.apple
                             )}
                             onClick={() => openPlaylist({ isAppleMusic: true })}
@@ -553,12 +553,12 @@ export default function Music() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{
-                              type: 'spring',
+                              type: "spring",
                               duration: 1.5,
                               bounce: 0.6,
                             }}
                             className={clsx(
-                              styles['footer-text'],
+                              styles["footer-text"],
                               styles.spotify
                             )}
                             onClick={() => openPlaylist({ isSpotify: true })}
@@ -570,12 +570,12 @@ export default function Music() {
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               transition={{
-                                type: 'spring',
+                                type: "spring",
                                 duration: 1.5,
                                 bounce: 0.6,
                               }}
                               className={clsx(
-                                styles['footer-text'],
+                                styles["footer-text"],
                                 styles.youtube
                               )}
                               onClick={() => openPlaylist({ isYoutube: true })}
@@ -597,16 +597,16 @@ export default function Music() {
                         </div>
                       </footer>
                     </div>
-                    <div className={styles['footer-mobile']}>
+                    <div className={styles["footer-mobile"]}>
                       <motion.div
-                        className={styles['footer-parallax-title']}
+                        className={styles["footer-parallax-title"]}
                         // style={{ y: y3, x: 0, opacity: op3 }}
                       >
                         <h6>{language.album}</h6>
                         <h1>{language.songs}</h1>
                       </motion.div>
                       <motion.div
-                        className={styles['footer-parallax']}
+                        className={styles["footer-parallax"]}
                         // style={{ y: y3, x: 0, opacity: op3 }}
                       >
                         <div>{renderText(swiper?.activeIndex)}</div>
