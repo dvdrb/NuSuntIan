@@ -1,0 +1,1105 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/colors' as *;
+@use '~/assets/styles/constants' as *;
+
+.available-products {
+  width: 100%;
+  padding-top: 40px;
+
+  @include flexbox($justifyContent: center, $direction: column);
+
+  .header {
+    width: 100%;
+    margin-bottom: 78px;
+
+    @include flexbox(
+      $justifyContent: center,
+      $alignItems: center,
+      $direction: row,
+      $gap: 24px
+    );
+
+    > div {
+      @include flexbox(
+        $justifyContent: center,
+        $alignItems: center,
+        $wrap: wrap,
+        $gap: 24px
+      );
+
+      button {
+        @include flexbox($justifyContent: center, $alignItems: center);
+
+        border-radius: 100px;
+        padding: 8px 14px;
+        color: transparentize(#f8f8f8, 0.7);
+        cursor: pointer;
+        transition:
+          background $transition-default,
+          color $transition-default;
+
+        &.active {
+          color: #f8f8f8;
+        }
+
+        span {
+          margin-bottom: -1px;
+        }
+
+        @include hover-active {
+          background: #f8f8f8;
+          color: #1a1a1a;
+        }
+      }
+    }
+
+    h1 {
+      text-transform: uppercase;
+      color: transparentize(#f8f8f8, 0.7);
+
+      b {
+        color: $red;
+      }
+    }
+
+    @include max-width(medium) {
+      @include flexbox(
+        $justifyContent: center,
+        $alignItems: center,
+        $direction: column,
+        $gap: 24px
+      );
+    }
+  }
+
+  .clothes-content {
+    width: 100%;
+    padding-bottom: 40px;
+
+    @include flexbox(
+      $alignItems: center,
+      $justifyContent: center,
+      $wrap: wrap,
+      $gap: 30px
+    );
+
+    .shirt-item {
+      border-radius: 10px;
+      transition:
+        background $transition-default,
+        color $transition-default;
+
+      @include flexbox(
+        $alignItems: center,
+        $justifyContent: center,
+        $gap: 30px,
+        $direction: column
+      );
+
+      padding: 24px;
+
+      img {
+        width: 100%;
+        aspect-ratio: 6/5;
+        -o-object-fit: contain;
+        object-fit: contain;
+        -webkit-filter: drop-shadow(0 4px 4px transparentize($red, 1));
+        filter: drop-shadow(0 4px 4px transparentize($red, 1));
+        transition: $transition-default;
+      }
+
+      width: 30%;
+
+      .description {
+        @include flexbox(
+          $alignItems: center,
+          $justifyContent: center,
+          $gap: 10px,
+          $direction: column
+        );
+
+        h6 {
+          display: block;
+          unicode-bidi: -webkit-isolate;
+          unicode-bidi: -moz-isolate;
+          unicode-bidi: isolate;
+          margin-bottom: 12px;
+          text-align: center;
+          white-space: nowrap;
+
+          @include font($size: 20px);
+
+          transition:
+            background $transition-default,
+            color $transition-default;
+        }
+
+        p {
+          @include font($color: transparentize($sunlight-white, 0.6));
+
+          transition:
+            background $transition-default,
+            color $transition-default;
+        }
+      }
+
+      &:not(:nth-last-child(-n + 3)) {
+        margin-bottom: 34px;
+      }
+
+      @include hover-active {
+        background-color: transparentize($red, 0.94);
+        cursor: pointer;
+
+        img {
+          -webkit-filter: drop-shadow(0 20px 20px transparentize($red, 0.8));
+          filter: drop-shadow(0 20px 20px transparentize($red, 0.8));
+        }
+
+        h6 {
+          @include font($size: 20px, $color: transparentize($red, 0));
+        }
+
+        p {
+          @include font($color: transparentize($red, 0.7));
+        }
+      }
+    }
+
+    @include max-width(medium) {
+      .shirt-item {
+        width: 45%;
+      }
+    }
+
+    @include max-width(xsmall) {
+      @include flexbox($gap: 10px, $direction: column);
+
+      .shirt-item {
+        width: 80%;
+      }
+    }
+  }
+}
+
+.picker {
+  position: fixed;
+  inset: 0;
+  background-color: #16161679;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  z-index: $zindex-header;
+
+  @include flexbox(
+    $justifyContent: center,
+    $alignItems: center,
+    $direction: column
+  );
+
+  nav {
+    @include flexbox(
+      $justifyContent: center,
+      $alignItems: center,
+      $direction: column,
+      $gap: 40px
+    );
+
+    .nav-button {
+      @include flexbox($justifyContent: center, $alignItems: center);
+
+      span {
+        opacity: 0.4;
+        transition: opacity $transition-default;
+
+        @include font($spacing: 1px, $weight: 600, $size: 60px);
+      }
+
+      svg {
+        width: 20px;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        span {
+          opacity: 1;
+        }
+      }
+    }
+
+    @include max-width(xsmall) {
+      @include flexbox(
+        $justifyContent: center,
+        $alignItems: center,
+        $direction: column,
+        $gap: 20px
+      );
+
+      .nav-button {
+        span {
+          @include font($size: 32px);
+        }
+      }
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    height: 200px;
+
+    @include flexbox(
+      $justifyContent: center,
+      $alignItems: center,
+      $direction: column
+    );
+
+    button {
+      @include flexbox(
+        $justifyContent: center,
+        $alignItems: center,
+        $direction: column,
+        $gap: 20px
+      );
+      @include font($color: transparentize($sunlight-white, 0.6));
+
+      @include hover-active {
+        cursor: pointer;
+      }
+
+      @include max-width(xsmall) {
+        @include font($size: 14px);
+      }
+    }
+  }
+}
+
+.detail {
+  .container {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+    @include flexbox(
+      $justifyContent: center,
+      $direction: column,
+      $alignItems: center
+    );
+
+    padding-top: 150px;
+
+    figure {
+      @include hover-active {
+        cursor: pointer;
+      }
+    }
+
+    h6 {
+      margin-top: 20px;
+
+      @include font($size: 20px, $color: transparentize($sunlight-white, 0.5));
+    }
+
+    .countdown-content {
+      position: relative;
+      margin-top: 80px;
+      margin-bottom: 100px;
+
+      span {
+        span {
+          top: -20px;
+          left: -150px;
+
+          @include font(
+            $size: 124px,
+            $color: transparent,
+            $weight: 600,
+            $spacing: 6px
+          );
+
+          text-shadow: 1;
+          -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: transparentize($sunlight-white, 0.5);
+          position: absolute;
+        }
+      }
+
+      p {
+        > span {
+          opacity: 1;
+
+          @include font(
+            $size: 80px,
+            $color: $sunlight-white,
+            $weight: 600,
+            $spacing: 2px
+          );
+        }
+      }
+
+      @media (width <= 992px) {
+        margin: 40px 0 60px;
+
+        span > span {
+          @include font($size: 48px, $spacing: 0);
+
+          top: -6px;
+          left: -50px;
+        }
+
+        p {
+          > span {
+            @include font($size: 34px, $spacing: 0);
+          }
+        }
+      }
+    }
+
+    input {
+      border: 1px solid $sunlight-white;
+      padding: 12px;
+      border-radius: 100px;
+      width: 350px;
+      text-align: center;
+      text-transform: uppercase;
+      position: relative;
+
+      &::-webkit-input-placeholder {
+        text-align: center;
+
+        @include font($weight: 300);
+      }
+
+      &::-moz-placeholder {
+        text-align: center;
+
+        @include font($weight: 300);
+      }
+
+      &:-ms-input-placeholder {
+        text-align: center;
+
+        @include font($weight: 300);
+      }
+
+      &::-ms-input-placeholder {
+        text-align: center;
+
+        @include font($weight: 300);
+      }
+
+      &::placeholder {
+        text-align: center;
+
+        @include font($weight: 300);
+      }
+    }
+
+    @include max-width(medium) {
+      margin-top: var(--header-height);
+      padding-top: 0;
+
+      input {
+        padding: 10px;
+        width: 80%;
+      }
+
+      h6 {
+        @include font($size: 18px);
+      }
+    }
+  }
+
+  .container-internal {
+    width: 100%;
+    padding: 0 52px;
+    position: relative;
+
+    .content {
+      width: 100%;
+
+      @include flexbox($justifyContent: center, $alignItems: center);
+
+      .left {
+        text-align: center;
+        margin-right: 30px;
+
+        h1 {
+          margin-top: 34px;
+
+          @include font($size: 60px, $weight: 600, $color: #f8f8f87c);
+
+          b {
+            @include font($size: 60px, $weight: 600, $color: $sunlight-white);
+          }
+
+          span {
+            display: inline-block;
+            margin-left: 14px;
+          }
+        }
+
+        p {
+          @include font($height: 110%, $color: #f8f8f87c);
+
+          margin: 24px 0;
+        }
+
+        .span {
+          display: block;
+
+          @include font($size: 14px, $color: $red);
+
+          margin-bottom: 26px;
+        }
+
+        .sizes {
+          @include flexbox(
+            $justifyContent: center,
+            $alignItems: center,
+            $direction: column,
+            $gap: 24px
+          );
+
+          width: 100%;
+          max-width: 71%;
+          margin: 0 auto;
+
+          span {
+            @include font($height: 110%, $color: #f8f8f87c);
+          }
+
+          > div {
+            width: 100%;
+
+            @include flexbox(
+              $justifyContent: space-around,
+              $alignItems: center
+            );
+
+            background: #0a0a0a;
+            border-radius: 999px;
+            border: 1px solid #1b1b1b;
+            padding: 8px 16px;
+          }
+        }
+
+        .button {
+          width: 100%;
+          max-width: 71%;
+          margin: 0 auto;
+
+          button {
+            margin-top: 30px;
+            border-radius: 100px;
+            border: 1px solid $red;
+            width: 100%;
+            text-align: center;
+            padding: 16px 0;
+            transition:
+              background $transition-default,
+              color $transition-default,
+              border $transition-default;
+
+            @include font($color: $red);
+
+            &:not(:disabled):hover {
+              cursor: pointer;
+              background: $red;
+
+              @include font($color: $blackabsolute);
+            }
+
+            &:disabled {
+              border: 1px solid #f8f8f87c;
+
+              @include font($color: #f8f8f87c);
+
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+
+      .right {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1.4fr 0.7fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 20px;
+
+        .pic1,
+        .pic2,
+        .pic3 {
+          position: relative;
+          overflow: hidden;
+
+          @include flexbox($alignItems: center, $justifyContent: center);
+
+          border-radius: 20px;
+          transition: border $transition-default;
+          border: 2px solid transparent;
+
+          @include hover-active {
+            cursor: zoom-in;
+            border: 2px solid transparentize($red, 0.8);
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .pic1 {
+          grid-area: 1 / 1 / 3 / 2;
+        }
+
+        .pic2 {
+          grid-area: 1 / 2 / 2 / 3;
+        }
+
+        .pic3 {
+          grid-area: 2 / 2 / 3 / 3;
+        }
+      }
+    }
+
+    @include max-width(medium) {
+      padding: 0;
+
+      .content {
+        @include flexbox($direction: column-reverse);
+
+        padding-top: 0;
+
+        .left {
+          width: 100%;
+          margin-right: unset;
+
+          @include flexbox(
+            $direction: column,
+            $justifyContent: center,
+            $alignItems: center
+          );
+
+          h1 {
+            font-size: 2.75rem;
+
+            b {
+              font-size: 2.75rem;
+            }
+          }
+
+          .header {
+            h1 {
+              text-align: center;
+
+              span {
+                display: block;
+                margin-left: unset;
+              }
+            }
+          }
+
+          .sizes {
+            width: 100%;
+            max-width: unset;
+          }
+
+          .button {
+            width: 100%;
+            max-width: unset;
+          }
+
+          button {
+            margin: 0 auto;
+          }
+        }
+
+        .right {
+          margin-top: 24px;
+          min-width: unset;
+          margin-bottom: 62px;
+
+          .pic1,
+          .pic2,
+          .pic3 {
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    width: 100%;
+    background: #0d0d0d;
+    margin-top: 100px;
+    margin-bottom: -80px;
+
+    .contfooter {
+      position: relative;
+
+      @include flexbox($direction: column);
+
+      .header {
+        padding: 24px 0;
+        width: 100%;
+
+        @include flexbox($direction: column, $gap: 8px);
+
+        margin-bottom: 48px;
+
+        span {
+          display: block;
+
+          @include font(
+            $size: 14px,
+            $color: transparentize($sunlight-white, 0.8)
+          );
+        }
+
+        h1 {
+          @include font($color: $red);
+        }
+      }
+
+      .shirt-container {
+        padding: 24px;
+        border-radius: 10px;
+        transition: background $transition-default;
+        cursor: -webkit-grab !important;
+        cursor: grab !important;
+
+        .shirt-item {
+          @include flexbox(
+            $alignItems: center,
+            $justifyContent: center,
+            $direction: column
+          );
+
+          img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            -o-object-fit: contain;
+            object-fit: contain;
+            -webkit-filter: drop-shadow(0 20px 20px transparentize($red, 1));
+            filter: drop-shadow(0 20px 20px transparentize($red, 1));
+            transition: $transition-default;
+          }
+
+          div {
+            @include flexbox(
+              $alignItems: center,
+              $justifyContent: center,
+              $direction: column,
+              $gap: 14px
+            );
+
+            margin-top: 24px;
+            text-align: center;
+
+            h6 {
+              font-size: 18px;
+              white-space: nowrap;
+              transition: color $transition-default;
+            }
+
+            p {
+              font-size: 14px;
+              transition: color $transition-default;
+              color: transparentize($sunlight-white, 0.6);
+            }
+          }
+        }
+
+        @include hover-active {
+          background: transparentize($red, 0.95);
+
+          .shirt-item {
+            cursor: pointer;
+
+            img {
+              -webkit-filter: drop-shadow(
+                0 20px 20px transparentize($red, 0.8)
+              );
+              filter: drop-shadow(0 20px 20px transparentize($red, 0.8));
+            }
+
+            h6 {
+              color: transparentize($red, 0);
+            }
+
+            p {
+              color: transparentize($red, 0.6);
+            }
+          }
+        }
+      }
+
+      > div {
+        position: relative;
+        padding: 0 48px;
+
+        .btn-arrow {
+          position: absolute;
+          top: 48%;
+          height: 30px;
+          width: 30px;
+          padding: 8px;
+          border-radius: 8px;
+          transition: background $transition-default;
+
+          @include flexbox($justifyContent: center, $alignItems: center);
+
+          &.button-prev {
+            left: -10px;
+            transform: rotate(-180deg);
+          }
+
+          &.button-next {
+            right: -10px;
+          }
+
+          @include hover-active {
+            background: transparentize($sunlight-white, 0.9);
+            cursor: pointer;
+          }
+
+          &.disabled {
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.2;
+          }
+        }
+      }
+    }
+
+    @include max-width(medium) {
+      margin-top: 48px;
+
+      .contfooter {
+        .header {
+          text-align: center;
+        }
+
+        .shirt-container {
+          padding: 24px;
+          border-radius: 10px;
+          transition: background $transition-default;
+
+          .shirt-item {
+            @include flexbox(
+              $alignItems: center,
+              $justifyContent: center,
+              $direction: column
+            );
+
+            img {
+              width: 100%;
+              aspect-ratio: 4/3;
+              -o-object-fit: contain;
+              object-fit: contain;
+            }
+
+            div {
+              @include flexbox(
+                $alignItems: center,
+                $justifyContent: center,
+                $direction: column,
+                $gap: 10px
+              );
+
+              h6 {
+                @include font($size: 16px);
+              }
+
+              p {
+                @include font($size: 14px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1010;
+    cursor: zoom-out;
+
+    > div {
+      width: 80vw;
+      max-width: 525px;
+      max-height: 650px;
+      aspect-ratio: 9/16;
+      height: -webkit-fit-content;
+      height: -moz-fit-content;
+      height: fit-content;
+
+      img {
+        border-radius: 20px;
+      }
+    }
+  }
+
+  .overlay {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: #000000b3;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease-in-out;
+    z-index: 1009;
+    cursor: zoom-out;
+  }
+}
+
+.order {
+  max-width: 900px;
+  margin: 0 auto;
+
+  .header {
+    @include flexbox(
+      $justifyContent: center,
+      $alignItems: center,
+      $direction: column
+    );
+
+    margin-bottom: 54px;
+    text-align: center;
+
+    svg {
+      transform: scale(1.4);
+      margin-bottom: 34px;
+    }
+
+    span {
+      @include font($size: 52px, $weight: 600, $color: transparent);
+
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: $red;
+    }
+
+    h1 {
+      @include font($size: 48px, $weight: 600);
+
+      b {
+        color: transparentize(#f8f8f8, 0.5);
+      }
+    }
+  }
+
+  @include max-width(small) {
+    .header {
+      margin-bottom: 43px;
+
+      svg {
+        transform: scale(1.2);
+      }
+
+      span {
+        @include font($size: 30px, $weight: 600, $color: transparent);
+      }
+
+      h1 {
+        @include font($size: 26px, $weight: 600);
+      }
+    }
+  }
+
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 20px;
+    border-radius: 10px;
+
+    .div1,
+    .div2,
+    .div3 {
+      background-color: $black;
+      border-radius: 20px;
+      border: 1px solid #2e2e2e;
+      overflow: hidden;
+
+      @include flexbox($justifyContent: center, $alignItems: center);
+
+      .content {
+        width: 100%;
+
+        @include flexbox(
+          $justifyContent: center,
+          $alignItems: center,
+          $direction: column,
+          $gap: 14px
+        );
+
+        padding: 48px 0;
+
+        .text-content {
+          width: 100%;
+
+          @include flexbox(
+            $justifyContent: center,
+            $alignItems: center,
+            $direction: column,
+            $gap: 14px
+          );
+
+          p {
+            @include font($size: 18px);
+
+            opacity: 0.5;
+          }
+
+          h1 {
+            @include font($size: 20px, $weight: 600);
+          }
+
+          .clothes {
+            &:not(:last-child) {
+              margin-bottom: 30px;
+            }
+
+            @include flexbox(
+              $justifyContent: center,
+              $alignItems: center,
+              $direction: column
+            );
+
+            img {
+              max-width: 150px;
+              margin: 24px 0;
+            }
+
+            span {
+              @include font($size: 10px);
+
+              opacity: 0.4;
+            }
+
+            h1 {
+              margin: 12px 0;
+
+              @include font($color: transparentize($sunlight-white, 0.4));
+
+              b {
+                @include font($color: $sunlight-white);
+
+                margin-right: 4px;
+              }
+            }
+
+            .color {
+              @include flexbox(
+                $justifyContent: center,
+                $alignItems: center,
+                $gap: 6px
+              );
+
+              div {
+                width: 15px;
+                height: 15px;
+                border-radius: 100%;
+                border: 1px solid transparentize($sunlight-white, 0.8);
+              }
+
+              span {
+                display: block;
+                margin-bottom: -2px;
+              }
+            }
+          }
+        }
+
+        .divider {
+          width: 1px;
+          height: 60px;
+          background: rgb(255 255 255 / 60%);
+          margin: 20px 0;
+        }
+      }
+    }
+
+    .div1 {
+      grid-area: 1 / 1 / 3 / 3;
+    }
+
+    .div2 {
+      grid-area: 3 / 1 / 6 / 3;
+    }
+
+    .div3 {
+      grid-area: 1 / 3 / 6 / 5;
+
+      .orders {
+        width: 100%;
+        overflow-y: auto;
+        max-height: 570px;
+
+        @include flexbox(
+          $justifyContent: flex-start,
+          $alignItems: center,
+          $direction: column
+        );
+      }
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 18px 0;
+    width: 100%;
+    background-color: $black;
+    border-radius: 20px;
+    border: 1px solid #2e2e2e;
+    transition: background $transition-default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    @include flexbox($justifyContent: center, $alignItems: center);
+
+    @include hover-active {
+      cursor: pointer;
+      background: #2e2e2e;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  @include max-width(medium) {
+    .parent {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+
+      .div1 {
+        grid-area: 1 / 1 / 3 / 3;
+      }
+
+      .div2 {
+        grid-area: 7 / 1 / 10 / 3;
+      }
+
+      .div3 {
+        grid-area: 3 / 1 / 7 / 3;
+      }
+    }
+  }
+}

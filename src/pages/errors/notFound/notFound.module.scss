@@ -1,0 +1,112 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/colors' as *;
+
+.container {
+  width: 100%;
+
+  @include height-layout;
+  @include flexbox(
+    $justifyContent: center,
+    $alignItems: center,
+    $direction: column
+  );
+
+  figure {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  h6 {
+    @include font($size: 20px, $color: transparentize($sunlight-white, 0.5));
+  }
+
+  @media (width <= 992px) {
+    margin-top: 150px;
+
+    h6 {
+      @include font($size: 18px);
+    }
+  }
+
+  .countdown-content {
+    position: relative;
+    margin: 80px 0;
+
+    span {
+      top: -16px;
+      left: 2px;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      @include font(
+        $size: 92px,
+        $spacing: 6px,
+        $color: transparent,
+        $weight: 600
+      );
+
+      text-shadow: 1;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: transparentize($sunlight-white, 0.85);
+      position: absolute;
+    }
+
+    p {
+      opacity: 1;
+
+      @include font(
+        $size: 60px,
+        $weight: 600,
+        $spacing: 1px,
+        $color: $sunlight-white
+      );
+    }
+
+    @media (width <= 992px) {
+      margin-top: 40px;
+      margin-bottom: 60px;
+
+      span > span {
+        @include font($size: 48px, $spacing: 0);
+
+        top: -6px;
+        left: -50px;
+      }
+
+      p {
+        > span {
+          @include font($size: 34px, $spacing: 0);
+        }
+      }
+    }
+  }
+
+  button {
+    border-radius: 100px;
+    border: 1px solid #f8f8f8;
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 0;
+    text-align: center;
+    transition:
+      background $transition-default,
+      color $transition-default;
+
+    &:hover {
+      cursor: pointer;
+      background: #f8f8f8;
+
+      @include font($color: $blackabsolute);
+    }
+  }
+
+  > span {
+    margin: 100px 0 -24px;
+    color: transparentize($sunlight-white, 0.5);
+  }
+}

@@ -1,0 +1,157 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/colors' as *;
+
+.countdown-root {
+  width: 100% !important;
+  height: 92vh !important;
+  display: flex !important;
+  flex-flow: column nowrap !important;
+  gap: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  header {
+    margin-bottom: 20px;
+
+    svg {
+      transform: scale(0.7);
+    }
+
+    @include flexbox($alignItems: center, $justifyContent: center, $gap: 2px);
+
+    h1 {
+      @include font(
+        $size: 20px,
+        $weight: 500,
+        $color: transparentize(#f8f8f8, 0.5)
+      );
+
+      margin-bottom: -2px;
+
+      b {
+        display: inline-flex;
+
+        @include font($size: 20px, $weight: 500, $color: $red);
+      }
+    }
+  }
+
+  .body {
+    position: relative;
+
+    span {
+      position: absolute;
+      color: transparentize(#f8f8f8, 0.9);
+      -webkit-text-stroke: 1px transparentize(#505050, 0);
+
+      @include font($size: 132px, $weight: 600);
+
+      z-index: -1;
+      margin-top: -16px;
+      opacity: 0.2;
+    }
+
+    h1 {
+      @include font($size: 90px, $weight: 600, $color: $red);
+    }
+  }
+
+  @include max-width(medium) {
+    header {
+      svg {
+        transform: scale(0.5);
+      }
+
+      h1 {
+        @include font($size: 16px);
+      }
+    }
+
+    .body {
+      span {
+        @include font($size: 100px);
+      }
+
+      h1 {
+        @include font($size: 70px);
+      }
+    }
+  }
+
+  @include max-width(small) {
+    header {
+      margin-bottom: 00;
+
+      h1 {
+        font-size: 18px;
+
+        b {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .body {
+      span {
+        @include font($size: 70px);
+
+        margin-top: -10px;
+      }
+
+      h1 {
+        @include font($size: 46px);
+      }
+    }
+  }
+
+  @include max-width(xsmall) {
+    header {
+      margin-bottom: 00;
+
+      h1 {
+        font-size: 16px;
+
+        b {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .body {
+      span {
+        @include font($size: 60px);
+
+        margin-top: -8px;
+      }
+
+      h1 {
+        @include font($size: 40px);
+      }
+    }
+  }
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+  opacity: 0.15;
+  -webkit-filter: blur(20px);
+  filter: blur(20px);
+
+  video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+}

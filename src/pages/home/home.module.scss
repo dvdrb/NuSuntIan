@@ -1,0 +1,125 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/colors' as *;
+
+.root {
+  .head {
+    width: 100%;
+    height: calc(100vh - var(--header-height) * 2);
+    padding-top: var(--header-height);
+
+    @include flexbox($alignItems: center, $justifyContent: center);
+  }
+
+  .wrapper-cards {
+    height: 100vh;
+
+    @include flexbox($alignItems: center, $justifyContent: center);
+
+    .cards {
+      .card {
+        @include flexbox($direction: column, $gap: 47px);
+
+        margin: 0 clamp(15px, 2vw, 47.5px);
+        padding: 28px 20px;
+        width: 100%;
+        border-radius: 20px;
+        height: 525px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        transition: 400ms;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &.ian {
+          background-image: url('../../assets/images/ian-card.webp');
+        }
+
+        &.gif {
+          background-image: url('../../assets/video/gif-card.gif');
+        }
+
+        &.albuns {
+          background-image: url('../../assets/images/albun-card.webp');
+        }
+
+        .header {
+          @include flexbox($direction: column, $gap: 18px, $flex: 1);
+
+          span {
+            @include font($size: 16px, $color: #f8f8f8);
+          }
+
+          h1 {
+            @include font($size: 60px, $color: #f8f8f8, $weight: 600);
+          }
+        }
+
+        .footer {
+          @include flexbox($alignItems: center, $justifyContent: space-between);
+
+          > div {
+            @include flexbox(
+              $alignItems: flex-start,
+              $justifyContent: center,
+              $direction: column,
+              $gap: 4px
+            );
+
+            span {
+              color: transparentize(#f8f8f8, 0.6);
+            }
+          }
+
+          button {
+            @include flexbox($alignItems: center, $justifyContent: center);
+
+            padding: 14px 12px;
+            margin-right: 8px;
+            border-radius: 999px;
+            background: transparentize(#858585, 0.95);
+            -webkit-backdrop-filter: blur(33px);
+            backdrop-filter: blur(33px);
+          }
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .card {
+          &:not(:hover) {
+            -webkit-filter: blur(10px);
+            filter: blur(10px);
+            transform: scale(0.9, 0.9);
+          }
+        }
+      }
+
+      @include max-width(medium) {
+        gap: 48px;
+
+        .card {
+          margin: 0;
+          -webkit-filter: unset !important;
+          filter: unset !important;
+          transform: unset !important;
+
+          &:not(:hover) {
+            -webkit-filter: unset !important;
+            filter: unset !important;
+            transform: unset !important;
+          }
+        }
+      }
+    }
+
+    @include max-width(medium) {
+      height: unset;
+      margin-top: calc(var(--header-height) * 1.2);
+      padding-bottom: 120px;
+    }
+  }
+}

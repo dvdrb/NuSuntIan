@@ -1,0 +1,184 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/colors' as *;
+@use '~/assets/styles/constants' as *;
+
+.video {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  padding: none;
+  position: fixed;
+  z-index: 1004;
+  opacity: 1;
+  overflow: hidden;
+
+  button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100px;
+    z-index: 1005;
+    border-radius: 100px;
+    border: 1px solid $sunlight-white;
+    padding: 12px 28px;
+    transition:
+      background $transition-default,
+      color $transition-default;
+
+    @include font;
+
+    @include hover-active {
+      background: $sunlight-white;
+      color: $spatial-black;
+      cursor: pointer;
+    }
+
+    @include max-width(medium) {
+      bottom: 100px;
+
+      @include font($size: 14px);
+    }
+
+    @include max-width(xsmall) {
+      padding: 12px 20px;
+
+      @include font($size: 12px);
+    }
+  }
+
+  video {
+    object-fit: cover;
+  }
+}
+
+.container {
+  width: 100%;
+
+  @include height-layout;
+  @include flexbox(
+    $justifyContent: center,
+    $alignItems: center,
+    $direction: column
+  );
+
+  figure {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  h6 {
+    margin-top: 20px;
+
+    @include font($size: 20px, $color: transparentize($sunlight-white, 0.5));
+  }
+
+  @media (width <= 992px) {
+    margin-top: 150px;
+
+    h6 {
+      font-size: 18px;
+
+      @include font($size: 18px);
+    }
+  }
+
+  .countdown-content {
+    position: relative;
+    margin-top: 80px;
+    margin-bottom: 100px;
+
+    span {
+      span {
+        top: -20px;
+        left: -150px;
+
+        @include font(
+          $size: 124px,
+          $color: transparent,
+          $weight: 600,
+          $spacing: 6px
+        );
+
+        text-shadow: 1;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: transparentize($sunlight-white, 0.15);
+        position: absolute;
+      }
+    }
+
+    p {
+      > span {
+        opacity: 1;
+
+        @include font(
+          $size: 80px,
+          $color: $sunlight-white,
+          $weight: 600,
+          $spacing: 2px
+        );
+      }
+    }
+
+    @media (width <= 992px) {
+      margin-top: 40px;
+      margin-bottom: 60px;
+
+      span > span {
+        @include font($size: 48px, $spacing: 0);
+
+        top: -6px;
+        left: -50px;
+      }
+
+      p {
+        > span {
+          @include font($size: 34px, $spacing: 0);
+        }
+      }
+    }
+  }
+
+  input {
+    border: 1px solid #f8f8f8;
+    padding: 12px;
+    border-radius: 100px;
+    width: 350px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+
+    &::-webkit-input-placeholder {
+      text-align: center;
+      font-weight: 300;
+    }
+
+    &::-moz-placeholder {
+      text-align: center;
+      font-weight: 300;
+    }
+
+    &:-ms-input-placeholder {
+      text-align: center;
+      font-weight: 300;
+    }
+
+    &::-ms-input-placeholder {
+      text-align: center;
+      font-weight: 300;
+    }
+
+    &::placeholder {
+      text-align: center;
+      font-weight: 300;
+    }
+  }
+
+  @media (width <= 992px) {
+    input {
+      padding: 10px;
+      width: 80%;
+    }
+  }
+}

@@ -1,0 +1,220 @@
+@use './constants' as *;
+
+$base-font-size: 16px;
+$breakpoints: (
+  xsmall: $width-xs,
+  small: $width-sm,
+  medium: $width-md,
+  large: $width-lg,
+);
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin flexbox(
+  $display: flex,
+  $direction: row,
+  $wrap: nowrap,
+  $gap: 0,
+  $flex: null,
+  $justifyContent: null,
+  $alignItems: null
+) {
+  display: $display;
+  flex-flow: $direction $wrap;
+  gap: $gap;
+
+  @if $justifyContent {
+    justify-content: $justifyContent;
+  }
+
+  @if $alignItems {
+    align-items: $alignItems;
+  }
+
+  @if $flex {
+    flex: $flex;
+  }
+}
+
+@mixin font(
+  $size: 16px,
+  $color: null,
+  $weight: null,
+  $height: null,
+  $spacing: null,
+  $family: null,
+  $style: null,
+  $variant: null,
+  $transform: null,
+  $decoration: null
+) {
+  font-size: rem($size);
+
+  @if $color {
+    color: $color;
+  }
+
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $height {
+    line-height: $height;
+  }
+
+  @if $spacing {
+    letter-spacing: $spacing;
+  }
+
+  @if $family {
+    font-family: $family;
+  }
+
+  @if $style {
+    font-style: $style;
+  }
+
+  @if $variant {
+    font-variant: $variant;
+  }
+
+  @if $transform {
+    text-transform: $transform;
+  }
+
+  @if $decoration {
+    -webkit-text-decoration: $decoration;
+    text-decoration: $decoration;
+  }
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin min-width($breakpoint) {
+  $width: map-get($breakpoints, $breakpoint);
+
+  @if $width {
+    @media (min-width: $width) {
+      @content;
+    }
+  } @else {
+    @error "Tamanho inexistente #{$breakpoint}";
+  }
+}
+
+@mixin max-width($breakpoint) {
+  $width: map-get($breakpoints, $breakpoint);
+
+  @if $width {
+    @media (max-width: $width) {
+      @content;
+    }
+  } @else {
+    @error "Tamanho inexistente #{$breakpoint}";
+  }
+}
+
+@mixin hover-active {
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      @content;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover,
+    &:focus-visible {
+      @content;
+    }
+  }
+}
+
+@mixin height-layout() {
+  height: calc(100dvh - var(--header-height) * 2);
+}
+
+// Functions
+
+// Shade
+@function mix($color1, $color2, $weight) {
+  $weight: if(unit($weight) == '%', $weight / 100, $weight);
+  $r1: red($color1);
+  $g1: green($color1);
+  $b1: blue($color1);
+  $a1: alpha($color1);
+  $r2: red($color2);
+  $g2: green($color2);
+  $b2: blue($color2);
+  $a2: alpha($color2);
+  $r: ($r1 * $weight) + ($r2 * (1 - $weight));
+  $g: ($g1 * $weight) + ($g2 * (1 - $weight));
+  $b: ($b1 * $weight) + ($b2 * (1 - $weight));
+  $a: ($a1 * $weight) + ($a2 * (1 - $weight));
+
+  @return rgba($r, $g, $b, $a);
+}
+
+@function shade($percentage, $color) {
+  @if $color == transparent {
+    @return $color;
+  }
+
+  $percentage: if(unit($percentage) == '%', $percentage / 100, $percentage);
+
+  @return mix(black, $color, $percentage);
+}
+
+// Lighten
+@function parse-to-hsl($color) {
+  @return hsl(hue($color), saturation($color), lightness($color));
+}
+
+@function to-color-string($hue, $saturation, $lightness, $alpha: 1) {
+  @if $alpha == 1 {
+    @return hsl($hue, $saturation, $lightness);
+  } @else {
+    @return hsla($hue, $saturation, $lightness, $alpha);
+  }
+}
+
+@function guard($min, $max, $value) {
+  @if $value < $min {
+    @return $min;
+  } @else if $value > $max {
+    @return $max;
+  } @else {
+    @return $value;
+  }
+}
+
+@function lighten($amount, $color) {
+  @if $color == transparent {
+    @return $color;
+  }
+
+  $hsl-color: parse-to-hsl($color);
+  $hue: hue($hsl-color);
+  $saturation: saturation($hsl-color);
+  $lightness: lightness($hsl-color);
+  $new-lightness: guard(0%, 100%, $lightness + ($amount * (100% - $lightness)));
+
+  @return to-color-string($hue, $saturation, $new-lightness);
+}
+
+// PX to REM
+
+@function rem($px) {
+  @return #{calc($px / $base-font-size)}rem;
+}

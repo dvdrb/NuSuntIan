@@ -1,0 +1,38 @@
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/colors' as *;
+@use '~/assets/styles/mixins' as *;
+
+.root {
+  @include flexbox(
+    $display: inline-flex,
+    $justifyContent: center,
+    $alignItems: center
+  );
+
+  position: relative;
+  padding: 10px !important;
+  cursor: pointer;
+
+  @include font($color: #f8f8f87c);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 10px;
+  transition:
+    background $transition-default,
+    color $transition-default;
+  width: 40px;
+  height: 30px;
+
+  &.selected {
+    @include font($color: $red);
+  }
+
+  &:hover {
+    @include font($color: $red);
+
+    background: transparentize($red, 0.9);
+  }
+}

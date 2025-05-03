@@ -1,0 +1,121 @@
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/colors' as *;
+
+.root {
+  position: relative;
+  padding-top: calc(var(--header-height) - 52px);
+
+  .bg {
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+    transition: background-image 0.4s ease-in-out;
+    background-position: center center;
+    -webkit-filter: saturate(0) brightness(0.8);
+    filter: saturate(0) brightness(0.8);
+
+    &.ian {
+      background-image: url('../../assets/images/ian-bg.webp');
+      -webkit-filter: saturate(0) brightness(1);
+      filter: saturate(0) brightness(1);
+    }
+
+    &.cris {
+      background-image: url('../../assets/images/cris-bg.webp');
+      -webkit-filter: saturate(0) brightness(0.8);
+      filter: saturate(0) brightness(0.8);
+    }
+
+    @include max-width(medium) {
+      background-position: center center;
+    }
+  }
+
+  .content {
+    width: 100%;
+    height: 90dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .header,
+    .middle,
+    .footer {
+      display: flex;
+    }
+
+    .header {
+      flex-direction: column;
+      padding-top: 40px;
+
+      @include font($color: $sunlight-white);
+
+      span {
+        @include font($color: $red, $size: 20px, $weight: 300);
+      }
+
+      h1 {
+        margin-top: 14px;
+
+        @include font($size: 60px, $weight: 600);
+      }
+
+      p {
+        margin-top: 40px;
+        max-width: 500px;
+
+        @include font($height: 18px, $spacing: 0.192px);
+      }
+    }
+
+    .middle {
+      justify-content: center;
+
+      figure {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .footer {
+      justify-content: flex-end;
+      padding-bottom: 60px;
+
+      p {
+        max-width: 800px;
+
+        @include font($color: #f8f8f8a6, $spacing: 0.192px, $height: 18px);
+
+        b {
+          font-weight: 500;
+
+          @include font($color: $sunlight-white);
+        }
+      }
+    }
+  }
+
+  @include max-width(medium) {
+    .content {
+      height: unset;
+      margin-top: 100px;
+
+      .middle {
+        display: none;
+      }
+
+      .footer {
+        margin-top: rem(40px);
+      }
+    }
+  }
+}

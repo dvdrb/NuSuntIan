@@ -1,0 +1,234 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/colors' as *;
+
+.root {
+  background: $background;
+  padding: 18px 0 36px;
+  padding-bottom: 56px;
+
+  .container-hero {
+    position: relative;
+
+    .header {
+      @include flexbox($alignItems: center, $justifyContent: center);
+
+      padding-top: 30px;
+      border-top: 1px solid transparentize($sunlight-white, 0.8);
+
+      svg {
+        transform: scale(0.92);
+      }
+    }
+
+    .body {
+      @include flexbox(
+        $alignItems: center,
+        $justifyContent: center,
+        $direction: column,
+        $gap: 43px
+      );
+
+      padding: 34px 0 24px;
+      padding-bottom: 34px;
+
+      a {
+        position: relative;
+
+        @include font($size: 70px, $weight: 500, $color: $sunlight-white);
+
+        svg {
+          position: absolute;
+          top: -10px;
+          right: -20px;
+        }
+
+        b {
+          @include font($color: $red, $size: 70px);
+        }
+      }
+
+      h2 {
+        @include font($size: 16px, $color: $red);
+      }
+    }
+
+    .navigation {
+      border-top: 1px solid transparentize($sunlight-white, 0.8);
+      margin-bottom: 100px;
+
+      .container-navigation {
+        @include flexbox(
+          $alignItems: center,
+          $justifyContent: center,
+          $direction: column,
+          $gap: 0
+        );
+
+        margin-top: 24px;
+
+        a,
+        button {
+          color: transparentize($sunlight-white, 0.6);
+          padding: 10px 12px;
+          border-radius: 8px;
+          transition:
+            color $transition-default,
+            background $transition-default;
+
+          &:hover {
+            background: transparentize($red, 0.94);
+            color: transparentize($red, 0);
+          }
+        }
+
+        a {
+          display: inline-flex;
+        }
+
+        button {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  @include max-width(medium) {
+    .container-hero .body {
+      a {
+        @include font($size: 36px);
+
+        b {
+          @include font($size: 36px);
+        }
+      }
+    }
+
+    .navigation .container-navigation {
+      flex-direction: column;
+      gap: 8px !important;
+      padding: 0;
+
+      button,
+      a {
+        font-size: 14px;
+      }
+    }
+
+    .navigation {
+      margin-bottom: 75px !important;
+    }
+  }
+}
+
+.gradient {
+  height: 150px;
+  background: linear-gradient(to top, $background 30%, transparent 100%);
+}
+
+.wrapper-cards {
+  background: $background;
+
+  .cards {
+    .card {
+      @include flexbox($direction: column, $gap: 47px);
+
+      margin: 0 clamp(15px, 2vw, 47.5px);
+      padding: 28px 20px;
+      width: 100%;
+      border-radius: 20px;
+      height: 525px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      transition: 400ms;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      &.ian {
+        background-image: url('../../assets/images/ian-card.webp');
+      }
+
+      &.gif {
+        background-image: url('../../assets/video/gif-card.gif');
+      }
+
+      &.albuns {
+        background-image: url('../../assets/images/albun-card.webp');
+      }
+
+      .header {
+        @include flexbox($direction: column, $gap: 18px, $flex: 1);
+
+        span {
+          @include font($size: 16px, $color: #f8f8f8);
+        }
+
+        h1 {
+          @include font($size: 60px, $color: #f8f8f8, $weight: 600);
+        }
+      }
+
+      .footer {
+        @include flexbox($alignItems: center, $justifyContent: space-between);
+
+        > div {
+          @include flexbox(
+            $alignItems: flex-start,
+            $justifyContent: center,
+            $direction: column,
+            $gap: 4px
+          );
+
+          span {
+            color: transparentize(#f8f8f8, 0.6);
+          }
+        }
+
+        button {
+          @include flexbox($alignItems: center, $justifyContent: center);
+
+          padding: 14px 12px;
+          margin-right: 8px;
+          border-radius: 999px;
+          background: transparentize(#858585, 0.95);
+          -webkit-backdrop-filter: blur(33px);
+          backdrop-filter: blur(33px);
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .card {
+        &:not(:hover) {
+          -webkit-filter: blur(10px);
+          filter: blur(10px);
+          transform: scale(0.9, 0.9);
+        }
+      }
+    }
+
+    @include max-width(medium) {
+      gap: 48px;
+
+      .card {
+        margin: 0;
+        -webkit-filter: unset !important;
+        filter: unset !important;
+        transform: unset !important;
+
+        &:not(:hover) {
+          -webkit-filter: unset !important;
+          filter: unset !important;
+          transform: unset !important;
+        }
+      }
+    }
+  }
+}

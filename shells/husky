@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Pre Commit Hooks
+husky add .husky/pre-commit 'npm run lint-staged'
+
+# Commit Message Hooks
+husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'

@@ -1,0 +1,196 @@
+@use '~/assets/styles/colors' as *;
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/mixins' as *;
+
+.root {
+  position: relative;
+
+  .content,
+  .content-left {
+    @include flexbox(
+      $alignItems: center,
+      $justifyContent: center,
+      $direction: column
+    );
+
+    width: 100%;
+    height: 95dvh;
+
+    .hero,
+    .hero-left {
+      @include flexbox(
+        $alignItems: center,
+        $justifyContent: center,
+        $direction: column
+      );
+
+      gap: 60px;
+      margin-bottom: 60px;
+
+      figure {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      h1 {
+        @include font($size: 60px, $color: #f8f8f83f, $weight: 500);
+
+        b {
+          color: $sunlight-white;
+        }
+      }
+
+      @media (width <= 992px) {
+        h1 {
+          @include font($size: 32px);
+        }
+      }
+    }
+
+    .hero-left {
+      @include flexbox($alignItems: flex-start, $justifyContent: center);
+    }
+
+    .form {
+      @include flexbox(
+        $alignItems: center,
+        $justifyContent: center,
+        $direction: column
+      );
+
+      width: 100%;
+
+      input {
+        width: 100%;
+        text-align: center;
+        padding: 50px 0;
+        border-top: 1px solid #f8f8f87f;
+
+        &.error {
+          border-top: 1px solid $red !important;
+          color: $red !important;
+
+          &::-webkit-input-placeholder {
+            color: $red !important;
+          }
+
+          &::-moz-placeholder {
+            color: $red !important;
+          }
+
+          &:-ms-input-placeholder {
+            color: $red !important;
+          }
+
+          &::-ms-input-placeholder {
+            color: $red !important;
+          }
+
+          &::placeholder {
+            color: $red !important;
+          }
+        }
+      }
+
+      span {
+        margin-bottom: 20px;
+
+        @include font($color: $red!important);
+      }
+
+      button {
+        width: 100%;
+        border: 1px solid #f8f8f8;
+        border-radius: 100px;
+        padding: 36px 0;
+        text-align: center;
+        transition: background-color $transition-default;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #f8f8f8;
+
+          @include font($color: $blackabsolute);
+        }
+      }
+    }
+  }
+
+  .content-left {
+    @include flexbox($alignItems: flex-start, $justifyContent: flex-start);
+
+    height: unset;
+  }
+
+  .content {
+    margin-top: calc(var(--header-height) + 60px);
+    height: unset;
+
+    h1 {
+      @include font(
+        $size: 60px,
+        $color: transparentize($sunlight-white, 0.7),
+        $weight: 500
+      );
+
+      margin-bottom: 48px;
+
+      b {
+        color: $sunlight-white;
+      }
+    }
+
+    .flextable {
+      width: 100%;
+      max-width: 100%;
+
+      .thead,
+      .trow .tcell:first-child {
+        font-weight: bold;
+      }
+
+      .thead {
+        border-bottom: 2px solid transparentize($sunlight-white, 0.8);
+
+        .tcell {
+          &:last-child {
+            @include flexbox($justifyContent: flex-end);
+          }
+        }
+      }
+
+      .tbody {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.25rem 0.5rem;
+
+        .trow {
+          display: grid;
+          gap: 1em;
+          padding: 0.5rem 0;
+          transition: background 0.2s ease-out;
+
+          &:not(:first-child) {
+            border-bottom: 2px solid transparentize($sunlight-white, 0.8);
+          }
+
+          &:hover {
+            background-color: rgb(0 0 0 / 10%);
+          }
+
+          @media screen and (width >= 38rem) {
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+          }
+
+          .tcell {
+            text-align: left;
+            padding: 16px 0.25rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

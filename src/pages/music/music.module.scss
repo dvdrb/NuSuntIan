@@ -1,0 +1,686 @@
+@use '~/assets/styles/constants' as *;
+@use '~/assets/styles/colors' as *;
+@use '~/assets/styles/mixins' as *;
+
+.root {
+  overflow: hidden;
+
+  .hero {
+    @include flexbox(
+      $justifyContent: center,
+      $alignItems: center,
+      $direction: column,
+      $gap: 20px
+    );
+
+    width: 100%;
+    margin-top: 180px;
+
+    h6 {
+      text-transform: uppercase;
+
+      @include font($size: 20px, $weight: 300, $spacing: 1px);
+    }
+
+    h1 {
+      text-transform: uppercase;
+
+      @include font($size: 60px, $weight: 600);
+    }
+  }
+
+  .container {
+    width: 100%;
+
+    @include flexbox($justifyContent: center, $alignItems: center);
+
+    position: relative;
+    padding: 50px 0 14px;
+    height: 100%;
+
+    > div {
+      padding-left: 60px;
+    }
+
+    .album-info {
+      position: absolute;
+      left: 48px;
+      top: -6rem;
+
+      @include font($spacing: 1px);
+
+      span,
+      p {
+        @include font($color: transparentize($sunlight-white, 0.5));
+      }
+
+      header {
+        > span {
+          display: block;
+          margin-bottom: 30px;
+        }
+      }
+
+      h1 {
+        margin-bottom: 50px;
+
+        @include font($size: 20px);
+      }
+
+      button {
+        margin: unset;
+      }
+
+      > div {
+        @include flexbox;
+
+        > div {
+          @include flexbox($direction: column, $gap: 20px);
+        }
+      }
+    }
+
+    .container-slider {
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-left: calc(50% - 252px);
+
+      img {
+        max-width: 380px;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .button-prev,
+      .button-next {
+        position: absolute;
+        z-index: 1;
+        opacity: 1;
+        transition: $transition-default;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        top: 45%;
+
+        &.hidden {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+        }
+
+        img {
+          border-radius: 8px;
+          padding: 8px 11px;
+          transition: background-color $transition-default;
+
+          @include hover-active {
+            cursor: pointer;
+            background-color: rgb(255 255 255 / 5%);
+          }
+        }
+      }
+
+      .button-prev {
+        left: -40px;
+        transform: rotate(-180deg);
+      }
+
+      .button-next {
+        left: 520px;
+      }
+
+      .slider {
+        position: relative;
+      }
+
+      .bullets-wrapper {
+        margin-top: 10px;
+
+        @include flexbox(
+          $justifyContent: center,
+          $alignItems: center,
+          $gap: 10px
+        );
+
+        .bullets-inside {
+          width: -webkit-fit-content;
+          width: -moz-fit-content;
+          width: fit-content;
+          padding: 10px 14px;
+          border-radius: 999px;
+          background: transparentize(#000000, 0.8);
+          -webkit-backdrop-filter: blur(24px);
+          backdrop-filter: blur(24px);
+
+          .bullets {
+            width: 8px !important;
+            height: 8px !important;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 0 3px;
+            background: transparentize(#d9d9d9, 0.6);
+          }
+
+          .active {
+            background: #d9d9d9;
+            opacity: 1;
+          }
+        }
+
+        .arrows {
+          @include flexbox(
+            $justifyContent: center,
+            $alignItems: center,
+            $gap: 10px
+          );
+
+          div {
+            @include flexbox($justifyContent: center, $alignItems: center);
+
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: transparentize(#000000, 0.8);
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+          }
+
+          .button-arrow {
+            img {
+              transform: scale(0.8);
+            }
+
+            &.prev {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        @include hover-active {
+          cursor: default;
+        }
+      }
+
+      &:hover {
+        cursor: -webkit-grab;
+        cursor: grab;
+      }
+
+      &:active {
+        cursor: -webkit-grabbing;
+        cursor: grabbing;
+      }
+    }
+
+    @media (max-width: $width-llg) {
+      padding: unset;
+
+      > div {
+        padding-left: unset;
+      }
+
+      @include flexbox($direction: column-reverse);
+
+      .container-mob {
+        margin-top: var(--header-height);
+
+        .hero-mobile {
+          transition: height $transition-default;
+          width: 100%;
+          height: calc(100dvh - var(--header-height));
+
+          @include flexbox(
+            $justifyContent: center,
+            $alignItems: flex-start,
+            $direction: column,
+            $gap: 20px
+          );
+
+          margin-top: 0;
+
+          .slider {
+            padding: 0 16%;
+          }
+
+          .hero {
+            margin-top: unset;
+
+            h6 {
+              @include font($size: 18px);
+            }
+
+            h1 {
+              @include font($size: 42px, $weight: 600);
+            }
+          }
+
+          .footer-parallax-title {
+            width: 100%;
+
+            @include flexbox(
+              $justifyContent: flex-start,
+              $alignItems: flex-start,
+              $direction: column,
+              $gap: 20px
+            );
+
+            margin-top: 350px;
+
+            h6 {
+              text-transform: uppercase;
+
+              @include font($size: 20px, $weight: 300, $spacing: 1px);
+            }
+
+            h1 {
+              text-transform: uppercase;
+
+              @include font($size: 50px, $weight: 600);
+            }
+          }
+
+          .footer-parallax {
+            @include flexbox(
+              $alignItems: flex-start,
+              $direction: column,
+              $gap: 20px
+            );
+
+            margin-bottom: 250px;
+
+            > div {
+              @include flexbox;
+
+              & > div {
+                @include flexbox($direction: column, $gap: 20px);
+
+                p {
+                  @include font($color: transparentize($sunlight-white, 0.4));
+                }
+              }
+            }
+          }
+        }
+
+        .bullets-wrapper {
+          margin-top: 10px;
+
+          @include flexbox(
+            $justifyContent: center,
+            $alignItems: center,
+            $gap: 10px
+          );
+
+          .bullets-inside {
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: transparentize(#000000, 0.8);
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+
+            .bullets {
+              width: 8px !important;
+              height: 8px !important;
+              display: inline-block;
+              border-radius: 50%;
+              margin: 0 4px;
+              background: transparentize(#d9d9d9, 0.6);
+
+              @include hover-active {
+                cursor: pointer;
+              }
+            }
+
+            .active {
+              background: #d9d9d9;
+              opacity: 1;
+            }
+          }
+
+          .arrows {
+            @include flexbox(
+              $justifyContent: center,
+              $alignItems: center,
+              $gap: 10px
+            );
+
+            div {
+              @include flexbox($justifyContent: center, $alignItems: center);
+
+              padding: 10px 14px;
+              border-radius: 999px;
+              background: transparentize(#000000, 0.8);
+              -webkit-backdrop-filter: blur(24px);
+              backdrop-filter: blur(24px);
+
+              @include hover-active {
+                cursor: pointer;
+              }
+            }
+
+            .button-arrow {
+              img {
+                transform: scale(0.8);
+              }
+
+              &.prev {
+                transform: rotate(180deg);
+              }
+
+              &.disabled {
+                opacity: 0.3;
+                pointer-events: none;
+              }
+            }
+          }
+
+          @include hover-active {
+            cursor: default;
+          }
+        }
+
+        .footer-mobile {
+          padding: 0 48px;
+
+          .footer-parallax-title {
+            width: 100%;
+
+            h6 {
+              @include font($size: 20px, $weight: 200);
+            }
+
+            h1 {
+              margin-top: 38px;
+
+              @include font($size: 60px, $weight: 600);
+            }
+
+            margin-top: 30px;
+          }
+
+          .footer-parallax {
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+            > div {
+              @include flexbox($justifyContent: flex-start, $gap: 20px);
+
+              div {
+                @include flexbox(
+                  $justifyContent: flex-start,
+                  $direction: column,
+                  $gap: 20px
+                );
+
+                h6 {
+                  margin: unset;
+
+                  @include font($size: 20px);
+
+                  text-transform: uppercase;
+                }
+
+                h1 {
+                  margin: unset;
+
+                  @include font($size: 50px);
+
+                  text-transform: uppercase;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      article {
+        margin-top: unset;
+        width: 100%;
+        padding: 12px;
+
+        header {
+          @include flexbox($direction: column);
+
+          margin-bottom: 100px;
+
+          span {
+            margin-bottom: 14px;
+          }
+
+          h1 {
+            margin-bottom: 26px;
+          }
+
+          button {
+            @include font($weight: 300);
+
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    @include flexbox($justifyContent: center, $gap: 20px);
+
+    padding-bottom: 25px;
+    width: 100%;
+
+    .footer-text {
+      font-family: $family-nohemi;
+
+      @include font($size: 18px, $weight: 500, $spacing: -1%);
+      @include flexbox($gap: 8px, $justifyContent: center, $alignItems: center);
+
+      padding: 8px;
+      border-radius: 10px;
+      transition: box-shadow $transition-default;
+
+      svg {
+        margin-top: -4px;
+      }
+
+      span {
+        display: block;
+        margin-bottom: -2px;
+      }
+
+      &.apple {
+        background: rgb(242 64 96);
+        background: linear-gradient(
+          180deg,
+          rgb(242 64 96 / 100%) 0%,
+          rgb(240 0 46 / 100%) 100%
+        );
+
+        @include hover-active {
+          cursor: pointer;
+          box-shadow: 0 0 20px 0 rgb(242 64 96 / 30%);
+        }
+      }
+
+      &.spotify {
+        color: #191414;
+        background: rgb(30 215 96);
+
+        svg {
+          width: 22px;
+          height: 22px;
+          margin-bottom: -3px;
+        }
+
+        @include hover-active {
+          cursor: pointer;
+          box-shadow: 0 0 20px 0 rgb(30 215 96 / 30%);
+        }
+      }
+
+      &.youtube {
+        color: #282828;
+        background: #ffffff;
+
+        svg {
+          width: 22px;
+          height: 22px;
+          margin-bottom: -3px;
+        }
+
+        @include hover-active {
+          cursor: pointer;
+          box-shadow: 0 0 20px 0 rgb(254 41 5 / 30%);
+        }
+      }
+    }
+
+    .bullets-wrapper {
+      @include flexbox(
+        $justifyContent: center,
+        $alignItems: center,
+        $gap: 10px
+      );
+
+      .bullets-inside {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: transparentize(#000000, 0.8);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+
+        .bullets {
+          width: 8px !important;
+          height: 8px !important;
+          display: inline-block;
+          border-radius: 50%;
+          margin: 0 4px;
+          background: transparentize(#d9d9d9, 0.6);
+
+          @include hover-active {
+            cursor: pointer;
+          }
+        }
+
+        .active {
+          background: #d9d9d9;
+          opacity: 1;
+        }
+      }
+
+      .arrows {
+        @include flexbox(
+          $justifyContent: center,
+          $alignItems: center,
+          $gap: 10px
+        );
+
+        div {
+          @include flexbox($justifyContent: center, $alignItems: center);
+
+          padding: 10px 14px;
+          border-radius: 999px;
+          background: transparentize(#000000, 0.8);
+          -webkit-backdrop-filter: blur(24px);
+          backdrop-filter: blur(24px);
+
+          @include hover-active {
+            cursor: pointer;
+          }
+        }
+
+        .button-arrow {
+          img {
+            transform: scale(0.8);
+          }
+
+          &.prev {
+            transform: rotate(180deg);
+          }
+
+          &.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+          }
+        }
+      }
+
+      @include hover-active {
+        cursor: default;
+      }
+    }
+
+    .musics {
+      @include flexbox($gap: 14px);
+    }
+
+    @media (max-width: $width-llg) {
+      @include flexbox($direction: column);
+
+      .footer-text {
+        padding: unset;
+        height: 40px;
+        width: 40px;
+
+        span {
+          display: none;
+        }
+      }
+
+      .title {
+        margin-bottom: 32px;
+
+        @include flexbox(
+          $justifyContent: center,
+          $alignItems: center,
+          $direction: row,
+          $gap: 14px
+        );
+
+        > img {
+          margin-top: -4px;
+        }
+
+        h1 {
+          @include font($size: 16px);
+        }
+      }
+
+      .infos {
+        @include flexbox(
+          $justifyContent: center,
+          $alignItems: center,
+          $direction: column
+        );
+
+        span {
+          font-family: $family-nohemi;
+
+          @include font($color: transparentize($sunlight-white, 0.5));
+
+          margin-bottom: 20px;
+        }
+
+        h1 {
+          @include font($size: 20px, $weight: 700);
+
+          margin-bottom: 12px;
+        }
+
+        button {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

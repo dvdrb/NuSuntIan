@@ -1,0 +1,42 @@
+@use '~/assets/styles/mixins' as *;
+@use '~/assets/styles/colors' as *;
+
+.root {
+  @include flexbox($alignItems: center, $wrap: wrap);
+
+  gap: 6px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  > div {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    border: 1px solid transparentize($sunlight-white, 0.8);
+  }
+
+  .span {
+    margin-bottom: -2px !important;
+
+    @include font($size: 12px);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: #f8f8f81e;
+  }
+
+  &.selected {
+    color: $red !important;
+
+    > div {
+      border: 1px solid transparentize($red, 0.8) !important;
+    }
+  }
+}
