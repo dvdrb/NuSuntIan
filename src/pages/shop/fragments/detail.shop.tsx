@@ -8,12 +8,12 @@ import {
   useMemo,
   useRef,
   useState,
-} from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate, useParams } from "react-router-dom";
 
-import styles from './fragments.module.scss';
-import { Navigation } from 'swiper/modules';
+import styles from "./fragments.module.scss";
+import { Navigation } from "swiper/modules";
 
 import {
   Col,
@@ -22,24 +22,25 @@ import {
   Row,
   ScrambleText,
   SizeSelector,
-} from 'components';
+} from "components";
 
-import 'swiper/css';
+import "swiper/css";
 
-import Arrow from 'assets/icons/arrow.svg';
-import Limited from 'assets/icons/limited-product.svg?react';
-import { ScreenSize } from 'enum/screensizes.enum';
-import { type Colors } from 'enum/shop.enum';
-import { AnimatePresence, motion } from 'framer-motion';
+import Arrow from "assets/icons/arrow.svg";
+import Limited from "assets/icons/limited-product.svg?react";
+import { ScreenSize } from "enum/screensizes.enum";
+import { type Colors } from "enum/shop.enum";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   clsx,
   formatCurrency,
   isNullOrUndefined,
-} from 'helpers/utils/HTMLUtils';
-import useScreenSize from 'hooks/useScreenSize';
-import languageValues from 'locales/language';
-import { useCartStore } from 'store/cartStore';
-import { Swiper, SwiperSlide } from 'swiper/react';
+} from "helpers/utils/HTMLUtils";
+import useScreenSize from "hooks/useScreenSize";
+import languageValues from "locales/language";
+import { useCartStore } from "store/cartStore";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { fetchProductsFromShopify } from "./available.shop";
 
 const language = languageValues.pages.shop.productView;
 
@@ -50,7 +51,7 @@ type Breakpoints = {
 };
 
 export const DetailProduct = () => {
-  const [size, setSize] = useState<string>('');
+  const [size, setSize] = useState<string>("");
   const [resetSize, setResetSize] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [swiper, setSwiper] = useState<{
@@ -62,8 +63,8 @@ export const DetailProduct = () => {
     color: string;
     label: Colors | string;
   }>({
-    color: '',
-    label: '',
+    color: "",
+    label: "",
   });
 
   const navigate = useNavigate();
@@ -81,10 +82,27 @@ export const DetailProduct = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const isMobile = useMemo(() => ranked <= ScreenSize.sm, [value]);
 
-  const specifiItem = useMemo(
-    () => items.find((item) => item.id === params.id),
-    [items, params.id]
-  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch data only if items is empty
+    if (items.length === 0) {
+      const fetchData = async () => {
+        await fetchProductsFromShopify();
+        setLoading(false);
+      };
+
+      fetchData();
+    } else {
+      setLoading(false); // Set loading to false if items are already available
+    }
+  }, [items]); // Runs when items change, triggering fetch only when empty
+
+  const specifiItem = useMemo(() => {
+    // Check if data is loaded and find the specific item
+    if (loading || !items?.length || !params.id) return null;
+    return items.find((item) => String(item.id) === String(params.id));
+  }, [items, params.id, loading]);
 
   const alsoLikeItems = useMemo(() => {
     return items
@@ -123,8 +141,8 @@ export const DetailProduct = () => {
     setTimeout(() => {
       toggleMenu();
       setResetSize(false);
-      setColor({ label: '', color: '' });
-      setSize('');
+      setColor({ label: "", color: "" });
+      setSize("");
     }, 150);
   }, [specifiItem, size, color, addToCart, toggleMenu]);
 
@@ -136,24 +154,24 @@ export const DetailProduct = () => {
     const x = e.clientX - bounds.left;
     const y = e.clientY - bounds.top;
 
-    const img = pic.querySelector('img');
+    const img = pic.querySelector("img");
     if (!img) return;
 
-    img.style.transition = 'transform 0.2s ease';
+    img.style.transition = "transform 0.2s ease";
     img.style.transformOrigin = `${x}px ${y}px`;
-    img.style.transform = 'scale(2)';
+    img.style.transform = "scale(2)";
   }, []);
 
   const handleMouseLeave = useCallback((index: number) => {
     const pic = picRefs.current[index];
     if (!pic) return;
 
-    const img = pic.querySelector('img');
+    const img = pic.querySelector("img");
     if (!img) return;
 
-    img.style.transition = 'transform 0.2s ease';
-    img.style.transformOrigin = 'center center';
-    img.style.transform = 'scale(1)';
+    img.style.transition = "transform 0.2s ease";
+    img.style.transformOrigin = "center center";
+    img.style.transform = "scale(1)";
   }, []);
 
   const getSlidesPerView = () => {
@@ -180,12 +198,12 @@ export const DetailProduct = () => {
         const mouseMoveListener = (e: MouseEvent) => handleMouseMove(index, e);
         const mouseLeaveListener = () => handleMouseLeave(index);
 
-        pic.addEventListener('mousemove', mouseMoveListener);
-        pic.addEventListener('mouseleave', mouseLeaveListener);
+        pic.addEventListener("mousemove", mouseMoveListener);
+        pic.addEventListener("mouseleave", mouseLeaveListener);
 
         return () => {
-          pic.removeEventListener('mousemove', mouseMoveListener);
-          pic.removeEventListener('mouseleave', mouseLeaveListener);
+          pic.removeEventListener("mousemove", mouseMoveListener);
+          pic.removeEventListener("mouseleave", mouseLeaveListener);
         };
       });
     }
@@ -196,17 +214,17 @@ export const DetailProduct = () => {
   }, []);
 
   useEffect(() => {
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
     if (!isNullOrUndefined(selectedId)) {
-      body?.classList.add('no-overflow');
+      body?.classList.add("no-overflow");
     } else {
-      body?.classList.remove('no-overflow');
+      body?.classList.remove("no-overflow");
     }
   }, [selectedId]);
 
   return (
     <Fragment>
-      <Meta title={'Product detail'} />
+      <Meta title={"Product detail"} />
       <div className={styles.detail}>
         <motion.div
           transition={{ duration: 0.4 }}
@@ -215,18 +233,18 @@ export const DetailProduct = () => {
           exit={{ opacity: 0 }}
         >
           <Container className={styles.container}>
-            <Row className={styles['container-internal']}>
+            <Row className={styles["container-internal"]}>
               <Row className={styles.content}>
                 <Col className={styles.left}>
                   <Row>
-                    <Col alignment={'center'}>
+                    <Col alignment={"center"}>
                       <Limited />
                     </Col>
-                    <Col alignment={'center'}>
+                    <Col alignment={"center"}>
                       <h1>
                         “
                         <ScrambleText
-                          tag={'b'}
+                          tag={"b"}
                           text={specifiItem?.name.title as string}
                         />
                         ”
@@ -234,18 +252,18 @@ export const DetailProduct = () => {
                         <ScrambleText text={specifiItem?.name.type as string} />
                       </h1>
                     </Col>
-                    <Col alignment={'center'}>
+                    <Col alignment={"center"}>
                       <p>
                         {specifiItem?.description[0]} <br />
                         {specifiItem?.description[1]}
                       </p>
                     </Col>
-                    <Col alignment={'center'}>
+                    <Col alignment={"center"}>
                       <span className={styles.span}>
                         {formatCurrency.format(Number(specifiItem?.price))}
                       </span>
                     </Col>
-                    <Col className={styles.sizes} alignment={'center'}>
+                    <Col className={styles.sizes} alignment={"center"}>
                       <span>SIZE</span>
                       <div>
                         <SizeSelector
@@ -258,12 +276,12 @@ export const DetailProduct = () => {
                         />
                       </div>
                     </Col>
-                    <Col className={styles.button} alignment={'center'}>
+                    <Col className={styles.button} alignment={"center"}>
                       <motion.button
                         whileHover={!size ? {} : { scale: 1.05 }}
                         whileTap={!size ? {} : { scale: 0.95 }}
                         transition={{
-                          type: 'spring',
+                          type: "spring",
                           duration: 1.5,
                           bounce: 0.6,
                         }}
@@ -277,28 +295,28 @@ export const DetailProduct = () => {
                 </Col>
                 <Col className={styles.right}>
                   <motion.div
-                    layoutId={'pic1'}
+                    layoutId={"pic1"}
                     ref={(el) => (picRefs.current[0] = el)}
                     className={clsx([styles.pic1])}
-                    onClick={() => setSelectedId('pic1')}
+                    onClick={() => setSelectedId("pic1")}
                   >
-                    <LazyLoadImage src={specifiItem?.images[0]} alt={'one'} />
+                    <LazyLoadImage src={specifiItem?.images[0]} alt={"one"} />
                   </motion.div>
                   <motion.div
-                    layoutId={'pic2'}
+                    layoutId={"pic2"}
                     ref={(el) => (picRefs.current[1] = el)}
                     className={clsx([styles.pic2])}
-                    onClick={() => setSelectedId('pic2')}
+                    onClick={() => setSelectedId("pic2")}
                   >
-                    <LazyLoadImage src={specifiItem?.images[1]} alt={'two'} />
+                    <LazyLoadImage src={specifiItem?.images[1]} alt={"two"} />
                   </motion.div>
                   <motion.div
-                    layoutId={'pic3'}
+                    layoutId={"pic3"}
                     ref={(el) => (picRefs.current[2] = el)}
                     className={clsx([styles.pic3])}
-                    onClick={() => setSelectedId('pic3')}
+                    onClick={() => setSelectedId("pic3")}
                   >
-                    <LazyLoadImage src={specifiItem?.images[2]} alt={'three'} />
+                    <LazyLoadImage src={specifiItem?.images[2]} alt={"three"} />
                   </motion.div>
                 </Col>
               </Row>
@@ -312,13 +330,13 @@ export const DetailProduct = () => {
                   <motion.div layoutId={selectedId}>
                     <LazyLoadImage
                       src={
-                        selectedId === 'pic1'
+                        selectedId === "pic1"
                           ? specifiItem?.images[0]
-                          : selectedId === 'pic2'
+                          : selectedId === "pic2"
                             ? specifiItem?.images[1]
                             : specifiItem?.images[2]
                       }
-                      alt={'zoom-image'}
+                      alt={"zoom-image"}
                     />
                   </motion.div>
                 </motion.div>
@@ -338,7 +356,7 @@ export const DetailProduct = () => {
             </AnimatePresence>
           </Container>
 
-          <Row tag={'footer'}>
+          <Row tag={"footer"}>
             <Container className={styles.contfooter}>
               <div className={styles.header}>
                 <span>{language.footer.title}</span>
@@ -376,31 +394,31 @@ export const DetailProduct = () => {
                   {alsoLikeItems.map((item) => (
                     <SwiperSlide
                       key={item.id}
-                      className={styles['shirt-container']}
+                      className={styles["shirt-container"]}
                     >
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{
-                          type: 'spring',
+                          type: "spring",
                           damping: 25,
                           stiffness: 120,
                         }}
-                        role={'button'}
+                        role={"button"}
                         tabIndex={0}
-                        className={styles['shirt-item']}
+                        className={styles["shirt-item"]}
                         onClick={() => {
                           window.scroll({
-                            behavior: 'smooth',
+                            behavior: "smooth",
                             top: 0,
                             left: 0,
                           });
                           navigate(`/shop/product/${item.id}`);
                         }}
                         onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
+                          if (e.key === "Enter") {
                             window.scroll({
-                              behavior: 'smooth',
+                              behavior: "smooth",
                               top: 0,
                               left: 0,
                             });
@@ -410,7 +428,7 @@ export const DetailProduct = () => {
                       >
                         <LazyLoadImage
                           src={item.image}
-                          className={item.className ?? ''}
+                          className={item.className ?? ""}
                           alt={item.name.title}
                         />
                         <div>
@@ -426,30 +444,30 @@ export const DetailProduct = () => {
                   <div
                     ref={prevRef}
                     className={clsx([
-                      styles['btn-arrow'],
-                      styles['button-prev'],
+                      styles["btn-arrow"],
+                      styles["button-prev"],
                       swiper && swiper?.activeIndex === 0
                         ? styles.disabled
-                        : '',
+                        : "",
                     ])}
                     aria-disabled={swiper?.activeIndex === 0}
                   >
-                    <LazyLoadImage src={Arrow} alt={'Left arrow'} />
+                    <LazyLoadImage src={Arrow} alt={"Left arrow"} />
                   </div>
                   <div
                     ref={nextRef}
                     className={clsx([
-                      styles['btn-arrow'],
-                      styles['button-next'],
+                      styles["btn-arrow"],
+                      styles["button-next"],
                       swiper && swiper && isLastVisibleSlide()
                         ? styles.disabled
-                        : '',
+                        : "",
                     ])}
                     aria-disabled={
                       swiper?.activeIndex === (swiper?.slides?.length ?? 1) - 1
                     }
                   >
-                    <LazyLoadImage src={Arrow} alt={'Right arrow'} />
+                    <LazyLoadImage src={Arrow} alt={"Right arrow"} />
                   </div>
                 </Fragment>
               </div>

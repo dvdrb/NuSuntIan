@@ -8,35 +8,35 @@ import {
   useLayoutEffect,
   useState,
   useEffect,
-} from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useNavigate } from 'react-router-dom';
+} from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate } from "react-router-dom";
 
-import styles from './fragments.module.scss';
+import styles from "./fragments.module.scss";
 
-import { Meta, Row, ScrambleText } from 'components';
+import { Meta, Row, ScrambleText } from "components";
 
-import { ClothesType } from 'enum/shop.enum';
-import { motion } from 'framer-motion';
+import { ClothesType } from "enum/shop.enum";
+import { motion } from "framer-motion";
 import {
   clsx,
   formatCurrency,
   isNullOrUndefined,
-} from 'helpers/utils/HTMLUtils';
-import language from 'locales/language';
-import { useCartStore } from 'store/cartStore';
-import { ShopifyProduct } from 'helpers/utils/api/shopifyService'; // Import your fetch function
-import { clothes } from 'store/data';
+} from "helpers/utils/HTMLUtils";
+import language from "locales/language";
+import { useCartStore } from "store/cartStore";
+import { ShopifyProduct } from "helpers/utils/api/shopifyService"; // Import your fetch function
+import { clothes } from "store/data";
 
 // Function to fetch products from Shopify Storefront API
-const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
+export const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
   const response = await fetch(
-    'https://ianheadquarters.myshopify.com/api/2025-04/graphql.json',
+    "https://ianheadquarters.myshopify.com/api/2025-04/graphql.json",
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': '272ad7957566fc7e85fac151033d4505', // Replace with your access token
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": "272ad7957566fc7e85fac151033d4505", // Replace with your access token
       },
       body: JSON.stringify({
         query: `
@@ -83,14 +83,14 @@ const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
 
   const data = await response.json();
   const newProducts = data.data.products.edges.map((edge: any) => ({
-    id: edge.node.id.split('/').pop(),
+    id: edge.node.id.split("/").pop(),
     name: { title: edge.node.title, type: edge.node.category.name },
-    description: [edge.node.description, ''],
-    image: edge.node.images.edges[0]?.node.src || '',
+    description: [edge.node.description, ""],
+    image: edge.node.images.edges[0]?.node.src || "",
     price: parseFloat(edge.node.variants.edges[0].node.priceV2.amount),
-    color: { color: 'default', label: 'Default' },
+    color: { color: "default", label: "Default" },
     quantity: 1,
-    availableSizes: ['S', 'M', 'L', 'XL', '2XL'],
+    availableSizes: ["S", "M", "L", "XL", "2XL"],
     images: edge.node.images.edges.slice(1).map((img: any) => img.node.src),
   }));
 
@@ -101,15 +101,15 @@ const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
   clothes.push(...newProducts); // ✅ Push only current fetch
 
   return data.data.products.edges.map((edge: any) => ({
-    id: edge.node.id.split('/').pop(),
+    id: edge.node.id.split("/").pop(),
     name: { title: edge.node.title, type: edge.node.category.name }, // Adjust this as needed
-    description: [edge.node.description, ''], // Sample description, you can modify this as needed
-    image: edge.node.images.edges[0]?.node.src || '',
+    description: [edge.node.description, ""], // Sample description, you can modify this as needed
+    image: edge.node.images.edges[0]?.node.src || "",
 
     price: parseFloat(edge.node.variants.edges[0].node.priceV2.amount),
-    color: { color: 'default', label: 'Default' }, // Adjust based on your data model
+    color: { color: "default", label: "Default" }, // Adjust based on your data model
     quantity: 1,
-    availableSizes: ['S', 'M', 'L', 'XL', '2XL'], // You can adjust this as needed
+    availableSizes: ["S", "M", "L", "XL", "2XL"], // You can adjust this as needed
     images: edge.node.images.edges.slice(1).map((img: any) => img.node.src), // ✅ Other 3 images
   }));
 };
@@ -127,7 +127,7 @@ export const AvailableProducts = () => {
         const fetchedProducts = await fetchProductsFromShopify(); // Fetch products from Shopify
         setProducts(fetchedProducts || []); // Ensure it's an array
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -158,24 +158,24 @@ export const AvailableProducts = () => {
   };
 
   useLayoutEffect(() => {
-    window.scrollTo({ behavior: 'smooth', top: 0 });
+    window.scrollTo({ behavior: "smooth", top: 0 });
   }, []);
 
   return (
     <Fragment>
-      <Meta title={'Product detail'} />
+      <Meta title={"Product detail"} />
       <motion.div
         transition={{ duration: 0.6 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <div className={styles['available-products']}>
+        <div className={styles["available-products"]}>
           <header className={styles.header}>
             <div>
               <motion.button
                 className={clsx(
-                  styles['nav-button'],
+                  styles["nav-button"],
                   sortType === ClothesType.SHIRT && styles.active
                 )}
                 variants={itemAnim}
@@ -190,7 +190,7 @@ export const AvailableProducts = () => {
               </motion.button>
               <motion.button
                 className={clsx(
-                  styles['nav-button'],
+                  styles["nav-button"],
                   sortType === ClothesType.HOODIE && styles.active
                 )}
                 variants={itemAnim}
@@ -205,7 +205,7 @@ export const AvailableProducts = () => {
               </motion.button>
               <motion.button
                 className={clsx(
-                  styles['nav-button'],
+                  styles["nav-button"],
                   sortType === ClothesType.SHORTS && styles.active
                 )}
                 variants={itemAnim}
@@ -220,7 +220,7 @@ export const AvailableProducts = () => {
               </motion.button>
               <motion.button
                 className={clsx(
-                  styles['nav-button'],
+                  styles["nav-button"],
                   sortType === undefined && styles.active
                 )}
                 variants={itemAnim}
@@ -236,7 +236,7 @@ export const AvailableProducts = () => {
             </div>
             <h1>{language.pages.shop.ends()}</h1>
           </header>
-          <Row className={styles['clothes-content']}>
+          <Row className={styles["clothes-content"]}>
             {/* Ensure products is defined before rendering */}
             {products && sortedItems(sortType!).length > 0 ? (
               sortedItems(sortType!).map((clothes) => (
@@ -262,24 +262,24 @@ const ClothesItem = memo(({ clothes, navigate }: any) => (
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     transition={{
-      type: 'spring',
+      type: "spring",
       damping: 25,
       stiffness: 120,
     }}
     className={clsx([
-      styles['shirt-item'],
-      clothes.name.type === ClothesType.HOODIE ? styles.hoodie : '',
+      styles["shirt-item"],
+      clothes.name.type === ClothesType.HOODIE ? styles.hoodie : "",
     ])}
     onClick={() => navigate(`/shop/product/${clothes.id}`)}
   >
     <LazyLoadImage
       src={clothes.image}
-      className={clothes.className ?? ''}
+      className={clothes.className ?? ""}
       alt={clothes.name.title}
     />
     <div className={styles.description}>
       <ScrambleText
-        tag={'h6'}
+        tag={"h6"}
         text={`“${clothes.name.title}” ${clothes.name.type}`}
       />
       <p>{clothes.description[1]}</p>
@@ -288,4 +288,4 @@ const ClothesItem = memo(({ clothes, navigate }: any) => (
   </motion.div>
 ));
 
-ClothesItem.displayName = 'ClothesItem';
+ClothesItem.displayName = "ClothesItem";
