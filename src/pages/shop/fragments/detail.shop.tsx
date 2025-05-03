@@ -31,6 +31,7 @@ import Limited from "assets/icons/limited-product.svg?react";
 import { ScreenSize } from "enum/screensizes.enum";
 import { type Colors } from "enum/shop.enum";
 import { AnimatePresence, motion } from "framer-motion";
+import { OmitClothes } from "store/cartStore";
 import {
   clsx,
   formatCurrency,
@@ -40,7 +41,7 @@ import useScreenSize from "hooks/useScreenSize";
 import languageValues from "locales/language";
 import { useCartStore } from "store/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { fetchProductsFromShopify } from "./available.shop";
+import { clothes } from "store/data";
 
 const language = languageValues.pages.shop.productView;
 
@@ -49,11 +50,96 @@ type Breakpoints = {
     slidesPerView: number;
   };
 };
+const fetchProductVariants = async (productGid: string) => {
+  const response = await fetch(
+    "https://ianheadquarters.myshopify.com/api/2025-04/graphql.json",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": "272ad7957566fc7e85fac151033d4505",
+      },
+      body: JSON.stringify({
+        query: `query getProduct($id: ID!) {
+          product(id: $id) {
+            id
+            title
+            variants(first: 100) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+          }
+        }`,
+        variables: {
+          id: productGid,
+        },
+      }),
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok || result.errors) {
+    throw new Error(
+      result.errors?.[0]?.message || "Failed to fetch product variants"
+    );
+  }
+
+  return result.data.product.variants.edges.map((edge: any) => edge.node);
+};
+import { ClothesType } from "store/data";
+import { fetchProductsFromShopify } from "./available.shop";
+
+export const enrichClothesInPlace = async () => {
+  for (const product of clothes) {
+    const productGid = `gid://shopify/Product/${product.id}`;
+
+    try {
+      const fetchedVariants = await fetchProductVariants(productGid);
+
+      const formattedVariants: ClothesType[] = fetchedVariants.map((v: any) => {
+        const size =
+          v.selectedOptions.find((o: any) => o.name === "Size")?.value || "";
+        const colorValue =
+          v.selectedOptions.find((o: any) => o.name === "Color")?.value || "";
+
+        return {
+          ...product,
+          id: v.id.split("/").pop()!, // Shopify variant ID (short)
+          size,
+          color: {
+            color: "", // optionally map to HEX or similar
+            label: colorValue,
+          },
+          variants: undefined, // avoid recursive nesting
+        };
+      });
+
+      // 🔁 Mutate directly
+      product.variants = formattedVariants;
+    } catch (error) {
+      console.error(
+        `Failed to fetch variants for product ${product.id}`,
+        error
+      );
+    }
+  }
+};
 
 export const DetailProduct = () => {
   const [size, setSize] = useState<string>("");
   const [resetSize, setResetSize] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [specifiItem, setSpecifiItem] = useState<OmitClothes | null>(null);
   const [swiper, setSwiper] = useState<{
     activeIndex: number;
     slides: unknown[] | undefined;
@@ -66,43 +152,41 @@ export const DetailProduct = () => {
     color: "",
     label: "",
   });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Wait for the product fetch to complete
+        await fetchProductsFromShopify();
+
+        // Then enrich the products
+        await enrichClothesInPlace();
+        items.find((item) => {
+          if (item.id === params.id) {
+            setSpecifiItem(item);
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching and enriching products:", error);
+      }
+    };
+
+    fetchData(); // Call the async function
+  }, []); // Empty dependency array means this runs only once on mount
 
   const navigate = useNavigate();
   const params = useParams();
-
   const [items, addToCart, toggleMenu] = useCartStore((state) => [
     state.availableItems,
     state.addToCart,
     state.toggleMenu,
   ]);
-
   const picRefs = useRef<Array<HTMLDivElement | null>>([null, null, null]);
 
   const { size: value, rankedSize: ranked } = useScreenSize();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const isMobile = useMemo(() => ranked <= ScreenSize.sm, [value]);
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch data only if items is empty
-    if (items.length === 0) {
-      const fetchData = async () => {
-        await fetchProductsFromShopify();
-        setLoading(false);
-      };
-
-      fetchData();
-    } else {
-      setLoading(false); // Set loading to false if items are already available
-    }
-  }, [items]); // Runs when items change, triggering fetch only when empty
-
-  const specifiItem = useMemo(() => {
-    // Check if data is loaded and find the specific item
-    if (loading || !items?.length || !params.id) return null;
-    return items.find((item) => String(item.id) === String(params.id));
-  }, [items, params.id, loading]);
+  console.log(specifiItem);
 
   const alsoLikeItems = useMemo(() => {
     return items
@@ -128,15 +212,32 @@ export const DetailProduct = () => {
   );
 
   const handleClick = useCallback(() => {
+    if (!specifiItem?.variants) return;
+
+    // Find the variant matching the selected size
+    const selectedVariant = specifiItem.variants.find(
+      (variant) => variant.size === size
+    );
+
+    if (!selectedVariant) {
+      console.warn("Variant not found for selected size");
+      return;
+    }
+    console.log(selectedVariant);
+    console.log(specifiItem);
+    // Create the item to be added to the cart using the specific variant
     const newItem = {
-      ...specifiItem!,
-      id: crypto.randomUUID(),
-      size: size,
-      color: color,
-      quantity: 1,
+      ...specifiItem,
+      id: selectedVariant.id, // Use the specific variant ID
+      size: selectedVariant.size,
+      color: selectedVariant.color, // Optional: You can still include color if you want
+      quantity: 1, // Default quantity
     };
 
+    // Add the item to the cart
     addToCart(newItem);
+
+    // Reset size and color selections
     setResetSize(true);
     setTimeout(() => {
       toggleMenu();
@@ -144,7 +245,7 @@ export const DetailProduct = () => {
       setColor({ label: "", color: "" });
       setSize("");
     }, 150);
-  }, [specifiItem, size, color, addToCart, toggleMenu]);
+  }, [specifiItem, size, addToCart, toggleMenu]);
 
   const handleMouseMove = useCallback((index: number, e: MouseEvent) => {
     const pic = picRefs.current[index];
@@ -432,7 +533,7 @@ export const DetailProduct = () => {
                           alt={item.name.title}
                         />
                         <div>
-                          <h6>{`“${item.name.title}” ${item.name.type}`}</h6>
+                          <h6>{`${item.name.title}” ${item.name.type}`}</h6>
                           <p>{item.description[1]}</p>
                           <p>{formatCurrency.format(item.price)}</p>
                         </div>

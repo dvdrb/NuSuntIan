@@ -1,14 +1,14 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import type { ClothesType } from './data';
-import { clothes } from './data';
+import type { ClothesType } from "./data";
+import { clothes } from "./data";
 
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-type OmitClothes = Omit<ClothesType, 'quantity' | 'size'>;
-type OmitClothesCN = Omit<ClothesType, 'className'>;
+export type OmitClothes = Omit<ClothesType, "quantity" | "size">;
+type OmitClothesCN = Omit<ClothesType, "className">;
 
 type CartStore = {
   availableItems: OmitClothes[];
@@ -79,10 +79,10 @@ export const useCartStore = create<CartStore>()(
       partialize: (state) =>
         Object.fromEntries(
           Object.entries(state).filter(
-            ([key]) => !['availableItems', 'openMenu'].includes(key)
+            ([key]) => !["availableItems", "openMenu"].includes(key)
           )
         ),
-      name: 'cart',
+      name: "cart",
     }
   )
 );
