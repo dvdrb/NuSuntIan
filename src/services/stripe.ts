@@ -1,12 +1,12 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import api from './api';
+import api from "./api";
 
-import { useMutation, useQuery } from '@tanstack/react-query';
-import type { ExtraQueryParams } from 'helpers/utils/reactQuery';
-import { Mutations, Queries } from 'libraries/queries';
-import type { ClothesType } from 'store/data';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import type { ExtraQueryParams } from "helpers/utils/reactQuery";
+import { Mutations, Queries } from "libraries/queries";
+import type { ClothesType } from "store/data";
 
 const createCartMutation = `
   mutation cartCreate($lines: [CartLineInput!]!) {
@@ -32,31 +32,34 @@ export const useShopifyCreateOrder = () => {
   const mutationFn = async ({
     items,
   }: {
-    items: Omit<ClothesType, 'className'>[];
+    items: Omit<ClothesType, "className">[];
   }) => {
     const lines = items.map((item) => ({
       merchandiseId: `gid://shopify/ProductVariant/${item.id}`, // make sure this exists on each item
       quantity: item.quantity ?? 1,
     }));
 
-    const response = await fetch(import.meta.env.VITE_SHOPIFY_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': import.meta.env
-          .VITE_SHOPIFY_ACCESS_TOKEN,
-      },
-      body: JSON.stringify({
-        query: createCartMutation,
-        variables: { lines },
-      }),
-    });
+    const response = await fetch(
+      "https://ianheadquarters.myshopify.com/api/2025-04/graphql.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token":
+            " 272ad7957566fc7e85fac151033d4505",
+        },
+        body: JSON.stringify({
+          query: createCartMutation,
+          variables: { lines },
+        }),
+      }
+    );
 
     const result = await response.json();
 
     if (!response.ok || result.errors) {
       throw new Error(
-        result.errors?.[0]?.message || 'Shopify cart creation failed'
+        result.errors?.[0]?.message || "Shopify cart creation failed"
       );
     }
 
@@ -102,7 +105,7 @@ export const useStripeRefund = () => {
   const mutationFn = (data: { sessionId: string }) => {
     return api.post(url, JSON.stringify({ session_id: data.sessionId }), {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   };
