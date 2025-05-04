@@ -152,27 +152,6 @@ export const DetailProduct = () => {
     color: "",
     label: "",
   });
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Wait for the product fetch to complete
-        await fetchProductsFromShopify();
-
-        // Then enrich the products
-        await enrichClothesInPlace();
-        items.find((item) => {
-          if (item.id === params.id) {
-            setSpecifiItem(item);
-          }
-        });
-      } catch (error) {
-        console.error("Error fetching and enriching products:", error);
-      }
-    };
-
-    fetchData(); // Call the async function
-  }, []); // Empty dependency array means this runs only once on mount
-
   const navigate = useNavigate();
   const params = useParams();
   const [items, addToCart, toggleMenu] = useCartStore((state) => [
@@ -180,6 +159,61 @@ export const DetailProduct = () => {
     state.addToCart,
     state.toggleMenu,
   ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch products only if the cart store is empty
+        if (!items || items.length === 0) {
+          await fetchProductsFromShopify();
+        }
+
+        const productId = params.id;
+        const matchingItem = clothes.find((item) => item.id === productId);
+
+        if (!matchingItem) {
+          console.warn(`No product found with id ${productId}`);
+          return;
+        }
+
+        // Enrich only the matching product's variants
+        const productGid = `gid://shopify/Product/${productId}`;
+        const fetchedVariants = await fetchProductVariants(productGid);
+
+        const formattedVariants: ClothesType[] = fetchedVariants.map(
+          (v: any) => {
+            const size =
+              v.selectedOptions.find((o: any) => o.name === "Size")?.value ||
+              "";
+            const colorValue =
+              v.selectedOptions.find((o: any) => o.name === "Color")?.value ||
+              "";
+
+            return {
+              ...matchingItem,
+              id: v.id.split("/").pop()!,
+              size,
+              color: {
+                color: "", // optionally map to HEX or similar
+                label: colorValue,
+              },
+              variants: undefined,
+            };
+          }
+        );
+
+        // Mutate only the matching item
+        matchingItem.variants = formattedVariants;
+
+        // Update state
+        setSpecifiItem(matchingItem);
+      } catch (error) {
+        console.error("Error fetching and enriching product:", error);
+      }
+    };
+
+    fetchData();
+  }, [items, params.id]);
+
   const picRefs = useRef<Array<HTMLDivElement | null>>([null, null, null]);
 
   const { size: value, rankedSize: ranked } = useScreenSize();
