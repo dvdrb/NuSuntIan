@@ -137,6 +137,14 @@ export default function Music() {
     window.scroll({ behavior: "smooth", top: 0, left: 0 });
   }, []);
 
+  type Playlist = {
+    appleMusic?: string;
+    appleMusicWeb?: string;
+    spotify?: string;
+    spotifyWeb?: string;
+    youtube?: string;
+  };
+
   const openPlaylist = ({
     isAppleMusic = false,
     isYoutube = false,
@@ -146,7 +154,7 @@ export default function Music() {
     isYoutube?: boolean;
     isSpotify?: boolean;
   }) => {
-    const playlists = [
+    const playlists: Playlist[] = [
       {
         appleMusic:
           "music://music.apple.com/br/album/voodoo/1603420607?l=en-GB",
@@ -185,7 +193,7 @@ export default function Music() {
     ];
 
     const currentIndex = swiper?.activeIndex ?? 0;
-    const currentPlaylist = playlists[currentIndex];
+    const currentPlaylist = playlists[currentIndex] || {};
 
     const playlistUrlApp = isAppleMusic
       ? currentPlaylist.appleMusic
