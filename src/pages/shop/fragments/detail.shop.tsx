@@ -230,7 +230,7 @@ export const DetailProduct = () => {
       ...specifiItem,
       id: selectedVariant.id, // Use the specific variant ID
       size: selectedVariant.size,
-      color: selectedVariant.color, // Optional: You can still include color if you want
+      color: color, // Optional: You can still include color if you want
       quantity: 1, // Default quantity
     };
 
