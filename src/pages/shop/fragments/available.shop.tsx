@@ -24,7 +24,6 @@ import {
   isNullOrUndefined,
 } from "helpers/utils/HTMLUtils";
 import language from "locales/language";
-import { useCartStore } from "store/cartStore";
 import { ShopifyProduct } from "helpers/utils/api/shopifyService"; // Import your fetch function
 import { clothes } from "store/data";
 
@@ -117,7 +116,6 @@ export const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
 export const AvailableProducts = () => {
   const [sortType, setSortType] = useState<ClothesType | undefined>(undefined);
   const [products, setProducts] = useState<ShopifyProduct[]>([]); // State for products
-  const items = useCartStore((state) => state.availableItems);
   const navigate = useNavigate();
 
   useEffect(() => {
