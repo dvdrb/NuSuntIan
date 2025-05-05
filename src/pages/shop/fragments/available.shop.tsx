@@ -118,7 +118,6 @@ export const AvailableProducts = () => {
   const [sortType, setSortType] = useState<ClothesType | undefined>(undefined);
   const [products, setProducts] = useState<ShopifyProduct[]>([]); // State for products
   const items = useCartStore((state) => state.availableItems);
-  console.log(items);
   const navigate = useNavigate();
 
   useEffect(() => {

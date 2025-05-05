@@ -46,13 +46,6 @@ export default function Menu({ onClose }: MenuType) {
       {
         onSuccess: async (cartData) => {
           // Instead of using Stripe, use the Shopify checkout URL
-          const checkoutUrl = cartData.checkoutUrl;
-          const returnTo = encodeURIComponent(
-            "https://nu-sunt-ian.vercel.app//shop"
-          ); // Change this to your desired return path
-          const url = new URL(checkoutUrl);
-          url.searchParams.set("return_to", returnTo);
-          // Get the checkout URL from the Shopify response
 
           addToOrder(items as unknown as ClothesType);
 
@@ -61,7 +54,7 @@ export default function Menu({ onClose }: MenuType) {
           }, 100);
 
           // Redirect the user to Shopify's checkout page
-          window.location.href = url.toString(); // Redirects to Shopify checkout page
+          window.location.href = cartData.checkoutUrl.toString(); // Redirects to Shopify checkout page
         },
         onError: () => {
           toast.error("There was an error, please wait and try again later", {

@@ -37,6 +37,35 @@ export default function Modal() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const isMobileDevice = useMemo(() => ranked <= ScreenSize.sm, [value]);
 
+  const submit = async ({ email }: { email?: string }) => {
+    if (!email) {
+      console.error("Email is required");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbzFSCa6n5ltMHxneGFLB7IrHrKA8A3uF-2YkVGGanZcXC-4nd4tnxxJG5Fu2u7HUanKng/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `email=${encodeURIComponent(email)}`,
+        }
+      );
+
+      const text = await response.text();
+      if (text === "Success") {
+        console.log("Email submitted to Google Sheets!");
+      } else {
+        console.error("Submission error:", text);
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+    }
+  };
+
   const {
     register,
     reset,
@@ -45,22 +74,6 @@ export default function Modal() {
   } = useForm<NeverMissSchemaType>({
     resolver: zodResolver(NeverMissSchema),
   });
-
-  const submit = (_: { email?: string }) => {
-    if (!_.email) {
-      console.error("Email is required");
-      return;
-    }
-
-    // todosRef.push({
-    //   id: crypto.randomUUID(),
-    //   date: new Date().toISOString(),
-    //   isDev: (import.meta.env.VITE_NODE_ENV as string) === 'development',
-    //   email: _.email,
-    // });
-
-    return;
-  };
 
   useEffect(() => {
     setTimeout(() => {

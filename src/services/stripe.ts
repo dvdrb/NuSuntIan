@@ -70,7 +70,7 @@ export const useShopifyCreateOrder = () => {
     mutationKey: [Mutations.PostCreateOrder],
     mutationFn,
     retry: 1,
-    retryDelay: 2000,
+    retryDelay: 1000,
     gcTime: Infinity,
   });
 };

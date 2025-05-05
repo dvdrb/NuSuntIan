@@ -160,22 +160,26 @@ export const DetailProduct = () => {
     state.toggleMenu,
   ]);
   useEffect(() => {
-    const fetchData = async () => {
+    const productId = params.id;
+
+    // Show product details immediately
+    if (!items || items.length === 0) {
+      fetchProductsFromShopify().then(() => {
+        const item = clothes.find((item) => item.id === productId);
+        if (item) setSpecifiItem(item);
+        enrichVariants();
+      });
+    } else {
+      const item = clothes.find((item) => item.id === productId);
+      if (item) setSpecifiItem(item);
+    }
+
+    // Enrich variants in the background
+    const enrichVariants = async () => {
+      const baseItem = clothes.find((item) => item.id === productId);
+      if (!baseItem) return;
+
       try {
-        // Fetch products only if the cart store is empty
-        if (!items || items.length === 0) {
-          await fetchProductsFromShopify();
-        }
-
-        const productId = params.id;
-        const matchingItem = clothes.find((item) => item.id === productId);
-
-        if (!matchingItem) {
-          console.warn(`No product found with id ${productId}`);
-          return;
-        }
-
-        // Enrich only the matching product's variants
         const productGid = `gid://shopify/Product/${productId}`;
         const fetchedVariants = await fetchProductVariants(productGid);
 
@@ -189,11 +193,11 @@ export const DetailProduct = () => {
               "";
 
             return {
-              ...matchingItem,
+              ...baseItem,
               id: v.id.split("/").pop()!,
               size,
               color: {
-                color: "", // optionally map to HEX or similar
+                color: "", // Optional: Map to HEX
                 label: colorValue,
               },
               variants: undefined,
@@ -201,17 +205,14 @@ export const DetailProduct = () => {
           }
         );
 
-        // Mutate only the matching item
-        matchingItem.variants = formattedVariants;
-
-        // Update state
-        setSpecifiItem(matchingItem);
+        baseItem.variants = formattedVariants;
+        setSpecifiItem({ ...baseItem });
       } catch (error) {
-        console.error("Error fetching and enriching product:", error);
+        console.error("Error enriching variants:", error);
       }
     };
 
-    fetchData();
+    enrichVariants();
   }, [items, params.id]);
 
   const picRefs = useRef<Array<HTMLDivElement | null>>([null, null, null]);
@@ -219,8 +220,6 @@ export const DetailProduct = () => {
   const { size: value, rankedSize: ranked } = useScreenSize();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const isMobile = useMemo(() => ranked <= ScreenSize.sm, [value]);
-
-  console.log(specifiItem);
 
   const alsoLikeItems = useMemo(() => {
     return items
@@ -257,8 +256,7 @@ export const DetailProduct = () => {
       console.warn("Variant not found for selected size");
       return;
     }
-    console.log(selectedVariant);
-    console.log(specifiItem);
+
     // Create the item to be added to the cart using the specific variant
     const newItem = {
       ...specifiItem,
