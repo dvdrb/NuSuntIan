@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import format from "dayjs/plugin/customParseFormat";
 import "react-toastify/dist/ReactToastify.css";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 
 dayjs.extend(format);
 
@@ -35,6 +36,7 @@ function App(): JSX.Element {
         />
       </QueryClientProvider>
       <SpeedInsights />
+      <Analytics />
     </Fragment>
   );
 }
