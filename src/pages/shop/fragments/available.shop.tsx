@@ -244,7 +244,7 @@ export const AvailableProducts = () => {
                 />
               ))
             ) : (
-              <p>No products found</p> // Display a fallback message
+              <p>Products coming soon — stay tuned !</p> // Display a fallback message
             )}
           </Row>
         </div>
