@@ -18,6 +18,8 @@ import YoutubeLogo from "assets/icons/youtube.svg?react";
 import Image1 from "assets/images/Image-1.webp";
 import Image2 from "assets/images/Image-2.webp";
 import Image3 from "assets/images/Image-3.webp";
+import Image4 from "assets/images/Image-4.webp";
+
 import { ScreenSize } from "enum/screensizes.enum";
 import { motion } from "framer-motion";
 import { clsx } from "helpers/utils/HTMLUtils";
@@ -48,13 +50,15 @@ export default function Music() {
   const getDateText = (index: number | undefined) => {
     switch (index) {
       case 0:
-        return "13 Feb. 2022";
+        return "22 May. 2025";
       case 1:
-        return "4 Jul. 2019";
-      case 2:
         return "24 Mar. 2024";
-      default:
+      case 2:
         return "13 Feb. 2022";
+      case 3:
+        return "4 Jul. 2019";
+      default:
+        return "22 May. 2025";
     }
   };
 
@@ -65,7 +69,7 @@ export default function Music() {
   };
 
   const renderText = (index: number | undefined) => {
-    return index === 0 ? (
+    return index === 2 ? (
       <Fragment>
         <div>
           {renderScrambleTexts([
@@ -94,7 +98,7 @@ export default function Music() {
           ])}
         </div>
       </Fragment>
-    ) : index === 1 ? (
+    ) : index === 3 ? (
       <div>
         {renderScrambleTexts([
           "Scuze mama",
@@ -112,7 +116,7 @@ export default function Music() {
           "60 De Zile II",
         ])}
       </div>
-    ) : index === 2 ? (
+    ) : index === 1 ? (
       <div>
         {renderScrambleTexts([
           "Peste",
@@ -126,6 +130,18 @@ export default function Music() {
           "Supernanny",
           "Oh My (ft. Bvcovia)",
           "Lunetist (ft. Oscar)",
+        ])}
+      </div>
+    ) : index === 0 ? (
+      <div>
+        {renderScrambleTexts([
+          "Momentu",
+          "Banii vin",
+          "Miley",
+          "Cat e ceasu",
+          "Serghei Mizil/Wizrd",
+          "Heavy Metal",
+          "HBA RMX",
         ])}
       </div>
     ) : (
@@ -157,6 +173,30 @@ export default function Music() {
     const playlists: Playlist[] = [
       {
         appleMusic:
+          "music://music.apple.com/us/album/voodoo-chronicles-vol-i/1814853744",
+        appleMusicWeb:
+          "https://music.apple.com/us/album/voodoo-chronicles-vol-i/1814853744",
+        spotify:
+          "spotify://album/36IxAFv88GZe1xhF3H0GnS?si=QsNXvyWsTjiEK0w31NGW6g",
+        spotifyWeb:
+          "https://open.spotify.com/album/36IxAFv88GZe1xhF3H0GnS?si=QsNXvyWsTjiEK0w31NGW6g",
+        youtube:
+          "https://www.youtube.com/watch?v=pxLqb8vhJSA&list=PLmlOshpuGAzw5WuVPxYTVRae6r01ROlM-",
+      },
+      {
+        appleMusic:
+          "music://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
+        appleMusicWeb:
+          "https://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
+        spotify:
+          "spotify://album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
+        spotifyWeb:
+          "https://open.spotify.com/album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
+        youtube:
+          "https://www.youtube.com/watch?v=ou0DSYzDTbs&list=PLmlOshpuGAzzyyG2tkcNlQOp9aJilRxi-",
+      },
+      {
+        appleMusic:
           "music://music.apple.com/br/album/voodoo/1603420607?l=en-GB",
         appleMusicWeb:
           "https://music.apple.com/br/album/voodoo/1603420607?l=en-GB",
@@ -178,17 +218,6 @@ export default function Music() {
           "https://open.spotify.com/album/4A9R8TRrRsslTgzsvMW4Ui?nd=1&dlsi=ca130cc75c8e4f3b",
         youtube:
           "https://www.youtube.com/watch?v=ou0DSYzDTbs&list=PLmlOshpuGAzzyyG2tkcNlQOp9aJilRxi-",
-      },
-      {
-        appleMusic:
-          "music://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
-        appleMusicWeb:
-          "https://music.apple.com/br/album/beast-mode/1736982730?l=en-GB",
-        spotify:
-          "spotify://album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
-        spotifyWeb:
-          "https://open.spotify.com/album/5GvT3AIUkQrWS3sLq4Lwdg?si=AQAS17yaSSelXw1TpJt6jQ",
-        youtube: "",
       },
     ];
 
@@ -247,23 +276,27 @@ export default function Music() {
                   <ScrambleText
                     tag={"h1"}
                     key={
-                      swiper?.activeIndex === 0
+                      swiper?.activeIndex === 2
                         ? "VOODOO"
-                        : swiper?.activeIndex === 1
+                        : swiper?.activeIndex === 3
                           ? "SLAYER"
-                          : swiper?.activeIndex === 2
+                          : swiper?.activeIndex === 1
                             ? "BEAST MODE"
-                            : "VOODOO"
+                            : swiper?.activeIndex === 0
+                              ? "VOODOO CHRONICLES, VOL. 1"
+                              : "VOODOO"
                     }
                     duration={0.4}
                     text={
-                      swiper?.activeIndex === 0
+                      swiper?.activeIndex === 2
                         ? "VOODOO"
-                        : swiper?.activeIndex === 1
+                        : swiper?.activeIndex === 3
                           ? "SLAYER"
-                          : swiper?.activeIndex === 2
+                          : swiper?.activeIndex === 1
                             ? "BEAST MODE"
-                            : "VOODOO"
+                            : swiper?.activeIndex === 0
+                              ? "VOODOO CHRONICLES, VOL. 1"
+                              : "VOODOO"
                     }
                   />
                 </div>
@@ -319,13 +352,16 @@ export default function Music() {
                       className={styles.slider}
                     >
                       <SwiperSlide>
-                        <img src={Image1} alt="first" />
+                        <img src={Image4} alt="first" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image2} alt="second" />
+                        <img src={Image3} alt="second" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image3} alt="three" />
+                        <img src={Image1} alt="third" />
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <img src={Image2} alt="forth" />
                       </SwiperSlide>
                     </Swiper>
                   </div>
@@ -357,7 +393,7 @@ export default function Music() {
                           className={clsx([
                             styles["button-arrow"],
                             styles["next"],
-                            swiper && swiper?.activeIndex === 2
+                            swiper && swiper?.activeIndex === 3
                               ? styles.disabled
                               : "",
                           ])}
@@ -396,7 +432,7 @@ export default function Music() {
                     >
                       <SpotifyLogo />
                     </motion.button>
-                    {swiper && swiper?.activeIndex <= 1 ? (
+                    {swiper && swiper?.activeIndex <= 3 ? (
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -426,23 +462,27 @@ export default function Music() {
                         <ScrambleText
                           tag={"h1"}
                           key={
-                            swiper?.activeIndex === 0
+                            swiper?.activeIndex === 2
                               ? "VOODOO"
-                              : swiper?.activeIndex === 1
+                              : swiper?.activeIndex === 3
                                 ? "SLAYER"
-                                : swiper?.activeIndex === 2
+                                : swiper?.activeIndex === 1
                                   ? "BEAST MODE"
-                                  : "VOODOO"
+                                  : swiper?.activeIndex === 0
+                                    ? "VOODOO CHRONICLES, VOL. 1"
+                                    : "VOODOO"
                           }
                           duration={0.4}
                           text={
-                            swiper?.activeIndex === 0
+                            swiper?.activeIndex === 2
                               ? "VOODOO"
-                              : swiper?.activeIndex === 1
+                              : swiper?.activeIndex === 3
                                 ? "SLAYER"
-                                : swiper?.activeIndex === 2
+                                : swiper?.activeIndex === 1
                                   ? "BEAST MODE"
-                                  : "VOODOO"
+                                  : swiper?.activeIndex === 0
+                                    ? "VOODOO CHRONICLES, VOL. 1"
+                                    : "VOODOO"
                           }
                         />
                       </div>
@@ -486,13 +526,16 @@ export default function Music() {
                           }}
                         >
                           <SwiperSlide>
-                            <img src={Image1} alt={"first"} />
+                            <img src={Image4} alt={"first"} />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image2} alt={"second"} />
+                            <img src={Image3} alt={"second"} />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image3} alt={"three"} />
+                            <img src={Image1} alt={"third"} />
+                          </SwiperSlide>
+                          <SwiperSlide>
+                            <img src={Image2} alt={"forth"} />
                           </SwiperSlide>
                         </Swiper>
                         {isMobileDevice ? (
@@ -523,7 +566,7 @@ export default function Music() {
                                 className={clsx([
                                   styles["button-arrow"],
                                   styles["next"],
-                                  swiper && swiper?.activeIndex === 2
+                                  swiper && swiper?.activeIndex === 3
                                     ? styles.disabled
                                     : "",
                                 ])}

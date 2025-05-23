@@ -1,16 +1,17 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { useEffect, useRef, useState } from 'react';
-import ReactPlayer from 'react-player';
+import { useEffect, useRef, useState } from "react";
+import ReactPlayer from "react-player";
 
-import styles from './background.module.scss';
+import styles from "./background.module.scss";
 
-import Beastmode from 'assets/video/BEASTMODE.webm';
-import Home from 'assets/video/shop-bg.webm';
-import Slayer from 'assets/video/SLAYER.webm';
-import Voodoo from 'assets/video/VOODOO.webm';
-import { clsx } from 'helpers/utils/HTMLUtils';
+import Beastmode from "assets/video/BEASTMODE.webm";
+import Home from "assets/video/shop-bg.webm";
+import Slayer from "assets/video/SLAYER.webm";
+import Voodoo from "assets/video/VOODOO.webm";
+import chronicles from "assets/video/chronicles.webm";
+import { clsx } from "helpers/utils/HTMLUtils";
 
 type BGType = {
   isHome?: boolean;
@@ -45,10 +46,10 @@ export default function Background({
         });
       };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener("scroll", handleScroll, { passive: true });
 
       return () => {
-        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener("scroll", handleScroll);
       };
     }
   }, [disableScroll]);
@@ -72,12 +73,14 @@ export default function Background({
     if (swipe) {
       const getVideoUrl = () => {
         switch (swipe.activeIndex) {
-          case 0:
-            return Voodoo;
-          case 1:
-            return Slayer;
           case 2:
+            return Voodoo;
+          case 3:
+            return Slayer;
+          case 1:
             return Beastmode;
+          case 0:
+            return chronicles;
           default:
             return Home;
         }
@@ -109,10 +112,10 @@ export default function Background({
         loop={true}
         playsinline={true}
         url={currentVideo}
-        width={'100%'}
-        height={'100%'}
+        width={"100%"}
+        height={"100%"}
         style={{
-          transition: 'opacity 0.3s ease-in-out',
+          transition: "opacity 0.3s ease-in-out",
           opacity: isTransitioning ? 0 : 1,
         }}
       />
