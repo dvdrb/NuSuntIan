@@ -1,6 +1,6 @@
-@use '~/assets/styles/constants' as *;
-@use '~/assets/styles/colors' as *;
-@use '~/assets/styles/mixins' as *;
+@use "~/assets/styles/constants" as *;
+@use "~/assets/styles/colors" as *;
+@use "~/assets/styles/mixins" as *;
 
 .root {
   overflow: hidden;
@@ -24,7 +24,8 @@
 
     h1 {
       text-transform: uppercase;
-
+      max-width: 600px;
+      text-align: center;
       @include font($size: 60px, $weight: 600);
     }
   }
@@ -232,7 +233,6 @@
         .hero-mobile {
           transition: height $transition-default;
           width: 100%;
-          height: calc(100dvh - var(--header-height));
 
           @include flexbox(
             $justifyContent: center,
@@ -255,7 +255,8 @@
             }
 
             h1 {
-              @include font($size: 42px, $weight: 600);
+              @include font($size: 32px, $weight: 600);
+              text-align: center;
             }
           }
 
