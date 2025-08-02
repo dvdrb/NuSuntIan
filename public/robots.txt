@@ -1,0 +1,12 @@
+# robots.txt for https://www.nusuntian.com
+
+User-agent: *
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /login/
+Disallow: /register/
+
+Allow: /
+
+Sitemap: https://www.nusuntian.com/sitemap.xml
