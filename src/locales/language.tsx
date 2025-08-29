@@ -1,27 +1,27 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from "react/jsx-runtime";
 
 const languageValues = {
-  'en-us': {
+  "en-us": {
     components: {
       buttons: {
-        checkout: 'CHECKOUT',
-        sort: 'SORT',
-        addCard: 'ADD TO CART',
-        accessDatabase: 'ACCESS DATABASE',
-        getOnTheList: 'GET ON THE LIST',
-        noThk: 'NO, THANKS',
-        goBack: 'GO BACK',
-        goHome: 'GO HOME',
-        goToShop: 'GO TO SHOP',
-        skip: 'SKIP INTRO',
-        all: 'ALL',
+        checkout: "CHECKOUT",
+        sort: "SORT",
+        addCard: "ADD TO CART",
+        accessDatabase: "ACCESS DATABASE",
+        getOnTheList: "GET ON THE LIST",
+        noThk: "NO, THANKS",
+        goBack: "GO BACK",
+        goHome: "GO HOME",
+        goToShop: "GO TO SHOP",
+        skip: "SKIP INTRO",
+        all: "ALL",
       },
       header: {
-        cart: 'CART',
-        empty: 'YOUR CART IS EMPTY',
+        cart: "CART",
+        empty: "YOUR CART IS EMPTY",
         subtotal: (price: string) => {
           return (
             <h3>
@@ -30,70 +30,66 @@ const languageValues = {
           );
         },
         buttons: {
-          home: 'HOME',
-          shop: 'MERCH',
-          about: 'ABOUT',
-          cart: 'CART',
-          music: 'MUSIC',
-          cancel: 'CANCEL',
-          tap: 'TAP HERE',
+          home: "HOME",
+          shop: "MERCH",
+          about: "ABOUT",
+          cart: "CART",
+          music: "MUSIC",
+          cancel: "CANCEL",
+          tap: "TAP HERE",
         },
       },
       footer: {
-        only: 'ONLY FOR BUSINESS',
+        only: "ONLY FOR BUSINESS",
         link: {
-          emphasys: 'help@',
-          normal: 'IANHQ.COM',
+          emphasys: "help@",
+          normal: "IANHQ.COM",
         },
-        politica: 'POLITICA RETUR',
-        store: 'STORE',
-        music: 'MUSIC',
-        about: 'ABOUT',
-        anpc: 'ANPC',
-        refund: 'REFUND POLITICS',
-        confidential: 'CONFIDENTIAL POLITICS',
-        terms: 'TERMS & CONDS',
-        anpcsal: 'ANPC SAL',
-        contact: 'CONTACT',
+        politica: "POLITICA RETUR",
+        store: "STORE",
+        music: "MUSIC",
+        about: "ABOUT",
+        anpc: "ANPC",
+        refund: "REFUND POLITICS",
+        confidential: "CONFIDENTIAL POLITICS",
+        terms: "TERMS & CONDS",
+        anpcsal: "ANPC SAL",
+        contact: "CONTACT",
       },
     },
     pages: {
       home: {},
       music: {
-        stream: 'Stream',
-        album: 'ALBUM',
-        explore: 'EXPLORE',
-        songs: 'SONGS',
-        written: 'Written & Performed by Ian',
-        swipeDown: 'Swipe down to listen',
+        stream: "Stream",
+        album: "ALBUM",
+        explore: "EXPLORE",
+        songs: "SONGS",
+        written: "Written & Performed by Ian",
+        swipeDown: "Swipe down to listen",
       },
       shop: {
         ends: () => {
-          return (
-            <Fragment>
-              Ends on <b>11 JULY</b>
-            </Fragment>
-          );
+          return <Fragment>{/* Ends on <b>11 JULY</b> */}</Fragment>;
         },
         productView: {
-          description: '100% COTTON & MANUFACTURED IN RO.',
+          description: "100% COTTON & MANUFACTURED IN RO.",
           footer: {
-            title: 'NEW ARRIVAL',
-            description: 'YOU MAY ALSO LIKE',
+            title: "NEW ARRIVAL",
+            description: "YOU MAY ALSO LIKE",
           },
         },
         order: {
-          title: 'THANK YOU FOR YOUR ORDER!',
-          purchaseDate: 'PURCHASE DATE',
-          trackingNumber: 'FAN COURIER AWB',
-          status: 'STATUS',
-          order: 'ORDER',
-          receive: 'YOU’LL RECEIVE',
+          title: "THANK YOU FOR YOUR ORDER!",
+          purchaseDate: "PURCHASE DATE",
+          trackingNumber: "FAN COURIER AWB",
+          status: "STATUS",
+          order: "ORDER",
+          receive: "YOU’LL RECEIVE",
         },
       },
       politica: {
         retur: {
-          title: 'POLITICA RETUR',
+          title: "POLITICA RETUR",
           text: () => {
             return (
               <p>
@@ -130,7 +126,7 @@ const languageValues = {
           },
         },
         terms: {
-          title: 'TERMS & CONDS',
+          title: "TERMS & CONDS",
           text: () => {
             return (
               <p>
@@ -278,7 +274,7 @@ const languageValues = {
           },
         },
         privacy: {
-          title: 'PRIVACY POLICY',
+          title: "PRIVACY POLICY",
           text: () => {
             return (
               <p>
@@ -342,31 +338,31 @@ const languageValues = {
         ),
         form: {
           inputs: {
-            login: 'ADMINISTRATOR',
-            password: 'PASSWORD',
+            login: "ADMINISTRATOR",
+            password: "PASSWORD",
           },
-          button: 'ACCESS DATABASE',
+          button: "ACCESS DATABASE",
         },
       },
       presentation: {
         ian: {
-          title: 'IAN',
-          function: 'RAPPER',
-          text: 'Ian este cel mai influent artist de muzica urbana din Romania, avand un catalog remarcabil de hituri. Cu o audienta de peste 350.000 de ascultatori lunari si peste 200 milioane de streamuri, Ian domina locul #1 in top-urile oficiale ale platformelor digitale.',
+          title: "IAN",
+          function: "RAPPER",
+          text: "Ian este cel mai influent artist de muzica urbana din Romania, avand un catalog remarcabil de hituri. Cu o audienta de peste 350.000 de ascultatori lunari si peste 200 milioane de streamuri, Ian domina locul #1 in top-urile oficiale ale platformelor digitale.",
           footer: () => {
             return (
               <p>
                 Printre cateva dintre realizarile sale se numara 3 albume
                 lansate care au ocupat prima pozitie in topuri timp de numeroase
                 luni consecutive, dar si si colaborari cu artisti internationali
-                ca R3hab si Smokepurpp.{' '}
+                ca R3hab si Smokepurpp.{" "}
                 <b>
                   Pe langa succesul din online, Ian este si un foarte bun
                   performer, fiind headliner al celor mai importante evenimente
                   si festivaluri si impartind scena cu artisti internationali de
                   renume, printre care si Wiz Khalifa, Rick Ross, Ice Spice,
                   Yeat, Trippie Red, Don Toliver si multi altii.
-                </b>{' '}
+                </b>{" "}
                 De asemenea, Ian a reusit sa patrunda in international si pe
                 partea de live, fiind primul artist roman de muzica urbana cu un
                 show sold-out in UK (Londra - The Electric Ballroom).
@@ -377,11 +373,11 @@ const languageValues = {
       },
       error: {
         notFound: {
-          noAccess: 'NO ACCESS',
-          description: 'We are sorry, we couldn’t find this page for you.',
+          noAccess: "NO ACCESS",
+          description: "We are sorry, we couldn’t find this page for you.",
           title: {
-            back: 'PAGE MISSING',
-            emphasys: 'Page could not be found',
+            back: "PAGE MISSING",
+            emphasys: "Page could not be found",
           },
         },
       },
@@ -390,7 +386,7 @@ const languageValues = {
 };
 
 const lang: string =
-  String(document.documentElement.lang ?? '').toLowerCase() || 'en-us';
+  String(document.documentElement.lang ?? "").toLowerCase() || "en-us";
 
 export default languageValues[lang as keyof typeof languageValues] ??
-  languageValues['en-us'];
+  languageValues["en-us"];

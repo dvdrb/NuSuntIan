@@ -3,11 +3,12 @@
 
 import { Fragment, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Helmet } from "react-helmet-async";
 
 import styles from "./music.module.scss";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 
-import { Background, Inner, Layout, Meta, ScrambleText } from "components";
+import { Background, Inner, Layout, ScrambleText } from "components";
 
 // import Modal from './fragments/modal.music.tsx';
 
@@ -255,7 +256,26 @@ export default function Music() {
 
   return (
     <Fragment>
-      <Meta title={"Music"} />
+      <Helmet>
+        <title>IAN Music — Voodoo Chronicles Vol. 1 & Discography</title>
+        <meta
+          name="description"
+          content="Stream IAN’s latest EP ‘Voodoo Chronicles Vol. 1’ and explore his complete discography, including experimental tracks and collaborations."
+        />
+        <meta
+          property="og:title"
+          content="IAN Music — Voodoo Chronicles Vol. 1 & Discography"
+        />
+        <meta
+          property="og:description"
+          content="Listen to IAN’s new EP and full catalog. Experimental soundscapes blending ritual and digital art."
+        />
+        <meta
+          property="og:image"
+          content="https://www.nusuntian.com/Image-4.webp"
+        />
+        <meta property="og:url" content="https://www.nusuntian.com/music" />
+      </Helmet>
       <Inner>
         <Background swipe={swiper} />
         <Layout showHeader showHeaderFooter showFooter>

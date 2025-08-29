@@ -1,22 +1,23 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Fragment } from 'react/jsx-runtime';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 
-import styles from './shop.module.scss';
+import styles from "./shop.module.scss";
 
-import { Header, Inner, Layout, Meta, Noise } from 'components';
+import { Header, Inner, Layout, Noise } from "components";
 
-import MobileVideo from 'assets/video/shop-bg-mobile.webm';
-import DesktopVideo from 'assets/video/shop-bg.webm';
-import { ScreenSize } from 'enum/screensizes.enum';
-import { AnimatePresence, motion } from 'framer-motion';
-import useScreenSize from 'hooks/useScreenSize';
-import useStorageState from 'hooks/useStorageState';
-import languageValues from 'locales/language';
-import Modal from 'pages/music/fragments/modal.music';
+import MobileVideo from "assets/video/shop-bg-mobile.webm";
+import DesktopVideo from "assets/video/shop-bg.webm";
+import { ScreenSize } from "enum/screensizes.enum";
+import { AnimatePresence, motion } from "framer-motion";
+import useScreenSize from "hooks/useScreenSize";
+import useStorageState from "hooks/useStorageState";
+import languageValues from "locales/language";
+import Modal from "pages/music/fragments/modal.music";
+import { Helmet } from "react-helmet-async";
 
 interface ShopProps {
   children: React.ReactNode;
@@ -31,12 +32,12 @@ export default function Shop({ children }: ShopProps) {
 
   const handleEnded = () => {
     setShowVideo(false);
-    setStorage('false');
+    setStorage("false");
   };
 
   const [storage, setStorage] = useStorageState<string>(
     window.localStorage,
-    'showVideoAgain'
+    "showVideoAgain"
   );
 
   const { size: value, rankedSize: ranked } = useScreenSize();
@@ -61,11 +62,11 @@ export default function Shop({ children }: ShopProps) {
   }, []);
 
   useEffect(() => {
-    const body = document.querySelector('body');
-    if (showVideo && (storage === 'false' || storage === 'true')) {
-      body?.classList.add('no-overflow');
+    const body = document.querySelector("body");
+    if (showVideo && (storage === "false" || storage === "true")) {
+      body?.classList.add("no-overflow");
     } else {
-      body?.classList.remove('no-overflow');
+      body?.classList.remove("no-overflow");
     }
   }, [showVideo, storage]);
 
@@ -78,17 +79,36 @@ export default function Shop({ children }: ShopProps) {
   useEffect(() => {
     if (!isShopPage(location.pathname)) {
       setShowVideo(false);
-      setStorage('false');
+      setStorage("false");
     }
   }, [location.pathname, setStorage]);
 
   return (
     <Fragment>
-      <Meta title={'Shop'} />
+      <Helmet>
+        <title>IAN Merch Store — Exclusive Apparel & Limited Drops</title>
+        <meta
+          name="description"
+          content="Shop official IAN merch — T-shirts, hoodies, vinyl, and more. Limited editions inspired by Voodoo Chronicles Vol. 1."
+        />
+        <meta
+          property="og:title"
+          content="IAN Merch Store — Exclusive Apparel & Limited Drops"
+        />
+        <meta
+          property="og:description"
+          content="Explore IAN’s official merch collection. Grab limited edition apparel and accessories now."
+        />
+        <meta
+          property="og:image"
+          content="https://www.nusuntian.com/modal-image.webp"
+        />
+        <meta property="og:url" content="https://www.nusuntian.com/shop" />
+      </Helmet>
       <Inner>
         <AnimatePresence>
           {isShopPage(location.pathname) &&
-            (showVideo || storage === 'true') && (
+            (showVideo || storage === "true") && (
               <Fragment>
                 <Header showFooter={false} />
                 <motion.div
@@ -99,24 +119,24 @@ export default function Shop({ children }: ShopProps) {
                 >
                   <video
                     ref={videoRef}
-                    width={'100%'}
-                    height={'100%'}
+                    width={"100%"}
+                    height={"100%"}
                     playsInline
                     onEnded={handleEnded}
                     autoPlay
                     muted
                   >
-                    <track kind={'captions'} srcLang={'en'} label={'English'} />
+                    <track kind={"captions"} srcLang={"en"} label={"English"} />
                     <source
                       src={isMobile ? MobileVideo : DesktopVideo}
-                      type={'video/webm'}
+                      type={"video/webm"}
                     />
                     Your browser does not support the video tag.
                   </video>
                   <button
                     onClick={() => {
                       setShowVideo(false);
-                      setStorage('false');
+                      setStorage("false");
                     }}
                   >
                     {languageValues.components.buttons.skip}
@@ -127,9 +147,9 @@ export default function Shop({ children }: ShopProps) {
         </AnimatePresence>
         <AnimatePresence>
           {isShopPageWithAdditionals(location.pathname) &&
-            storage === 'false' && (
+            storage === "false" && (
               <Fragment>
-                <Noise position={'fixed'} zIndex={-1} />
+                <Noise position={"fixed"} zIndex={-1} />
                 <Layout
                   showHeader={true}
                   showFooter={true}

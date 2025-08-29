@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./fragments.module.scss";
 
-import { Meta, Row, ScrambleText } from "components";
+import { Row, ScrambleText } from "components";
 
 import { ClothesType } from "enum/shop.enum";
 import { motion } from "framer-motion";
@@ -26,6 +26,7 @@ import {
 import language from "locales/language";
 import { ShopifyProduct } from "helpers/utils/api/shopifyService"; // Import your fetch function
 import { clothes } from "store/data";
+import { Helmet } from "react-helmet-async";
 
 // Function to fetch products from Shopify Storefront API
 export const fetchProductsFromShopify = async (): Promise<ShopifyProduct[]> => {
@@ -160,7 +161,26 @@ export const AvailableProducts = () => {
 
   return (
     <Fragment>
-      <Meta title={"Product detail"} />
+      <Helmet>
+        <title>IAN Merch Store — Exclusive Apparel & Limited Drops</title>
+        <meta
+          name="description"
+          content="Shop official IAN merch — T-shirts, hoodies, vinyl, and more. Limited editions inspired by Voodoo Chronicles Vol. 1."
+        />
+        <meta
+          property="og:title"
+          content="IAN Merch Store — Exclusive Apparel & Limited Drops"
+        />
+        <meta
+          property="og:description"
+          content="Explore IAN’s official merch collection. Grab limited edition apparel and accessories now."
+        />
+        <meta
+          property="og:image"
+          content="https://www.nusuntian.com/modal-image.webp"
+        />
+        <meta property="og:url" content="https://www.nusuntian.com/shop" />
+      </Helmet>
       <motion.div
         transition={{ duration: 0.6 }}
         initial={{ opacity: 0 }}
