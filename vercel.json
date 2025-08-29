@@ -1,8 +1,23 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "nusuntian.com"
+        }
+      ],
+      "destination": "https://www.nusuntian.com/:path*",
+      "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
