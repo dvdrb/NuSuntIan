@@ -1,5 +1,5 @@
-@use '~/assets/styles/mixins' as *;
-@use '~/assets/styles/colors' as *;
+@use "~/assets/styles/mixins" as *;
+@use "~/assets/styles/colors" as *;
 
 .root {
   .head {
@@ -34,15 +34,15 @@
         user-select: none;
 
         &.ian {
-          background-image: url('../../assets/images/ian-card.webp');
+          background-image: url("../../assets/images/ian-card.webp");
         }
 
         &.gif {
-          background-image: url('../../assets/video/gif-card.gif');
+          background-image: url("../../assets/video/gif-card.gif");
         }
 
         &.albuns {
-          background-image: url('../../assets/images/albun-card.webp');
+          background-image: url("../../assets/images/albun-card.webp");
         }
 
         .header {
@@ -120,16 +120,6 @@
       height: unset;
       margin-top: calc(var(--header-height) * 1.2);
       padding-bottom: 120px;
-
-      .cards {
-        .card {
-          &.gif {
-            // Avoid heavy GIF background on mobile
-            background-image: none;
-            background-color: rgba(26, 26, 26, 0.6);
-          }
-        }
-      }
     }
   }
 }
