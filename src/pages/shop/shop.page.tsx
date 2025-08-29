@@ -122,6 +122,8 @@ export default function Shop({ children }: ShopProps) {
                     width={"100%"}
                     height={"100%"}
                     playsInline
+                    preload={"metadata"}
+                    poster={"/modal-image.webp"}
                     onEnded={handleEnded}
                     autoPlay
                     muted

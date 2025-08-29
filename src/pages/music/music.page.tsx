@@ -372,16 +372,16 @@ export default function Music() {
                       className={styles.slider}
                     >
                       <SwiperSlide>
-                        <img src={Image4} alt="first" />
+                        <img src={Image4} alt="first" loading="lazy" decoding="async" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image3} alt="second" />
+                        <img src={Image3} alt="second" loading="lazy" decoding="async" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image1} alt="third" />
+                        <img src={Image1} alt="third" loading="lazy" decoding="async" />
                       </SwiperSlide>
                       <SwiperSlide>
-                        <img src={Image2} alt="forth" />
+                        <img src={Image2} alt="forth" loading="lazy" decoding="async" />
                       </SwiperSlide>
                     </Swiper>
                   </div>
@@ -546,16 +546,16 @@ export default function Music() {
                           }}
                         >
                           <SwiperSlide>
-                            <img src={Image4} alt={"first"} />
+                            <img src={Image4} alt={"first"} loading="lazy" decoding="async" />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image3} alt={"second"} />
+                            <img src={Image3} alt={"second"} loading="lazy" decoding="async" />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image1} alt={"third"} />
+                            <img src={Image1} alt={"third"} loading="lazy" decoding="async" />
                           </SwiperSlide>
                           <SwiperSlide>
-                            <img src={Image2} alt={"forth"} />
+                            <img src={Image2} alt={"forth"} loading="lazy" decoding="async" />
                           </SwiperSlide>
                         </Swiper>
                         {isMobileDevice ? (
