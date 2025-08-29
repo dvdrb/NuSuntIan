@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 import { useEffect, useRef, useState } from "react";
-import ReactPlayer from "react-player";
 
 import styles from "./background.module.scss";
 
@@ -11,6 +10,8 @@ import Home from "assets/video/shop-bg.webm";
 import Slayer from "assets/video/SLAYER.webm";
 import Voodoo from "assets/video/VOODOO.webm";
 import chronicles from "assets/video/chronicles.webm";
+// Use public asset path so preload in index.html matches
+const Poster = "/ian-bg.webp" as const;
 import { clsx } from "helpers/utils/HTMLUtils";
 
 type BGType = {
@@ -32,6 +33,7 @@ export default function Background({
   const [currentVideo, setCurrentVideo] = useState<string>(
     isHome ? Home : Voodoo
   );
+  const [shouldShowVideo, setShouldShowVideo] = useState<boolean>(false);
 
   const maxScroll = useRef<number>(0);
 
@@ -70,6 +72,18 @@ export default function Background({
   };
 
   useEffect(() => {
+    // Defer loading video until after first paint/idle and avoid on slow networks
+    const conn: any = (navigator as any).connection || {};
+    const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
+    const reduceData = (navigator as any).connection?.saveData === true;
+
+    if (!slow && !reduceData) {
+      const idle = (window as any).requestIdleCallback || ((cb: any) => setTimeout(cb, 1200));
+      idle(() => setShouldShowVideo(true));
+    }
+  }, []);
+
+  useEffect(() => {
     if (swipe) {
       const getVideoUrl = () => {
         switch (swipe.activeIndex) {
@@ -106,19 +120,44 @@ export default function Background({
       className={clsx(styles.bg, isHome && styles.blur)}
       style={{ filter: `${blurStyle.backdropFilter}` }}
     >
-      <ReactPlayer
-        muted={true}
-        playing={true}
-        loop={true}
-        playsinline={true}
-        url={currentVideo}
-        width={"100%"}
-        height={"100%"}
+      {/* Lightweight poster for fast LCP */}
+      <img
+        src={Poster}
+        alt="Background"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
         style={{
-          transition: "opacity 0.3s ease-in-out",
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           opacity: isTransitioning ? 0 : 1,
+          transition: "opacity 0.3s ease-in-out",
         }}
       />
+      {shouldShowVideo && (
+        <video
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="none"
+          poster={Poster}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: isTransitioning ? 0 : 1,
+            transition: "opacity 0.3s ease-in-out",
+          }}
+        >
+          <source src={currentVideo} type="video/webm" />
+        </video>
+      )}
     </div>
   );
 }

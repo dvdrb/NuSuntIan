@@ -27,6 +27,13 @@ export default function GTag({ useGA = false, useGTM = false }: GTagType) {
 
   useEffect(() => {
     if (useGA) {
+      // Avoid injecting GA multiple times across routes
+      const existing = document.querySelector(
+        `script[src*="googletagmanager.com/gtag/js?id=${gaTrackingId}"]`
+      );
+      if (existing) {
+        return;
+      }
       // Google Analytics
       const scriptGA1 = document.createElement('script');
       scriptGA1.async = true;
@@ -61,16 +68,7 @@ export default function GTag({ useGA = false, useGTM = false }: GTagType) {
     }
 
     return () => {
-      if (useGA) {
-        document.head
-          .querySelectorAll(`[src*="${gaTrackingId}"]`)
-          .forEach((el) => el.remove());
-        document.head.querySelectorAll('script').forEach((el) => {
-          if (el.innerHTML.includes(gaTrackingId)) {
-            el.remove();
-          }
-        });
-      }
+      // Keep GA loaded once; do not remove on unmount to prevent re-injection
       if (useGTM) {
         document.head
           .querySelectorAll(`[src*="${gtmTrackingId}"]`)
