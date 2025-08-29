@@ -39,5 +39,21 @@
 
   @include max-width(medium) {
     background-position: center center;
+    // Reduce blur cost on mobile for faster paint
+    -webkit-filter: none;
+    filter: none;
+    opacity: 0.25;
+
+    &.blur {
+      -webkit-filter: none;
+      filter: none;
+      opacity: 0.25;
+
+      video {
+        -webkit-filter: none;
+        filter: none;
+        opacity: 0.5;
+      }
+    }
   }
 }

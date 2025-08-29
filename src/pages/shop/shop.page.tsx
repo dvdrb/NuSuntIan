@@ -24,7 +24,19 @@ interface ShopProps {
 }
 
 export default function Shop({ children }: ShopProps) {
-  const [showVideo, setShowVideo] = useState<boolean>(true);
+  const getInitialShow = () => {
+    try {
+      const conn: any = (navigator as any).connection || {};
+      const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
+      const saveData = conn.saveData === true;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      // Never auto-play intro video on small screens or constrained networks
+      return !(slow || saveData || isSmallScreen);
+    } catch {
+      return true;
+    }
+  };
+  const [showVideo, setShowVideo] = useState<boolean>(getInitialShow());
 
   const location = useLocation();
 
@@ -43,6 +55,14 @@ export default function Shop({ children }: ShopProps) {
   const { size: value, rankedSize: ranked } = useScreenSize();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const isMobile = useMemo(() => ranked <= ScreenSize.sm, [value]);
+
+  useEffect(() => {
+    // Ensure overlay video is disabled on mobile regardless of previous preference
+    if (isMobile && storage !== "false") {
+      setStorage("false");
+      setShowVideo(false);
+    }
+  }, [isMobile]);
 
   const regex = /\/shop\/product\//;
 
