@@ -7,7 +7,6 @@ import { Fragment } from 'react';
 import styles from './layout.module.scss';
 
 import Footer from 'components/footer/footer';
-import Seo from 'components/seo/seo';
 
 import Container from '../container/container';
 import Header from '../header/header';
@@ -29,7 +28,6 @@ export default function Layout({
 }: LayoutType) {
   return (
     <main className={styles.root}>
-      <Seo />
       {showHeader ? <Header showFooter={showHeaderFooter} /> : <Fragment />}
       {renderContainer ? (
         <Container className={styles.content}>{children}</Container>
