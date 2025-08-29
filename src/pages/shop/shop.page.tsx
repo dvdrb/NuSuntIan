@@ -24,7 +24,17 @@ interface ShopProps {
 }
 
 export default function Shop({ children }: ShopProps) {
-  const [showVideo, setShowVideo] = useState<boolean>(true);
+  const getInitialShow = () => {
+    try {
+      const conn: any = (navigator as any).connection || {};
+      const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
+      const saveData = conn.saveData === true;
+      return !(slow || saveData);
+    } catch {
+      return true;
+    }
+  };
+  const [showVideo, setShowVideo] = useState<boolean>(getInitialShow());
 
   const location = useLocation();
 
