@@ -126,7 +126,7 @@ export default function Background({
         alt="Background"
         loading="eager"
         decoding="async"
-        fetchpriority="high"
+        fetchPriority="high"
         style={{
           position: "absolute",
           inset: 0,
