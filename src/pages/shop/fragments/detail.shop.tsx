@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Helmet } from "react-helmet-async";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -358,6 +359,35 @@ export const DetailProduct = () => {
   return (
     <Fragment>
       <Meta title={"Product detail"} />
+      <Helmet>
+        <title>
+          {`IAN Merch — ${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`}
+        </title>
+        <meta
+          name="description"
+          content={`Buy ${specifiItem?.name.title ?? "exclusive"} ${specifiItem?.name.type ?? "merch"} from IAN’s official store. Limited stock.`}
+        />
+        {specifiItem?.images?.[0] ? (
+          <meta property="og:image" content={specifiItem.images[0]} />
+        ) : null}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`.trim(),
+            image: specifiItem?.images ?? [],
+            description: `${specifiItem?.description?.[0] ?? ""} ${specifiItem?.description?.[1] ?? ""}`.trim(),
+            brand: { "@type": "Brand", name: "IAN" },
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "RON",
+              price: Number(specifiItem?.price ?? 0) || undefined,
+              availability: "https://schema.org/InStock",
+              url: typeof window !== "undefined" ? window.location.href : undefined,
+            },
+          })}
+        </script>
+      </Helmet>
       <div className={styles.detail}>
         <motion.div
           transition={{ duration: 0.4 }}
