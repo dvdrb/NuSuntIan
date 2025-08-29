@@ -4,7 +4,7 @@ import { MouseSmooth } from "react-mouse-smooth";
 import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import necessary parts from React Query
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; // For dev tools
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import routes from "configs/routes";
 import dayjs from "dayjs";
 import format from "dayjs/plugin/customParseFormat";
@@ -18,7 +18,13 @@ dayjs.extend(format);
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
-  MouseSmooth({});
+  try {
+    const pointerFine = window.matchMedia('(pointer: fine)').matches;
+    const largeScreen = window.matchMedia('(min-width: 1024px)').matches;
+    if (pointerFine && largeScreen) {
+      MouseSmooth({});
+    }
+  } catch {}
 
   return (
     <Fragment>
@@ -27,13 +33,15 @@ function App(): JSX.Element {
         <RouterProvider router={routes} />
         <ToastContainer stacked />
 
-        {/* Enable ReactQueryDevtools in development */}
-        <ReactQueryDevtools
-          client={queryClient}
-          initialIsOpen={false}
-          position="right"
-          buttonPosition="bottom-right"
-        />
+        {/* Enable ReactQueryDevtools only in development */}
+        {import.meta.env.MODE === 'development' ? (
+          <ReactQueryDevtools
+            client={queryClient}
+            initialIsOpen={false}
+            position="right"
+            buttonPosition="bottom-right"
+          />
+        ) : null}
       </QueryClientProvider>
       <SpeedInsights />
       <Analytics />

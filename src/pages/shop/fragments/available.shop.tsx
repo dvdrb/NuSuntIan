@@ -256,11 +256,12 @@ export const AvailableProducts = () => {
           <Row className={styles["clothes-content"]}>
             {/* Ensure products is defined before rendering */}
             {products && sortedItems(sortType!).length > 0 ? (
-              sortedItems(sortType!).map((clothes) => (
+              sortedItems(sortType!).map((clothes, idx) => (
                 <ClothesItem
                   key={clothes.id}
                   clothes={clothes}
                   navigate={navigate}
+                  index={idx}
                 />
               ))
             ) : (
@@ -274,7 +275,7 @@ export const AvailableProducts = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ClothesItem = memo(({ clothes, navigate }: any) => (
+const ClothesItem = memo(({ clothes, navigate, index = 0 }: any) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
@@ -293,6 +294,9 @@ const ClothesItem = memo(({ clothes, navigate }: any) => (
       src={clothes.image}
       className={clothes.className ?? ""}
       alt={clothes.name.title}
+      visibleByDefault={index < 2}
+      loading={index < 2 ? "eager" : "lazy"}
+      decoding={index < 2 ? "sync" : "async"}
     />
     <div className={styles.description}>
       <ScrambleText

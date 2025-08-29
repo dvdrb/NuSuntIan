@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 import { useEffect, useRef, useState } from "react";
-import ReactPlayer from "react-player";
 
 import styles from "./background.module.scss";
 
@@ -11,6 +10,8 @@ import Home from "assets/video/shop-bg.webm";
 import Slayer from "assets/video/SLAYER.webm";
 import Voodoo from "assets/video/VOODOO.webm";
 import chronicles from "assets/video/chronicles.webm";
+// Use public asset path so preload in index.html matches
+const Poster = "/ian-bg.webp" as const;
 import { clsx } from "helpers/utils/HTMLUtils";
 
 type BGType = {
@@ -127,20 +128,43 @@ export default function Background({
       className={clsx(styles.bg, isHome && styles.blur)}
       style={{ filter: `${blurStyle.backdropFilter}` }}
     >
+      {/* Lightweight poster for fast LCP */}
+      <img
+        src={Poster}
+        alt="Background"
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: isTransitioning ? 0 : 1,
+          transition: "opacity 0.3s ease-in-out",
+        }}
+      />
       {shouldShowVideo && (
-        <ReactPlayer
-          muted={true}
-          playing={true}
-          loop={true}
-          playsinline={true}
-          url={currentVideo}
-          width={"100%"}
-          height={"100%"}
+        <video
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="none"
+          poster={Poster}
           style={{
-            transition: "opacity 0.3s ease-in-out",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
             opacity: isTransitioning ? 0 : 1,
+            transition: "opacity 0.3s ease-in-out",
           }}
-        />
+        >
+          <source src={currentVideo} type="video/webm" />
+        </video>
       )}
     </div>
   );
