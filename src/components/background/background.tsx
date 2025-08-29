@@ -51,6 +51,7 @@ export default function Background({
   );
 
   const maxScroll = useRef<number>(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (!disableScroll) {
@@ -112,11 +113,21 @@ export default function Background({
 
       if (newVideo !== currentVideo) {
         setIsTransitioning(true);
-
+        setCurrentVideo(newVideo);
+        // Give React a tick to apply new src, then reload
         setTimeout(() => {
-          setCurrentVideo(newVideo);
+          const v = videoRef.current;
+          if (v) {
+            try {
+              v.pause();
+              v.load();
+              // Autoplay may reject on some devices; ignore silently
+              const p = v.play();
+              if (p && typeof p.then === 'function') p.catch(() => {});
+            } catch {}
+          }
           setIsTransitioning(false);
-        }, 300);
+        }, 50);
       }
     }
   }, [swipe, currentVideo]);
@@ -147,6 +158,8 @@ export default function Background({
       />
       {shouldShowVideo && (
         <video
+          key={currentVideo}
+          ref={videoRef}
           muted
           autoPlay
           loop
@@ -163,7 +176,7 @@ export default function Background({
             transition: "opacity 0.3s ease-in-out",
           }}
         >
-          <source src={currentVideo} type="video/webm" />
+          <source key={currentVideo} src={currentVideo} type="video/webm" />
         </video>
       )}
     </div>
