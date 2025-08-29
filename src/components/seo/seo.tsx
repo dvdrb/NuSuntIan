@@ -2,14 +2,19 @@ import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
+const SITE_URL = "https://www.nusuntian.com"; // canonical origin
+
 // Inserts a canonical URL for the current route and sets base OG/Twitter URLs.
 export default function Seo() {
   const location = useLocation();
 
   const canonical = useMemo(() => {
-    const { origin, pathname } = window.location;
-    // Strip common tracking query params from canonical
-    return origin + pathname;
+    try {
+      const { pathname } = window.location;
+      return SITE_URL + (pathname || "/");
+    } catch {
+      return SITE_URL + "/";
+    }
   }, [location.pathname]);
 
   return (
@@ -20,4 +25,3 @@ export default function Seo() {
     </Helmet>
   );
 }
-

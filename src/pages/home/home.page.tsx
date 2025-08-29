@@ -44,7 +44,13 @@ export default function Home() {
 
   return (
     <Fragment>
-      <Meta title={'Home'} />
+      <Meta
+        title={"IAN — Official Site | Merch & Music"}
+        titleTemplate="%s"
+        description={
+          "Welcome to the official site of IAN — Romania’s leading urban artist. Stream his latest album 'Voodoo Chronicles Vol. 1' and shop exclusive merch, limited drops, and more."
+        }
+      />
       <Inner>
         <div className={styles.root}>
           <Layout showHeader showHeaderFooter renderContainer={false}>
