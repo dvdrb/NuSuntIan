@@ -72,12 +72,13 @@ export default function Background({
   };
 
   useEffect(() => {
-    // Defer loading video until after first paint/idle and avoid on slow networks
+    // Defer loading video until after first paint/idle and avoid on slow networks or small screens
     const conn: any = (navigator as any).connection || {};
     const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
     const reduceData = (navigator as any).connection?.saveData === true;
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
 
-    if (!slow && !reduceData) {
+    if (!slow && !reduceData && !isSmallScreen) {
       const idle = (window as any).requestIdleCallback || ((cb: any) => setTimeout(cb, 1200));
       idle(() => setShouldShowVideo(true));
     }
