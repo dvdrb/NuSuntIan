@@ -31,8 +31,23 @@ export default function Background({
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [shouldShowVideo, setShouldShowVideo] = useState<boolean>(false);
+  const getVideoByIndex = (index: number | undefined) => {
+    switch (index) {
+      case 0:
+        return chronicles;
+      case 1:
+        return Beastmode;
+      case 2:
+        return Voodoo;
+      case 3:
+        return Slayer;
+      default:
+        return isHome ? Home : chronicles;
+    }
+  };
+
   const [currentVideo, setCurrentVideo] = useState<string>(
-    isHome ? Home : Voodoo
+    getVideoByIndex(swipe?.activeIndex)
   );
 
   const maxScroll = useRef<number>(0);
@@ -93,22 +108,7 @@ export default function Background({
 
   useEffect(() => {
     if (swipe) {
-      const getVideoUrl = () => {
-        switch (swipe.activeIndex) {
-          case 2:
-            return Voodoo;
-          case 3:
-            return Slayer;
-          case 1:
-            return Beastmode;
-          case 0:
-            return chronicles;
-          default:
-            return Home;
-        }
-      };
-
-      const newVideo = getVideoUrl();
+      const newVideo = getVideoByIndex(swipe.activeIndex);
 
       if (newVideo !== currentVideo) {
         setIsTransitioning(true);
