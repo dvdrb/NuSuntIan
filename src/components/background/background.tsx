@@ -30,12 +30,28 @@ export default function Background({
 }: BGType) {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const [currentVideo, setCurrentVideo] = useState<string>(
-    isHome ? Home : Voodoo
-  );
   const [shouldShowVideo, setShouldShowVideo] = useState<boolean>(false);
+  const getVideoByIndex = (index: number | undefined) => {
+    switch (index) {
+      case 0:
+        return chronicles;
+      case 1:
+        return Beastmode;
+      case 2:
+        return Voodoo;
+      case 3:
+        return Slayer;
+      default:
+        return isHome ? Home : chronicles;
+    }
+  };
+
+  const [currentVideo, setCurrentVideo] = useState<string>(
+    getVideoByIndex(swipe?.activeIndex)
+  );
 
   const maxScroll = useRef<number>(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (!disableScroll) {
@@ -72,43 +88,46 @@ export default function Background({
   };
 
   useEffect(() => {
-    // Defer loading video until after first paint/idle and avoid on slow networks
+    // Defer loading video until after first paint/idle and avoid on slow networks.
+    // Keep video enabled on Music pages (isHome === false), even on small screens.
     const conn: any = (navigator as any).connection || {};
     const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
     const reduceData = (navigator as any).connection?.saveData === true;
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
 
-    if (!slow && !reduceData) {
-      const idle = (window as any).requestIdleCallback || ((cb: any) => setTimeout(cb, 1200));
+    const allowOnThisPage = !isHome || (isHome && !isSmallScreen);
+
+    if (!slow && !reduceData && allowOnThisPage) {
+      const idle =
+        (window as any).requestIdleCallback ||
+        ((cb: any) => setTimeout(cb, 1200));
       idle(() => setShouldShowVideo(true));
+    } else {
+      setShouldShowVideo(true); // Fallback for when conditions aren't met
     }
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     if (swipe) {
-      const getVideoUrl = () => {
-        switch (swipe.activeIndex) {
-          case 2:
-            return Voodoo;
-          case 3:
-            return Slayer;
-          case 1:
-            return Beastmode;
-          case 0:
-            return chronicles;
-          default:
-            return Home;
-        }
-      };
-
-      const newVideo = getVideoUrl();
+      const newVideo = getVideoByIndex(swipe.activeIndex);
 
       if (newVideo !== currentVideo) {
         setIsTransitioning(true);
-
+        setCurrentVideo(newVideo);
+        // Give React a tick to apply new src, then reload
         setTimeout(() => {
-          setCurrentVideo(newVideo);
+          const v = videoRef.current;
+          if (v) {
+            try {
+              v.pause();
+              v.load();
+              // Autoplay may reject on some devices; ignore silently
+              const p = v.play();
+              if (p && typeof p.then === 'function') p.catch(() => {});
+            } catch {}
+          }
           setIsTransitioning(false);
-        }, 300);
+        }, 50);
       }
     }
   }, [swipe, currentVideo]);
@@ -139,6 +158,8 @@ export default function Background({
       />
       {shouldShowVideo && (
         <video
+          key={currentVideo}
+          ref={videoRef}
           muted
           autoPlay
           loop
@@ -155,7 +176,7 @@ export default function Background({
             transition: "opacity 0.3s ease-in-out",
           }}
         >
-          <source src={currentVideo} type="video/webm" />
+          <source key={currentVideo} src={currentVideo} type="video/webm" />
         </video>
       )}
     </div>

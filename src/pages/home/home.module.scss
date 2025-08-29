@@ -1,5 +1,5 @@
-@use '~/assets/styles/mixins' as *;
-@use '~/assets/styles/colors' as *;
+@use "~/assets/styles/mixins" as *;
+@use "~/assets/styles/colors" as *;
 
 .root {
   .head {
@@ -34,15 +34,15 @@
         user-select: none;
 
         &.ian {
-          background-image: url('../../assets/images/ian-card.webp');
+          background-image: url("../../assets/images/ian-card.webp");
         }
 
         &.gif {
-          background-image: url('../../assets/video/gif-card.gif');
+          background-image: url("../../assets/video/gif-card.gif");
         }
 
         &.albuns {
-          background-image: url('../../assets/images/albun-card.webp');
+          background-image: url("../../assets/images/albun-card.webp");
         }
 
         .header {
