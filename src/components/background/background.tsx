@@ -29,6 +29,7 @@ export default function Background({
 }: BGType) {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [shouldShowVideo, setShouldShowVideo] = useState<boolean>(false);
   const [currentVideo, setCurrentVideo] = useState<string>(
     isHome ? Home : Voodoo
   );
@@ -70,6 +71,26 @@ export default function Background({
   };
 
   useEffect(() => {
+    // Defer loading video until after first paint/idle and avoid on slow networks.
+    // Keep video enabled on Music pages (isHome === false), even on small screens.
+    const conn: any = (navigator as any).connection || {};
+    const slow = ["slow-2g", "2g"].includes(conn.effectiveType);
+    const reduceData = (navigator as any).connection?.saveData === true;
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+
+    const allowOnThisPage = !isHome || (isHome && !isSmallScreen);
+
+    if (!slow && !reduceData && allowOnThisPage) {
+      const idle =
+        (window as any).requestIdleCallback ||
+        ((cb: any) => setTimeout(cb, 1200));
+      idle(() => setShouldShowVideo(true));
+    } else {
+      setShouldShowVideo(true); // Fallback for when conditions aren't met
+    }
+  }, [isHome]);
+
+  useEffect(() => {
     if (swipe) {
       const getVideoUrl = () => {
         switch (swipe.activeIndex) {
@@ -106,19 +127,21 @@ export default function Background({
       className={clsx(styles.bg, isHome && styles.blur)}
       style={{ filter: `${blurStyle.backdropFilter}` }}
     >
-      <ReactPlayer
-        muted={true}
-        playing={true}
-        loop={true}
-        playsinline={true}
-        url={currentVideo}
-        width={"100%"}
-        height={"100%"}
-        style={{
-          transition: "opacity 0.3s ease-in-out",
-          opacity: isTransitioning ? 0 : 1,
-        }}
-      />
+      {shouldShowVideo && (
+        <ReactPlayer
+          muted={true}
+          playing={true}
+          loop={true}
+          playsinline={true}
+          url={currentVideo}
+          width={"100%"}
+          height={"100%"}
+          style={{
+            transition: "opacity 0.3s ease-in-out",
+            opacity: isTransitioning ? 0 : 1,
+          }}
+        />
+      )}
     </div>
   );
 }
