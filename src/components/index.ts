@@ -17,6 +17,7 @@ import Noise from './noise/noise';
 import Row from './row/row';
 import ScrambleText from './scrambleText/scrambleText';
 import SizeSelector from './sizeSelector/sizeSelector';
+import RecentActivity from './recentActivity/recentActivity';
 
 export {
   Header,
@@ -33,6 +34,7 @@ export {
   Noise,
   GTag,
   SizeSelector,
+  RecentActivity,
   Footer,
   Link,
   MotionLink,
