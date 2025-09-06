@@ -1,16 +1,17 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Fragment, useEffect, useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Fragment, useLayoutEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import styles from '../politica.module.scss';
+import styles from "../politica.module.scss";
 
-import { Container, Inner, Meta, Noise } from 'components';
+import { Container, Inner, Noise } from "components";
+import { Helmet } from "react-helmet-async";
 
-import Logo from 'assets/icons/logo-vector.svg?react';
-import { motion } from 'framer-motion';
-import languageValues from 'locales/language';
+import Logo from "assets/icons/logo-vector.svg?react";
+import { motion } from "framer-motion";
+import languageValues from "locales/language";
 
 const language = languageValues.pages.politica.retur;
 
@@ -21,15 +22,15 @@ export default function PoliticaReturn() {
     window.scroll({ top: 0, left: 0 });
   }, []);
 
-  useEffect(() => {
-    document.title = 'IAN HQ - Politica Retur';
-  }, []);
+  // Title handled via Helmet
 
   return (
     <Fragment>
-      <Meta title={'Privacy Retur'} />
+      <Helmet>
+        <title>Politica Retur</title>
+      </Helmet>
       <Inner>
-        <Noise position={'fixed'} />
+        <Noise position={"fixed"} />
         <Container className={styles.root}>
           <header>
             <Logo />
@@ -40,7 +41,7 @@ export default function PoliticaReturn() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+              transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
               onClick={() => navigate(-1)}
             >
               {languageValues.components.buttons.goBack}

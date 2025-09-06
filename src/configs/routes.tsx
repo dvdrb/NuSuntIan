@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 import { createBrowserRouter } from "react-router-dom";
+
 import { Fragment } from "react/jsx-runtime";
 
 import { GTag } from "components";
@@ -9,7 +10,9 @@ import { GTag } from "components";
 import Routes from "enum/routes.enum";
 import About from "pages/about/about.page";
 import Database from "pages/database/database.page";
-import Ended from "pages/errors/ended/ended";
+
+import EnhancedComingSoon from "pages/errors/ended/ended";
+
 import NotFound from "pages/errors/notFound/notFound.page";
 import Home from "pages/home/home.page";
 import Music from "pages/music/music.page";
@@ -36,7 +39,7 @@ const routes = createBrowserRouter(
       path: Routes.ENDED,
       element: (
         <Fragment>
-          <Ended />
+          <EnhancedComingSoon />
         </Fragment>
       ),
     },
@@ -50,7 +53,7 @@ const routes = createBrowserRouter(
       // ),
       element: (
         <Fragment>
-          <Ended />
+          <EnhancedComingSoon />
         </Fragment>
       ),
       children: [

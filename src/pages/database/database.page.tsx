@@ -9,7 +9,8 @@ import { Fragment } from 'react/jsx-runtime';
 
 import styles from './database.module.scss';
 
-import { Col, Container, Header, Inner, Meta, Noise, Row } from 'components';
+import { Col, Container, Header, Inner, Noise, Row } from 'components';
+import { Helmet } from 'react-helmet-async';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import Logo from 'assets/icons/logo-vector.svg';
@@ -71,7 +72,9 @@ export default function Database() {
 
   return (
     <Fragment>
-      <Meta title={'Database'} />
+      <Helmet>
+        <title>Database</title>
+      </Helmet>
       <Inner>
         <Noise position={'fixed'} zIndex={-1} />
         <div className={styles.root}>

@@ -1,9 +1,9 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { createElement, type ReactHTML } from 'react';
+import { createElement, type ReactHTML } from "react";
 
-import { useScramble } from 'use-scramble';
+import { useScramble } from "use-scramble";
 
 interface ScrambleTextProps<Tag extends keyof ReactHTML> {
   text: string;
@@ -26,7 +26,7 @@ export default function ScrambleText<Tag extends keyof ReactHTML>({
     seed: 10,
   });
 
-  return createElement(tag ?? 'span', {
+  return createElement(tag ?? "span", {
     ...props,
     ref: ref,
   });

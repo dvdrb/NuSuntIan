@@ -19,10 +19,10 @@ import { Navigation } from "swiper/modules";
 import {
   Col,
   Container,
-  Meta,
   Row,
   ScrambleText,
   SizeSelector,
+  RecentActivity,
 } from "components";
 
 import "swiper/css";
@@ -358,7 +358,6 @@ export const DetailProduct = () => {
 
   return (
     <Fragment>
-      <Meta title={"Product detail"} />
       <Helmet>
         <title>
           {`IAN Merch — ${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`}
@@ -376,14 +375,18 @@ export const DetailProduct = () => {
             "@type": "Product",
             name: `${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`.trim(),
             image: specifiItem?.images ?? [],
-            description: `${specifiItem?.description?.[0] ?? ""} ${specifiItem?.description?.[1] ?? ""}`.trim(),
+            description:
+              `${specifiItem?.description?.[0] ?? ""} ${specifiItem?.description?.[1] ?? ""}`.trim(),
             brand: { "@type": "Brand", name: "IAN" },
             offers: {
               "@type": "Offer",
               priceCurrency: "RON",
               price: Number(specifiItem?.price ?? 0) || undefined,
               availability: "https://schema.org/InStock",
-              url: typeof window !== "undefined" ? window.location.href : undefined,
+              url:
+                typeof window !== "undefined"
+                  ? window.location.href
+                  : undefined,
             },
           })}
         </script>
@@ -426,6 +429,7 @@ export const DetailProduct = () => {
                         {formatCurrency.format(Number(specifiItem?.price))}
                       </span>
                     </Col>
+
                     <Col className={styles.sizes} alignment={"center"}>
                       <span>SIZE</span>
                       <div>
@@ -453,6 +457,9 @@ export const DetailProduct = () => {
                       >
                         {languageValues.components.buttons.addCard}
                       </motion.button>
+                    </Col>
+                    <Col alignment={"center"}>
+                      <RecentActivity productId={specifiItem?.id} />
                     </Col>
                   </Row>
                 </Col>

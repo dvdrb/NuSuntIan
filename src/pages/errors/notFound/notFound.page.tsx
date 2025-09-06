@@ -7,7 +7,8 @@ import { Fragment } from 'react/jsx-runtime';
 
 import styles from './notFound.module.scss';
 
-import { Layout, Meta, Noise } from 'components';
+import { Layout, Noise } from 'components';
+import { Helmet } from 'react-helmet-async';
 
 import Logo from 'assets/icons/logo-vector.svg';
 import Routes from 'enum/routes.enum';
@@ -21,7 +22,9 @@ export default function NotFound() {
 
   return (
     <Fragment>
-      <Meta title={'Not Found'} />
+      <Helmet>
+        <title>Not Found</title>
+      </Helmet>
       <Noise position={'fixed'} />
       <Layout renderContainer>
         <AnimatePresence>

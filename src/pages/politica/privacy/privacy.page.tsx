@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from '../politica.module.scss';
 
-import { Container, Inner, Meta, Noise } from 'components';
+import { Container, Inner, Noise } from 'components';
+import { Helmet } from 'react-helmet-async';
 
 import Logo from 'assets/icons/logo-vector.svg?react';
 import { motion } from 'framer-motion';
@@ -23,7 +24,9 @@ export default function Privacy() {
 
   return (
     <Fragment>
-      <Meta title={'Privacy Policy'} />
+      <Helmet>
+        <title>Privacy Policy</title>
+      </Helmet>
       <Inner>
         <Noise position={'fixed'} />
         <Container className={styles.root}>

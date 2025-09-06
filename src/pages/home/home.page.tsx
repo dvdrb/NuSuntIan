@@ -1,26 +1,19 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Fragment, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-import styles from './home.module.scss';
+import styles from "./home.module.scss";
 
-import {
-  Background,
-  Col,
-  Container,
-  Inner,
-  Layout,
-  Meta,
-  Row,
-} from 'components';
+import { Background, Col, Container, Inner, Layout, Row } from "components";
+import { Helmet } from "react-helmet-async";
 
-import Arrow from 'assets/icons/left-arrow.svg?react';
-import Routes from 'enum/routes.enum';
-import { ScreenSize } from 'enum/screensizes.enum';
-import { clsx } from 'helpers/utils/HTMLUtils';
-import useScreenSize from 'hooks/useScreenSize';
+import Arrow from "assets/icons/left-arrow.svg?react";
+import Routes from "enum/routes.enum";
+import { ScreenSize } from "enum/screensizes.enum";
+import { clsx } from "helpers/utils/HTMLUtils";
+import useScreenSize from "hooks/useScreenSize";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -33,7 +26,7 @@ export default function Home() {
   const isMobileDevice = useMemo(() => ranked <= ScreenSize.lgg, [value]);
 
   useLayoutEffect(() => {
-    window.scroll({ behavior: 'smooth', top: 0, left: 0 });
+    window.scroll({ behavior: "smooth", top: 0, left: 0 });
   }, []);
 
   useEffect(() => {
@@ -44,13 +37,15 @@ export default function Home() {
 
   return (
     <Fragment>
-      <Meta
-        title={"IAN — Official Site | Merch & Music"}
-        titleTemplate="%s"
-        description={
-          "Welcome to the official site of IAN — Romania’s leading urban artist. Stream his latest album 'Voodoo Chronicles Vol. 1' and shop exclusive merch, limited drops, and more."
-        }
-      />
+      <Helmet>
+        <title>
+          IAN – Leading Romanian Trap Artist | Official Music & Merch Store
+        </title>
+        <meta
+          name="description"
+          content="Official site of IAN – leading Romanian trap artist. Listen to Voodoo Chronicles Vol. 1 and shop exclusive merch."
+        />
+      </Helmet>
       <Inner>
         <div className={styles.root}>
           <Layout showHeader showHeaderFooter renderContainer={false}>
@@ -72,12 +67,12 @@ export default function Home() {
                 />
               </div>
             </Container> */}
-            <div className={styles['wrapper-cards']}>
+            <div className={styles["wrapper-cards"]}>
               <Container>
                 <Row className={styles.cards}>
                   {isMobileDevice ? (
                     <Fragment>
-                      <Col lg={4} alignment={'center'} padding={0}>
+                      <Col lg={4} alignment={"center"} padding={0}>
                         <div
                           onClick={() => navigate(Routes.SHOP)}
                           className={clsx(styles.card, styles.gif)}
@@ -96,7 +91,7 @@ export default function Home() {
                           </footer>
                         </div>
                       </Col>
-                      <Col lg={4} alignment={'center'} padding={0}>
+                      <Col lg={4} alignment={"center"} padding={0}>
                         <div
                           onClick={() => navigate(Routes.ABOUT)}
                           className={clsx(styles.card, styles.ian)}
@@ -118,7 +113,7 @@ export default function Home() {
                     </Fragment>
                   ) : (
                     <Fragment>
-                      <Col lg={4} alignment={'center'} padding={0}>
+                      <Col lg={4} alignment={"center"} padding={0}>
                         <div
                           onClick={() => navigate(Routes.ABOUT)}
                           className={clsx(styles.card, styles.ian)}
@@ -137,7 +132,7 @@ export default function Home() {
                           </footer>
                         </div>
                       </Col>
-                      <Col lg={4} alignment={'center'} padding={0}>
+                      <Col lg={4} alignment={"center"} padding={0}>
                         <div
                           onClick={() => navigate(Routes.SHOP)}
                           className={clsx(styles.card, styles.gif)}
@@ -159,7 +154,7 @@ export default function Home() {
                     </Fragment>
                   )}
 
-                  <Col lg={4} alignment={'center'} padding={0}>
+                  <Col lg={4} alignment={"center"} padding={0}>
                     <div
                       onClick={() => navigate(Routes.MUSIC)}
                       className={clsx(styles.card, styles.albuns)}

@@ -12,11 +12,12 @@ import Header from './header/header';
 import Inner from './inner/index';
 import Layout from './layout/layout';
 import Link, { MotionLink } from './link/link.tsx';
-import Meta from './meta/meta';
 import Noise from './noise/noise';
 import Row from './row/row';
 import ScrambleText from './scrambleText/scrambleText';
+import ScrambleTicker from './scrambleTicker/scrambleTicker';
 import SizeSelector from './sizeSelector/sizeSelector';
+import RecentActivity from './recentActivity/recentActivity';
 
 export {
   Header,
@@ -25,14 +26,15 @@ export {
   ColorSelector,
   Container,
   ScrambleText,
+  ScrambleTicker,
   Collapse,
-  Meta,
   Inner,
   Row,
   Col,
   Noise,
   GTag,
   SizeSelector,
+  RecentActivity,
   Footer,
   Link,
   MotionLink,
