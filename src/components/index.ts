@@ -15,6 +15,7 @@ import Link, { MotionLink } from './link/link.tsx';
 import Noise from './noise/noise';
 import Row from './row/row';
 import ScrambleText from './scrambleText/scrambleText';
+import ScrambleTicker from './scrambleTicker/scrambleTicker';
 import SizeSelector from './sizeSelector/sizeSelector';
 import RecentActivity from './recentActivity/recentActivity';
 
@@ -25,6 +26,7 @@ export {
   ColorSelector,
   Container,
   ScrambleText,
+  ScrambleTicker,
   Collapse,
   Inner,
   Row,

@@ -1,15 +1,16 @@
-@use '~/assets/styles/mixins' as *;
-@use '~/assets/styles/constants' as *;
-@use '~/assets/styles/colors' as *;
+@use "~/assets/styles/mixins" as *;
+@use "~/assets/styles/constants" as *;
+@use "~/assets/styles/colors" as *;
 
 .countdown-root {
   width: 100% !important;
-  height: 92vh !important;
+  height: 50vh !important;
   display: flex !important;
   flex-flow: column nowrap !important;
   gap: 0 !important;
-  justify-content: center !important;
+  justify-content: end !important;
   align-items: center !important;
+  margin-bottom: 50px !important;
 
   header {
     margin-bottom: 20px;

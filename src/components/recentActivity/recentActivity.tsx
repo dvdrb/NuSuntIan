@@ -260,6 +260,7 @@ export default function RecentActivity({
       display: "flex",
       alignItems: "center",
       fontSize: "14px",
+      paddingRight: "6px",
       fontWeight: "600",
       gap: "8px",
       flex: "1",

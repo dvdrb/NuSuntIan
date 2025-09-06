@@ -1,25 +1,25 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Outlet, createBrowserRouter } from 'react-router-dom';
-import { Fragment } from 'react/jsx-runtime';
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 
-import { GTag } from 'components';
+import { GTag } from "components";
 
-import Routes from 'enum/routes.enum';
-import About from 'pages/about/about.page';
-import Database from 'pages/database/database.page';
-import Ended from 'pages/errors/ended/ended';
-import NotFound from 'pages/errors/notFound/notFound.page';
-import Home from 'pages/home/home.page';
-import Music from 'pages/music/music.page';
-import Privacy from 'pages/politica/privacy/privacy.page';
-import PoliticaReturn from 'pages/politica/retur/retur.page';
-import TermsAndConds from 'pages/politica/terms/terms.page';
-import { AvailableProducts } from 'pages/shop/fragments/available.shop';
-import { DetailProduct } from 'pages/shop/fragments/detail.shop';
-import { Order } from 'pages/shop/fragments/order.shop';
-import Shop from 'pages/shop/shop.page';
+import Routes from "enum/routes.enum";
+import About from "pages/about/about.page";
+import Database from "pages/database/database.page";
+import EnhancedComingSoon from "pages/errors/ended/ended";
+import NotFound from "pages/errors/notFound/notFound.page";
+import Home from "pages/home/home.page";
+import Music from "pages/music/music.page";
+import Privacy from "pages/politica/privacy/privacy.page";
+import PoliticaReturn from "pages/politica/retur/retur.page";
+import TermsAndConds from "pages/politica/terms/terms.page";
+import { AvailableProducts } from "pages/shop/fragments/available.shop";
+import { DetailProduct } from "pages/shop/fragments/detail.shop";
+import { Order } from "pages/shop/fragments/order.shop";
+import Shop from "pages/shop/shop.page";
 
 const routes = createBrowserRouter(
   [
@@ -36,7 +36,7 @@ const routes = createBrowserRouter(
       path: Routes.ENDED,
       element: (
         <Fragment>
-          <Ended />
+          <EnhancedComingSoon />
         </Fragment>
       ),
     },
@@ -139,7 +139,7 @@ const routes = createBrowserRouter(
       ),
     },
     {
-      path: '*',
+      path: "*",
       element: (
         <Fragment>
           <NotFound />
