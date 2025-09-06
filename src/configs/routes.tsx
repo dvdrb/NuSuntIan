@@ -1,7 +1,9 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
+
 import { Outlet, createBrowserRouter } from "react-router-dom";
+
 import { Fragment } from "react/jsx-runtime";
 
 import { GTag } from "components";
@@ -9,7 +11,9 @@ import { GTag } from "components";
 import Routes from "enum/routes.enum";
 import About from "pages/about/about.page";
 import Database from "pages/database/database.page";
+
 import EnhancedComingSoon from "pages/errors/ended/ended";
+
 import NotFound from "pages/errors/notFound/notFound.page";
 import Home from "pages/home/home.page";
 import Music from "pages/music/music.page";
@@ -42,10 +46,15 @@ const routes = createBrowserRouter(
     },
     {
       path: Routes.SHOP,
+      // element: (
+      //   <Fragment>
+      //     <Outlet />
+      //     <GTag useGA={true} />
+      //   </Fragment>
+      // ),
       element: (
         <Fragment>
-          <Outlet />
-          <GTag useGA={true} />
+          <EnhancedComingSoon />
         </Fragment>
       ),
       children: [

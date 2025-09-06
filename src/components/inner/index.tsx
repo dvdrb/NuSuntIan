@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 import { Fragment, useMemo } from 'react';
+import Seo from 'components/seo/seo';
 
 import { motion } from 'framer-motion';
 
@@ -21,11 +22,17 @@ export default function Inner({ children }: InnerType) {
   }, []);
 
   if (reduceOrMobile) {
-    return <Fragment>{children}</Fragment>;
+    return (
+      <Fragment>
+        <Seo />
+        {children}
+      </Fragment>
+    );
   }
 
   return (
     <Fragment>
+      <Seo />
       <motion.div
         className={'page-slide-in'}
         initial={{ scaleY: 1 }}
