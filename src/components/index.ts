@@ -12,7 +12,6 @@ import Header from './header/header';
 import Inner from './inner/index';
 import Layout from './layout/layout';
 import Link, { MotionLink } from './link/link.tsx';
-import Meta from './meta/meta';
 import Noise from './noise/noise';
 import Row from './row/row';
 import ScrambleText from './scrambleText/scrambleText';
@@ -27,7 +26,6 @@ export {
   Container,
   ScrambleText,
   Collapse,
-  Meta,
   Inner,
   Row,
   Col,

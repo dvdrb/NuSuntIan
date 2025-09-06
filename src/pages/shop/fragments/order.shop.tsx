@@ -9,7 +9,7 @@ import { Bounce, toast } from 'react-toastify';
 
 import styles from './fragments.module.scss';
 
-import { Meta } from 'components';
+import { Helmet } from 'react-helmet-async';
 
 import Thanks from 'assets/icons/thk.svg?react';
 import { AxiosError } from 'axios';
@@ -156,7 +156,9 @@ export const Order = () => {
 
   return (
     <Fragment>
-      <Meta title={'Your order'} />
+      <Helmet>
+        <title>Your order</title>
+      </Helmet>
       <motion.div
         transition={{ duration: 0.6 }}
         initial={{ opacity: 0 }}

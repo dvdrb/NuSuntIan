@@ -19,7 +19,6 @@ import { Navigation } from "swiper/modules";
 import {
   Col,
   Container,
-  Meta,
   Row,
   ScrambleText,
   SizeSelector,
@@ -359,7 +358,6 @@ export const DetailProduct = () => {
 
   return (
     <Fragment>
-      <Meta title={"Product detail"} />
       <Helmet>
         <title>
           {`IAN Merch — ${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`}
