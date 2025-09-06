@@ -1,8 +1,7 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-
-import {  createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import { Fragment } from "react/jsx-runtime";
 
