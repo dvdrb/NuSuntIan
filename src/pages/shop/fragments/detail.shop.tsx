@@ -358,39 +358,39 @@ export const DetailProduct = () => {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>
-          {`IAN Merch — ${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`}
-        </title>
-        <meta
-          name="description"
-          content={`Buy ${specifiItem?.name.title ?? "exclusive"} ${specifiItem?.name.type ?? "merch"} from IAN’s official store. Limited stock.`}
-        />
-        {specifiItem?.images?.[0] ? (
-          <meta property="og:image" content={specifiItem.images[0]} />
-        ) : null}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: `${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`.trim(),
-            image: specifiItem?.images ?? [],
-            description:
-              `${specifiItem?.description?.[0] ?? ""} ${specifiItem?.description?.[1] ?? ""}`.trim(),
-            brand: { "@type": "Brand", name: "IAN" },
-            offers: {
-              "@type": "Offer",
-              priceCurrency: "RON",
-              price: Number(specifiItem?.price ?? 0) || undefined,
-              availability: "https://schema.org/InStock",
-              url:
-                typeof window !== "undefined"
-                  ? window.location.href
-                  : undefined,
-            },
-          })}
-        </script>
-      </Helmet>
+      {specifiItem && (
+        <Helmet>
+          <title>
+            {`IAN Merch — ${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`}
+          </title>
+          <meta
+            name="description"
+            content={`Buy ${specifiItem?.name.title ?? "exclusive"} ${specifiItem?.name.type ?? "merch"} from IAN’s official store. Limited stock.`}
+          />
+          <link rel="canonical" href={`https://www.nusuntian.com/shop/${specifiItem.id}`} />
+          {specifiItem?.images?.[0] ? (
+            <meta property="og:image" content={specifiItem.images[0]} />
+          ) : null}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: `${specifiItem?.name.title ?? "Product"} ${specifiItem?.name.type ?? ""}`.trim(),
+              image: specifiItem?.images ?? [],
+              description:
+                `${specifiItem?.description?.[0] ?? ""} ${specifiItem?.description?.[1] ?? ""}`.trim(),
+              brand: { "@type": "Brand", name: "IAN" },
+              offers: {
+                "@type": "Offer",
+                priceCurrency: "RON",
+                price: Number(specifiItem?.price ?? 0) || undefined,
+                availability: "https://schema.org/InStock",
+                url: `https://www.nusuntian.com/shop/${specifiItem.id}`,
+              },
+            })}
+          </script>
+        </Helmet>
+      )}
       <div className={styles.detail}>
         <motion.div
           transition={{ duration: 0.4 }}
@@ -399,6 +399,9 @@ export const DetailProduct = () => {
           exit={{ opacity: 0 }}
         >
           <Container className={styles.container}>
+            <div className={styles.urgency_banner}>
+              🔥 LIMITED TIME: FREE SHIPPING ON ORDERS OVER 500 RON
+            </div>
             <Row className={styles["container-internal"]}>
               <Row className={styles.content}>
                 <Col className={styles.left}>
