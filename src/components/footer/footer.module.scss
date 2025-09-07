@@ -1,6 +1,6 @@
-@use '~/assets/styles/mixins' as *;
-@use '~/assets/styles/constants' as *;
-@use '~/assets/styles/colors' as *;
+@use "~/assets/styles/mixins" as *;
+@use "~/assets/styles/constants" as *;
+@use "~/assets/styles/colors" as *;
 
 .root {
   background: $background;
@@ -55,7 +55,6 @@
 
     .navigation {
       border-top: 1px solid transparentize($sunlight-white, 0.8);
-      margin-bottom: 100px;
 
       .container-navigation {
         @include flexbox(
@@ -123,6 +122,49 @@
   }
 }
 
+.anchor {
+  position: relative;
+  cursor: pointer;
+  transition:
+    color $transition-default,
+    transform $transition-default,
+    text-shadow $transition-default;
+  will-change: color, transform;
+
+  &::after {
+    @include pseudo($pos: absolute);
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background: $red;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    color: transparentize($red, 0);
+    transform: translateY(-1px);
+    text-shadow: 0 0 12px transparentize($red, 0.6);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.credit {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  margin-top: 20px;
+
+  p {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+}
+
 .gradient {
   height: 150px;
   background: linear-gradient(to top, $background 30%, transparent 100%);
@@ -150,15 +192,15 @@
       user-select: none;
 
       &.ian {
-        background-image: url('../../assets/images/ian-card.webp');
+        background-image: url("../../assets/images/ian-card.webp");
       }
 
       &.gif {
-        background-image: url('../../assets/video/gif-card.gif');
+        background-image: url("../../assets/video/gif-card.gif");
       }
 
       &.albuns {
-        background-image: url('../../assets/images/albun-card.webp');
+        background-image: url("../../assets/images/albun-card.webp");
       }
 
       .header {

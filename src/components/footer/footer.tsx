@@ -1,23 +1,23 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { Fragment, forwardRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Fragment, forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-import styles from './footer.module.scss';
+import styles from "./footer.module.scss";
 
-import Col from 'components/col/col';
-import Container from 'components/container/container';
-import { MotionLink } from 'components/link/link';
-import Row from 'components/row/row';
+import Col from "components/col/col";
+import Container from "components/container/container";
+import { MotionLink } from "components/link/link";
+import Row from "components/row/row";
 
-import ExternalLink from 'assets/icons/external-link.svg?react';
-import Arrow from 'assets/icons/left-arrow.svg?react';
-import Logo from 'assets/icons/logo-vector.svg?react';
-import Routes from 'enum/routes.enum';
-import { motion } from 'framer-motion';
-import { clsx } from 'helpers/utils/HTMLUtils';
-import languageValues from 'locales/language';
+import ExternalLink from "assets/icons/external-link.svg?react";
+import Arrow from "assets/icons/left-arrow.svg?react";
+import Logo from "assets/icons/logo-vector.svg?react";
+import Routes from "enum/routes.enum";
+import { motion } from "framer-motion";
+import { clsx } from "helpers/utils/HTMLUtils";
+import languageValues from "locales/language";
 
 const language = languageValues.components.footer;
 
@@ -27,10 +27,10 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <Fragment>
       <div className={styles.gradient} />
-      <div className={styles['wrapper-cards']}>
+      <div className={styles["wrapper-cards"]}>
         <Container>
           <Row className={styles.cards}>
-            <Col lg={4} alignment={'center'} padding={0}>
+            <Col lg={4} alignment={"center"} padding={0}>
               <div
                 onClick={() => navigate(Routes.ABOUT)}
                 className={clsx(styles.card, styles.ian)}
@@ -49,7 +49,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 </footer>
               </div>
             </Col>
-            <Col lg={4} alignment={'center'} padding={0}>
+            <Col lg={4} alignment={"center"} padding={0}>
               <div
                 onClick={() => navigate(Routes.SHOP)}
                 className={clsx(styles.card, styles.gif)}
@@ -68,7 +68,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 </footer>
               </div>
             </Col>
-            <Col lg={4} alignment={'center'} padding={0}>
+            <Col lg={4} alignment={"center"} padding={0}>
               <div
                 onClick={() => navigate(Routes.MUSIC)}
                 className={clsx(styles.card, styles.albuns)}
@@ -93,7 +93,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
         </Container>
       </div>
       <footer ref={ref} className={styles.root}>
-        <Container className={styles['container-hero']}>
+        <Container className={styles["container-hero"]}>
           <header className={styles.header}>
             <Logo />
           </header>
@@ -101,9 +101,9 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
             <MotionLink
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
-              href={'mailto:help@ianhq.com?subject=IAN%20x%20(your%20name)'}
-              className={'cursor-newtab'}
+              transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
+              href={"mailto:help@nusuntian.com?subject=IAN%20x%20(your%20name)"}
+              className={"cursor-newtab"}
             >
               <b>{language.link.emphasys}</b>
               {language.link.normal}
@@ -112,12 +112,12 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
             <h2>{language.only}</h2>
           </div>
           <nav className={styles.navigation}>
-            <Container className={styles['container-navigation']}>
+            <Container className={styles["container-navigation"]}>
               <div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.SHOP)}
                 >
                   {language.store}
@@ -125,7 +125,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.MUSIC)}
                 >
                   {language.music}
@@ -133,7 +133,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.ABOUT)}
                 >
                   {language.about}
@@ -141,10 +141,10 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <MotionLink
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
-                  href={'https://anpc.ro'}
-                  target={'_blank'}
-                  className={'cursor-newtab'}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
+                  href={"https://anpc.ro"}
+                  target={"_blank"}
+                  className={"cursor-newtab"}
                 >
                   {language.anpc}
                 </MotionLink>
@@ -153,7 +153,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.POLITICA)}
                 >
                   {language.refund}
@@ -161,7 +161,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.PRIVACY)}
                 >
                   {language.confidential}
@@ -171,7 +171,7 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
                   onClick={() => navigate(Routes.TERMS)}
                 >
                   {language.terms}
@@ -179,22 +179,32 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
                 <MotionLink
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', duration: 1.5, bounce: 0.6 }}
-                  href={'https://anpc.ro/ce-este-sal/'}
-                  target={'_blank'}
-                  className={'cursor-newtab'}
+                  transition={{ type: "spring", duration: 1.5, bounce: 0.6 }}
+                  href={"https://anpc.ro/ce-este-sal/"}
+                  target={"_blank"}
+                  className={"cursor-newtab"}
                 >
                   {language.anpcsal}
                 </MotionLink>
               </div>
             </Container>
           </nav>
+          <div className={styles.credit}>
+            <Container>
+              <p>
+                Made by{" "}
+                <a className={styles.anchor} href="https://donewebdesigns.com/">
+                  DoneWebDesigns
+                </a>
+              </p>
+            </Container>
+          </div>
         </Container>
       </footer>
     </Fragment>
   );
 });
 
-Footer.displayName = 'Footer';
+Footer.displayName = "Footer";
 
 export default Footer;

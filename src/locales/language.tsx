@@ -42,8 +42,8 @@ const languageValues = {
       footer: {
         only: "ONLY FOR BUSINESS",
         link: {
-          emphasys: "help@",
-          normal: "IANHQ.COM",
+          emphasys: "HELP@",
+          normal: "NUSUNTIAN.COM",
         },
         politica: "POLITICA RETUR",
         store: "STORE",
@@ -313,7 +313,7 @@ const languageValues = {
                 șterge sau restricționa prelucrarea datelor sale personale.
                 <br />
                 &nbsp;&nbsp; • Clientul poate exercita aceste drepturi prin
-                contactarea Magazinului la help@ianhq.com .
+                contactarea Magazinului la help@nusuntian.com .
                 <br />
                 <br />
                 5. Politica de Cookies
