@@ -1,6 +1,6 @@
-@use '~/assets/styles/mixins' as *;
-@use '~/assets/styles/colors' as *;
-@use '~/assets/styles/constants' as *;
+@use "~/assets/styles/mixins" as *;
+@use "~/assets/styles/colors" as *;
+@use "~/assets/styles/constants" as *;
 
 .available-products {
   width: 100%;
@@ -278,10 +278,60 @@
   }
 }
 
+/* Enhanced Banner */
+.urgency_banner {
+  background: linear-gradient(135deg, #ff4444, #ff6666, #ff8888);
+  text-align: center;
+  padding: 15px 20px;
+
+  margin: 20px auto 50px auto;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 10px 30px rgba(255, 68, 68, 0.3);
+  animation: pulse 2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency_banner::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
 .detail {
   .container {
     width: 100%;
-    margin-top: 50px;
     margin-bottom: 100px;
 
     @include flexbox(
@@ -853,7 +903,7 @@
   }
 
   .overlay {
-    content: '';
+    content: "";
     position: fixed;
     inset: 0;
     background: #000000b3;

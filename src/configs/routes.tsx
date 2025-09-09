@@ -1,7 +1,7 @@
 // Copyright (c) Jonathan Ferraz.
 // Licensed under the MIT license.
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 
 import { Fragment } from "react/jsx-runtime";
 
@@ -45,17 +45,17 @@ const routes = createBrowserRouter(
     },
     {
       path: Routes.SHOP,
-      // element: (
-      //   <Fragment>
-      //     <Outlet />
-      //     <GTag useGA={true} />
-      //   </Fragment>
-      // ),
       element: (
         <Fragment>
-          <EnhancedComingSoon />
+          <Outlet />
+          <GTag useGA={true} />
         </Fragment>
       ),
+      // element: (
+      //   <Fragment>
+      //     <EnhancedComingSoon />
+      //   </Fragment>
+      // ),
       children: [
         {
           index: true,
