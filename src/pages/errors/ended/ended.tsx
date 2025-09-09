@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { Fragment } from "react/jsx-runtime";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactPlayer from "react-player";
 import styles from "./ended.module.scss";
 import Video from "assets/video/shop-bg.webm";
 import { Noise, ScrambleText } from "components";
+import Seo from "components/seo/seo";
 
 const EnhancedComingSoon = () => {
   const [email, setEmail] = useState("");
@@ -70,7 +72,9 @@ const EnhancedComingSoon = () => {
   ));
 
   return (
-    <div
+    <Fragment>
+      <Seo />
+      <div
       style={{
         minHeight: "100vh",
         background:
@@ -375,7 +379,8 @@ const EnhancedComingSoon = () => {
       >
         Something amazing is coming...
       </motion.div>
-    </div>
+      </div>
+    </Fragment>
   );
 };
 
