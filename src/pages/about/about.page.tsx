@@ -43,9 +43,9 @@ export default function Presentation() {
         />
         <meta
           property="og:image"
-          content="https://www.nusuntian.com/ian-bg.webp"
+          content="https://ianix.ro/ian-bg.webp"
         />
-        <meta property="og:url" content="https://www.nusuntian.com/about" />
+        <meta property="og:url" content="https://ianix.ro/about" />
       </Helmet>
 
       <Inner>

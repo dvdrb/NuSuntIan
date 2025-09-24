@@ -1,4 +1,4 @@
-# robots.txt for https://www.nusuntian.com
+# robots.txt for https://ianix.ro
 
 User-agent: *
 Disallow: /admin/
@@ -9,4 +9,4 @@ Disallow: /register/
 
 Allow: /
 
-Sitemap: https://www.nusuntian.com/sitemap.xml
+Sitemap: https://ianix.ro/sitemap.xml

@@ -177,9 +177,9 @@ export const AvailableProducts = () => {
         />
         <meta
           property="og:image"
-          content="https://www.nusuntian.com/modal-image.webp"
+          content="https://ianix.ro/modal-image.webp"
         />
-        <meta property="og:url" content="https://www.nusuntian.com/shop" />
+        <meta property="og:url" content="https://ianix.ro/shop" />
       </Helmet>
       <motion.div
         transition={{ duration: 0.6 }}

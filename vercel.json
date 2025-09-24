@@ -10,17 +10,11 @@
       "has": [
         {
           "type": "host",
-          "value": "nusuntian.com"
+          "value": "ianix.ro"
         }
       ],
-      "destination": "https://www.nusuntian.com/:path*",
+      "destination": "https://www.ianix.ro/:path*",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/"
     }
   ]
 }

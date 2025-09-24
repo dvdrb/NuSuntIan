@@ -272,9 +272,9 @@ export default function Music() {
         />
         <meta
           property="og:image"
-          content="https://www.nusuntian.com/Image-4.webp"
+          content="https://ianix.ro/Image-4.webp"
         />
-        <meta property="og:url" content="https://www.nusuntian.com/music" />
+        <meta property="og:url" content="https://ianix.ro/music" />
       </Helmet>
       <Inner>
         <Background swipe={swiper} />

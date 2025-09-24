@@ -43,7 +43,7 @@ const languageValues = {
         only: "ONLY FOR BUSINESS",
         link: {
           emphasys: "HELP@",
-          normal: "NUSUNTIAN.COM",
+          normal: "IANIX.RO",
         },
         politica: "POLITICA RETUR",
         store: "STORE",

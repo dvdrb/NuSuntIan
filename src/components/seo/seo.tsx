@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
-const SITE_URL = "https://www.nusuntian.com"; // canonical origin
+const SITE_URL = "https://ianix.ro"; // canonical origin
 
 // Inserts a canonical URL for the current route and sets base OG/Twitter URLs.
 export default function Seo() {
