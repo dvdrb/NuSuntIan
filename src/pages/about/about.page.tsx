@@ -43,9 +43,9 @@ export default function Presentation() {
         />
         <meta
           property="og:image"
-          content="https://ianix.ro/ian-bg.webp"
+          content="https://www.ianix.ro/ian-bg.webp"
         />
-        <meta property="og:url" content="https://ianix.ro/about" />
+        <meta property="og:url" content="https://www.ianix.ro/about" />
       </Helmet>
 
       <Inner>

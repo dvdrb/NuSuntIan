@@ -16,5 +16,11 @@
       "destination": "https://www.ianix.ro/:path*",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!.*\\.).*)",
+      "destination": "/"
+    }
   ]
 }

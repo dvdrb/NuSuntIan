@@ -1,4 +1,4 @@
-# robots.txt for https://ianix.ro
+# robots.txt for https://www.ianix.ro
 
 User-agent: *
 Disallow: /admin/
@@ -9,4 +9,4 @@ Disallow: /register/
 
 Allow: /
 
-Sitemap: https://ianix.ro/sitemap.xml
+Sitemap: https://www.ianix.ro/sitemap.xml
