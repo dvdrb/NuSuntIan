@@ -189,16 +189,6 @@ const Footer = forwardRef<HTMLDivElement>((_, ref) => {
               </div>
             </Container>
           </nav>
-          <div className={styles.credit}>
-            <Container>
-              <p>
-                Made by{" "}
-                <a className={styles.anchor} href="https://donewebdesigns.com/">
-                  DoneWebDesigns
-                </a>
-              </p>
-            </Container>
-          </div>
         </Container>
       </footer>
     </Fragment>
